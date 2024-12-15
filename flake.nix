@@ -26,7 +26,15 @@
                 inherit system;
                 specialArgs = { inherit inputs; };
                 modules = [
-                    ./hosts/netbook/configuration.nix
+                    ./configuration/hosts/netbook
+                ];
+            };
+
+            uconsole = lib.nixosSystem {
+                inherit system;
+                specialArgs = { inherit inputs; };
+                modules = [
+                    ./configuration/hosts/uconsole
                 ];
             };
         };  
