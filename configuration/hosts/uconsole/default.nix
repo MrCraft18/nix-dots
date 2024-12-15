@@ -7,7 +7,7 @@
         ../../modules/common.nix
         ../../modules/hyprland+tuigreet.nix
         ../../modules/zsh.nix
-  ]
+  ];
 
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
