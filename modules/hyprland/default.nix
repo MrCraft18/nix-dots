@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+    home.packages = [
+        yaru-theme
+        wl-clipboard
+        waybar
+    ];
+
    wayland.windowManager.hyprland = {
         enable = true;
 
