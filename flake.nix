@@ -23,7 +23,7 @@
     in {
         nixosConfigurations = {
             nixos = lib.nixosSystem {
-                inherit system;
+                system = "aarch64-linux";
                 specialArgs = { inherit inputs; };
                 modules = [
                     ./configuration/hosts/netbook
