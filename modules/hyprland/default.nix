@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-    home.packages = [
+    home.packages = with pkgs; [
         yaru-theme
         wl-clipboard
         waybar
@@ -11,6 +11,10 @@
         enable = true;
 
         settings = {
+            debug = {    
+                disable_logs = false;
+            };
+
             monitor = [
                 "DSI-1, preferred, auto, 1.6, transform, 3"
                 "HDMI-A-1, preferred, auto, 1.6"
@@ -126,6 +130,7 @@
                 "$mainMod, R, exec, $menu"
                 "$mainMod, P, pseudo," # dwindle
                 "$mainMod, J, togglesplit," # dwindle
+                "$mainMod, F, fullscreen,"
 
                 # Move focus with mainMod + arrow keys
                 "$mainMod, left, movefocus, l"

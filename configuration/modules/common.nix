@@ -38,9 +38,10 @@
     ];
 
     # Always have Nerd Fonts
-    # fonts.packages = with pkgs; [
-    #     nerdfonts
-    # ];
+    fonts.packages = [
+        pkgs.nerd-fonts.jetbrains-mono
+        # pkgs.nerdfonts
+    ]; 
 
     # Set Default Editor Variable
     environment.variables = {
