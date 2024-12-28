@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, host, ... }:
 
 {
 # Home Manager needs a bit of information about you and the paths it should
@@ -22,7 +22,7 @@
 # # configuration. For example, this adds a command 'my-hello' to your
 # # environment:
         (pkgs.writeShellScriptBin "my-hello" ''
-             echo "Hello, ${config.home.homeDirectory}!"
+             echo "${host}"
         '')
     ];
 

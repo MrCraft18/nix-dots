@@ -27,7 +27,14 @@
         tmux
     ];
 
-    # services.openssh.enable = true;
+    services.openssh = {
+        enable = true;
+        ports = [ 22 ];
+        settings = {
+            PasswordAuthentication = true;
+        };
+    };
+    networking.firewall.allowedTCPPorts = [ 22 ];
 
     # This option defines the first version of NixOS you have installed on this particular machine,
     # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

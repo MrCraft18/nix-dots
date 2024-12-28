@@ -17,7 +17,10 @@
         zen-browser.url = "github:ch4og/zen-browser-flake";
     };
 
-    outputs = { self, nixpkgs, home-manager, ... } @inputs: {
+    outputs = { self, nixpkgs, home-manager, ... } @inputs:
+        let
+            
+        in {
         nixosConfigurations = {
             netbook = nixpkgs.lib.nixosSystem {
                 pkgs = import nixpkgs {
@@ -43,13 +46,26 @@
         };  
 
         homeConfigurations = {
-            user = home-manager.lib.homeManagerConfiguration {
+            "user@netbook" = home-manager.lib.homeManagerConfiguration {
+                pkgs = import nixpkgs {
+                    system = "x86_64-linux";
+                    config = { allowUnfree = true; };
+                };
+                extraSpecialArgs = {
+                    host = "netbook";
+                };
+                modules = [ ./home.nix ];
+            };
+            "user@uconsole" = home-manager.lib.homeManagerConfiguration {
                 pkgs = import nixpkgs {
                     system = "aarch64-linux";
                     config = { allowUnfree = true; };
                 };
+                extraSpecialArgs = {
+                    host = "uconsole";
+                };
                 modules = [ ./home.nix ];
-            };  
+            };
         };
     };
 }
