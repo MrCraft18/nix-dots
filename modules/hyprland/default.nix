@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ host, pkgs, ... }:
 
 {
     home.packages = with pkgs; [
@@ -11,13 +11,13 @@
         enable = true;
 
         settings = {
-            debug = {    
-                disable_logs = false;
-            };
-
-            monitor = [
+            monitor = if host == "netbook" then [
                 "DSI-1, preferred, auto, 1.6, transform, 3"
                 "HDMI-A-1, preferred, auto, 1.6"
+            ] else if host == "uconsole" then [
+                "DSI-1, preferred, auto, auto, transform, 3"
+            ] else [
+                ", preferred, auto, auto"
             ]; 
 
             exec-once = [
@@ -54,10 +54,12 @@
                 active_opacity = 1.0;
                 inactive_opacity = 1.0;
 
-                drop_shadow = true;
-                shadow_range = 4;
-                shadow_render_power = 3;
-                "col.shadow" = "rgba(1a1a1aee)";
+                shadow = {
+                    enabled = true;
+                    range = 4;
+                    render_power = 3;
+                    color = "rgba(1a1a1aee)";
+                };
 
                 blur = {
                     enabled = true;
@@ -71,16 +73,31 @@
             animations =  {
                 enabled = true;
 
+                bezier = [
+                    "easeOutQuint,0.23,1,0.32,1"
+                    "easeInOutCubic,0.65,0.05,0.36,1"
+                    "linear,0,0,1,1"
+                    "almostLinear,0.5,0.5,0.75,1.0"
+                    "quick,0.15,0,0.1,1"
+                ];
 
-                bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-                
-                animation = [    
-                    "windows, 1, 7, myBezier"
-                    "windowsOut, 1, 7, default, popin 80%"
-                    "border, 1, 10, default"
-                    "borderangle, 1, 8, default"
-                    "fade, 1, 7, default"
-                    "workspaces, 1, 6, default"
+                animation = [
+                    "global, 1, 10, default"
+                    "border, 1, 5.39, easeOutQuint"
+                    "windows, 1, 4.79, easeOutQuint"
+                    "windowsIn, 1, 4.1, easeOutQuint, popin 87%"
+                    "windowsOut, 1, 1.49, linear, popin 87%"
+                    "fadeIn, 1, 1.73, almostLinear"
+                    "fadeOut, 1, 1.46, almostLinear"
+                    "fade, 1, 3.03, quick"
+                    "layers, 1, 3.81, easeOutQuint"
+                    "layersIn, 1, 4, easeOutQuint, fade"
+                    "layersOut, 1, 1.5, linear, fade"
+                    "fadeLayersIn, 1, 1.79, almostLinear"
+                    "fadeLayersOut, 1, 1.39, almostLinear"
+                    "workspaces, 1, 1.94, almostLinear, fade"
+                    "workspacesIn, 1, 1.21, almostLinear, fade"
+                    "workspacesOut, 1, 1.94, almostLinear, fade"
                 ];
             };
             
@@ -107,7 +124,7 @@
 
                 follow_mouse = 1;
 
-                sensitivity = -0.25;
+                sensitivity = if host == "netbook" then -0.25 else 0;
 
                 touchpad = {
                     natural_scroll = false;
@@ -195,7 +212,10 @@
                 ", XF86AudioPrev, exec, playerctl previous"
             ];
 
-            windowrulev2 = "suppressevent maximize, class:.*"; # You'll probably like this.
+            windowrulev2 = [
+                "suppressevent maximize, class:.*"
+                "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+            ];
         };
    }; 
 }
