@@ -8,3 +8,4 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.wo.wrap = false
 vim.o.splitright = true
+vim.g.mapleader = ' '
