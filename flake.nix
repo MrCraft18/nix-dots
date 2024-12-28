@@ -9,6 +9,8 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
+
         uconsole-hyprland = {
             url = "github:hyprwm/Hyprland/v0.45.2";
             inputs.aquamarine.url = "github:hyprwm/aquamarine/v0.4.4";
@@ -27,7 +29,10 @@
                     system = "x86_64-linux";
                     config = { allowUnfree = true; };
                 };
-                specialArgs = { inherit inputs; };
+                specialArgs = {
+                    inherit inputs;
+                    host = "netbook";
+                };
                 modules = [
                     ./configuration/hosts/netbook
                 ];
@@ -38,7 +43,10 @@
                     system = "aarch64-linux";
                     config = { allowUnfree = true; };
                 };
-                specialArgs = { inherit inputs; };
+                specialArgs = {
+                    inherit inputs;
+                    host = "uconsole";
+                };
                 modules = [
                     ./configuration/hosts/uconsole
                 ];
