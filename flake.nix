@@ -9,7 +9,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
+        hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
 
         uconsole-hyprland = {
             url = "github:hyprwm/Hyprland/v0.45.2";
