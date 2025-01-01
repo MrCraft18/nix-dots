@@ -1,6 +1,8 @@
 { host, pkgs, inputs, ... }:
 
-{
+let
+    hyprland = if host == "uconsole" then "uconsole-hyprland" else "hyprland";
+in {
     home.packages = with pkgs; [
         yaru-theme
         wl-clipboard
@@ -10,7 +12,7 @@
    wayland.windowManager.hyprland = {
         enable = true;
 
-        package = inputs.uconsole-hyprland.packages.${pkgs.system}.hyprland;
+        package = inputs.${hyprland}.packages.${pkgs.system}.hyprland;
 
         settings = {
             monitor = if host == "netbook" then [
