@@ -1,4 +1,4 @@
-{ host, pkgs, ... }:
+{ host, pkgs, inputs, ... }:
 
 {
     home.packages = with pkgs; [
@@ -9,6 +9,8 @@
 
    wayland.windowManager.hyprland = {
         enable = true;
+
+        package = inputs.uconsole-hyprland.packages.${pkgs.system}.hyprland;
 
         settings = {
             monitor = if host == "netbook" then [

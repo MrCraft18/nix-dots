@@ -9,7 +9,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
+        # hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
 
         uconsole-hyprland = {
             url = "github:hyprwm/Hyprland/v0.45.2";
@@ -60,6 +60,7 @@
                     config = { allowUnfree = true; };
                 };
                 extraSpecialArgs = {
+                    inherit inputs;
                     host = "netbook";
                 };
                 modules = [ ./home.nix ];
@@ -70,6 +71,7 @@
                     config = { allowUnfree = true; };
                 };
                 extraSpecialArgs = {
+                    inherit inputs;
                     host = "uconsole";
                 };
                 modules = [ ./home.nix ];
