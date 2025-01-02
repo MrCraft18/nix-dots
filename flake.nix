@@ -24,6 +24,20 @@
             
         in {
         nixosConfigurations = {
+            desktop = nixpkgs.lib.nixosSystem {
+                pkgs = import nixpkgs {
+                    system = "x86_64-linux";
+                    config = { allowUnfree = true; };
+                };
+                specialArgs = {
+                    inherit inputs;
+                    host = "desktop";
+                };
+                modules = [
+                    ./configuration/hosts/desktop
+                ];
+            };
+
             netbook = nixpkgs.lib.nixosSystem {
                 pkgs = import nixpkgs {
                     system = "x86_64-linux";
@@ -40,7 +54,7 @@
 
             uconsole = nixpkgs.lib.nixosSystem {
                 pkgs = import nixpkgs {
-                    system = "aarch64-linux";
+                    system = "aarch63-linux";
                     config = { allowUnfree = true; };
                 };
                 specialArgs = {
@@ -54,6 +68,18 @@
         };  
 
         homeConfigurations = {
+            "user@desktop" = home-manager.lib.homeManagerConfiguration {
+                pkgs = import nixpkgs {
+                    system = "x86_64-linux";
+                    config = { allowUnfree = true; };
+                };
+                extraSpecialArgs = {
+                    inherit inputs;
+                    host = "desktop";
+                };
+                modules = [ ./home.nix ];
+            };
+
             "user@netbook" = home-manager.lib.homeManagerConfiguration {
                 pkgs = import nixpkgs {
                     system = "x86_64-linux";
@@ -65,6 +91,7 @@
                 };
                 modules = [ ./home.nix ];
             };
+
             "user@uconsole" = home-manager.lib.homeManagerConfiguration {
                 pkgs = import nixpkgs {
                     system = "aarch64-linux";

@@ -1,4 +1,4 @@
-{ config, pkgs, host, ... }:
+{ config, pkgs, host, inputs, ... }:
 
 {
 # Home Manager needs a bit of information about you and the paths it should
@@ -17,32 +17,26 @@
         ripgrep
         gcc
         gh
+
         (retroarch.withCores (cores: with cores; [
             bsnes
         ]))
 
-# # You can also create simple shell scripts directly inside your
-# # configuration. For example, this adds a command 'my-hello' to your
-# # environment:
+        # You can also create simple shell scripts directly inside your
+        # configuration. For example, this adds a command 'my-hello' to your
+        # environment:
         (pkgs.writeShellScriptBin "my-hello" ''
              echo "${host}"
         '')
-    ];
+    ]
+    ++ [ inputs.zen-browser.packages.x86_64-linux.default ];
 
     imports = [
         ./modules/nvim
         ./modules/hyprland
-        # ./modules/kitty
+        ./modules/kitty
     ];
 
-    programs.kitty = {
-        enable = true;
-
-        settings = {
-            enable_audio_bell = false;
-            background_opacity = 0.6;
-        };
-    };
 
 # Home Manager is pretty good at managing dotfiles. The primary way to manage
 # plain files is through 'home.file'.

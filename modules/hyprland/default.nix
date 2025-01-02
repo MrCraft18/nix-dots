@@ -22,6 +22,10 @@ in {
                 "HDMI-A-1, preferred, auto, 1.6"
             ] else if host == "uconsole" then [
                 "DSI-1, preferred, auto, 1.6, transform, 3"
+            ] else if host == "desktop" then [
+                "DP-3, preferred, 0x0, 1"
+                "HDMI-A-1, preferred, 2560x0, 1"
+                "DP-2, preferred, 5120x0, 1"
             ] else [
                 ", preferred, auto, auto"
             ]; 
@@ -34,19 +38,16 @@ in {
             "$terminal" = "kitty";
             "$menu" = "wofi --show drun";            
 
-            env = [
-                "XCURSOR_THEME,Yaru"                
-                "XCURSOR_SIZE,24"
-            ];
+            # env = [
+            #     "XCURSOR_THEME,Yaru"                
+            #     "XCURSOR_SIZE,24"
+            # ];
 
             general = {
-                # "gaps_in" = 5;
-                # "gaps_out" = 20;
-                "gaps_out" = 0;
-                "gaps_in" = 0;
+                "gaps_in" = if host == "uconsole" then 0 else 5;
+                "gaps_out" = if host == "uconsole" then 0 else 20;
 
-                # "border_size" = 2;
-                "border_size" = 0;
+                "border_size" = if host == "uconsole" then 0 else 2;
 
                 "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
                 "col.inactive_border" = "rgba(595959aa)";
@@ -59,8 +60,7 @@ in {
             };
             
             decoration = {
-                # rounding = 10;
-                rounding = 0;
+                rounding = if host == "uconsole" then 0 else 10;
 
                 active_opacity = 1.0;
                 inactive_opacity = 1.0;
@@ -71,7 +71,6 @@ in {
                     render_power = 3;
                     color = "rgba(1a1a1aee)";
                 };
-                # shadow.enabled = false;
 
                 blur = {
                     enabled = true;

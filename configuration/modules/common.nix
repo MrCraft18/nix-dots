@@ -30,12 +30,14 @@
 
     # Basic Packages
     environment.systemPackages = with pkgs; [
+        home-manager
         neovim
         btop
         git
         bluez
         bat
         p7zip
+        pulsemixer
     ];
 
     # Always have Nerd Fonts

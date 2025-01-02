@@ -10,6 +10,11 @@ in {
         xwayland.enable = true;
     };
 
+    environment.sessionVariables = if host == "desktop" then {
+        WLR_NO_HARDWARE_CURSORS = "1";
+        NIXOS_OZONE_WL = "1";
+    } else {};
+
     hardware.graphics = {
         enable = true;
         package = inputs.${hyprland}.inputs.nixpkgs.legacyPackages.${pkgs.system}.mesa.drivers;
@@ -17,6 +22,8 @@ in {
         # driSupport32Bit = true;
         # package32 = inputs.uconsole-hyprland.inputs.nixpkgs.legacyPackages.${pkgs.system}.pkgsi686Linux.mesa.drivers;
     };
+
+    hardware.nvidia.modesetting.enable = if host == "desktop" then true else false;
 
     services.greetd = {
         enable = true;
