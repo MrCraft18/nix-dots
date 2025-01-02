@@ -23,7 +23,6 @@
     networking.hostName = "uconsole";
 
     environment.systemPackages = with pkgs; [
-        home-manager
         tmux
     ] ++ [ inputs.zen-browser.packages.${pkgs.system}.default ];
 

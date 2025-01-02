@@ -11,10 +11,8 @@
     # Bootloader Stuff
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    #Rotate TTY Screen 90 Degrees
-    boot.kernelParams = [ "fbcon=rotate:1" ];
 
-    networking.hostName = "netbook";
+    networking.hostName = "desktop";
 
     environment.systemPackages = [
 
