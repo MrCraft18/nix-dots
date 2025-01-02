@@ -4,9 +4,11 @@ let
     hyprland = if host == "uconsole" then "uconsole-hyprland" else "hyprland";
 in {
     home.packages = with pkgs; [
+        hyprpaper
         yaru-theme
         wl-clipboard
         waybar
+        wofi
     ];
 
    wayland.windowManager.hyprland = {
@@ -19,13 +21,14 @@ in {
                 "DSI-1, preferred, auto, 1.6, transform, 3"
                 "HDMI-A-1, preferred, auto, 1.6"
             ] else if host == "uconsole" then [
-                "DSI-1, preferred, auto, auto, transform, 3"
+                "DSI-1, preferred, auto, 1.6, transform, 3"
             ] else [
                 ", preferred, auto, auto"
             ]; 
 
             exec-once = [
                 "waybar"
+                "hyprpaper"
             ];
 
             "$terminal" = "kitty";
@@ -37,15 +40,18 @@ in {
             ];
 
             general = {
-                "gaps_in" = 5;
-                "gaps_out" = 20;
+                # "gaps_in" = 5;
+                # "gaps_out" = 20;
+                "gaps_out" = 0;
+                "gaps_in" = 0;
 
-                "border_size" = 2;
+                # "border_size" = 2;
+                "border_size" = 0;
 
                 "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
                 "col.inactive_border" = "rgba(595959aa)";
 
-                "resize_on_border" = false;
+                "resize_on_border" = true;
 
                 "allow_tearing" = false;
 
@@ -53,7 +59,8 @@ in {
             };
             
             decoration = {
-                rounding = 10;
+                # rounding = 10;
+                rounding = 0;
 
                 active_opacity = 1.0;
                 inactive_opacity = 1.0;
@@ -64,6 +71,7 @@ in {
                     render_power = 3;
                     color = "rgba(1a1a1aee)";
                 };
+                # shadow.enabled = false;
 
                 blur = {
                     enabled = true;

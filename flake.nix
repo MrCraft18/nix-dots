@@ -16,7 +16,7 @@
             inputs.aquamarine.url = "github:hyprwm/aquamarine/v0.4.4";
         };
 
-        zen-browser.url = "github:ch4og/zen-browser-flake";
+        zen-browser.url = "github:0xc000022070/zen-browser-flake";
     };
 
     outputs = { self, nixpkgs, home-manager, ... } @inputs:

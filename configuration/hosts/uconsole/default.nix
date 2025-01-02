@@ -25,7 +25,7 @@
     environment.systemPackages = with pkgs; [
         home-manager
         tmux
-    ] ++ [ inputs.zen-browser.packages.x86_64-linux.specific ];
+    ] ++ [ inputs.zen-browser.packages.${pkgs.system}.default ];
 
     services.openssh = {
         enable = true;
