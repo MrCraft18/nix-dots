@@ -35,6 +35,7 @@
         git
         bluez
         bat
+        p7zip
     ];
 
     # Always have Nerd Fonts
