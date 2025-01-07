@@ -15,36 +15,36 @@
 
     home-manager = {
         useGlobalPkgs = true;
-        useUserPkgs = true;
+        useUserPackages = true;
         users.craft.imports = [ ../../home.nix ];
     };
 
     # Mount my SSD
-    boot.supportedFilesystems = [ "ntfs" ];
-    fileSystems."/mnt/SSD" = {
-        device = "/dev/sda1";
-        fsType = "ntfs-3g"; 
-        options = [ "rw" ];
-    };
+    # boot.supportedFilesystems = [ "ntfs" ];
+    # fileSystems."/mnt/SSD" = {
+    #     device = "/dev/sda1";
+    #     fsType = "ntfs-3g"; 
+    #     options = [ "rw" ];
+    # };
 
     programs.zsh.enable = true;
     users.defaultUserShell = pkgs.zsh;
 
-    environment.systemPackages = with pkgs; [
-        ntfs-3g
-    ];
+    # environment.systemPackages = with pkgs; [
+    #     ntfs3g
+    # ];
 
-    hardware.nvidia = {
-        modesetting.enable = true;
+    # hardware.nvidia = {
+    #     modesetting.enable = true;
+    #
+    #     open = true;
+    #
+    #     nvidiaSettings = true;
+    #
+    #     package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # };
 
-        open = true;
-
-        nvidiaSettings = true;
-
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
-    };
-
-    programs.steam.enable = true;
+    # programs.steam.enable = true;
 
 
 # services.openssh.enable = true;

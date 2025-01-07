@@ -20,11 +20,11 @@
 
         plugins = with pkgs.vimPlugins; [
 
-            {
-                plugin = nvim-autopairs;
-                type = "lua";
-                config = "require('nvim-autopairs').setup({ map_cr = true })";
-            }
+            # {
+            #     plugin = nvim-autopairs;
+            #     type = "lua";
+            #     config = "require('nvim-autopairs').setup({ map_cr = true })";
+            # }
 
             {
                 plugin = comment-nvim;
