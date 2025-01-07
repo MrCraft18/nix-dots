@@ -32,9 +32,21 @@
                 specialArgs = {
                     inherit inputs;
                     host = "desktop";
+                    buildScope = "nixos";
                 };
                 modules = [
-                    ./configuration/hosts/desktop
+                    home-manager.nixosModules.home-manager
+                    {
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            host = "desktop";
+                            buildScope = "nixos";
+                        };
+                    }
+
+                    ./hosts/desktop
+
+                    ./modules/hyprland
                 ];
             };
 
@@ -68,7 +80,7 @@
         };  
 
         homeConfigurations = {
-            "user@desktop" = home-manager.lib.homeManagerConfiguration {
+            "craft@desktop" = home-manager.lib.homeManagerConfiguration {
                 pkgs = import nixpkgs {
                     system = "x86_64-linux";
                     config = { allowUnfree = true; };

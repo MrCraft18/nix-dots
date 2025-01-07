@@ -23,7 +23,7 @@
     i18n.defaultLocale = "en_US.UTF-8";
 
     # Have a User
-    users.users.user = {
+    users.users.craft = {
         isNormalUser = true;
         extraGroups = [ "networkmanager" "wheel" ];
     };
@@ -39,6 +39,10 @@
         p7zip
         pulsemixer
     ];
+
+    # Use zsh
+    programs.zsh.enable = true;
+    users.defaultUserShell = pkgs.zsh;
 
     # Always have Nerd Fonts
     fonts.packages = [
