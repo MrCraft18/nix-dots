@@ -19,10 +19,7 @@
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
     };
 
-    outputs = { self, nixpkgs, home-manager, ... } @inputs:
-        let
-            
-        in {
+    outputs = { self, nixpkgs, home-manager, ... } @inputs:{
         nixosConfigurations = {
             desktop = nixpkgs.lib.nixosSystem {
                 pkgs = import nixpkgs {
@@ -34,7 +31,18 @@
                     host = "desktop";
                 };
                 modules = [
-                    ./configuration/hosts/desktop
+                    home-manager.nixosModules.home-manager
+                    { 
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            host = "desktop";
+                        };
+                    }
+
+                    ./hosts/desktop
+
+                    # Used Modules
+                    ./modules/hyprland
                 ];
             };
 
