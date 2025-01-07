@@ -1,5 +1,5 @@
 { ... }:
 
 {
-    imports = [ ./confirguration.nix ];
+    imports = [ ./configuration.nix ];
 }

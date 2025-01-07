@@ -14,6 +14,7 @@
         yazi
         firefox
         kitty
+        # wezterm
         ripgrep
         gcc
         gh
@@ -31,11 +32,10 @@
     ]
     ++ [ inputs.zen-browser.packages.x86_64-linux.default ];
 
-    # imports = [
-    #     ./modules/nvim
-    #     ./modules/hyprland
-    #     ./modules/kitty
-    # ];
+    imports = [
+        ./modules/nvim
+        ./modules/kitty
+    ];
 
 
 # Home Manager is pretty good at managing dotfiles. The primary way to manage
