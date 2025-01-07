@@ -3,9 +3,8 @@
 {
     imports = [
         ./hardware-configuration.nix
-        ../../modules/common.nix
-        ../../modules/hyprland+tuigreet.nix
-        ../../modules/zsh.nix
+        ../common/configuration.nix
+        ../common/tuigreet.nix
     ];
 
     # Bootloader Stuff
@@ -13,6 +12,12 @@
     boot.loader.efi.canTouchEfiVariables = true;
 
     networking.hostName = "desktop";
+
+    home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        users.craft.imports = [ ../../home.nix ];
+    };
 
     environment.systemPackages = [
 
