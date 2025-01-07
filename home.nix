@@ -3,8 +3,8 @@
 {
 # Home Manager needs a bit of information about you and the paths it should
 # manage.
-    home.username = "user";
-    home.homeDirectory = "/home/user"; 
+    # home.username = "user";
+    # home.homeDirectory = "/home/user"; 
 
     home.stateVersion = "24.05"; # Please read the comment before changing.
 
@@ -31,11 +31,11 @@
     ]
     ++ [ inputs.zen-browser.packages.x86_64-linux.default ];
 
-    imports = [
-        ./modules/nvim
-        ./modules/hyprland
-        ./modules/kitty
-    ];
+    # imports = [
+    #     ./modules/nvim
+    #     ./modules/hyprland
+    #     ./modules/kitty
+    # ];
 
 
 # Home Manager is pretty good at managing dotfiles. The primary way to manage
