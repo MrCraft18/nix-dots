@@ -81,8 +81,9 @@
             };
 
             uconsole = nixpkgs.lib.nixosSystem {
+                system = "aarch64-linux";
                 pkgs = import nixpkgs {
-                    system = "x86_64-linux";
+                    system = "aarch64-linux";
                     config = { allowUnfree = true; };
                 };
                 specialArgs = {
@@ -95,6 +96,10 @@
                     { 
                         home-manager.extraSpecialArgs = {
                             inherit inputs;
+                            pkgs = import nixpkgs {
+                                system = "aarch64-linux";
+                                config = { allowUnfree = true; };
+                            };
                             host = "uconsole";
                             buildScope = "nixos";
                         };
