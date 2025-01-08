@@ -40,6 +40,10 @@
         pulsemixer
     ];
 
+    # Use zsh
+    programs.zsh.enable = true;
+    users.defaultUserShell = pkgs.zsh;
+
     # Always have Nerd Fonts
     fonts.packages = [
         pkgs.nerd-fonts.jetbrains-mono

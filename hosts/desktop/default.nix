@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
     imports = [
         ./hardware-configuration.nix
         ../common/configuration.nix
-        # ../common/tuigreet.nix
+        ../common/tuigreet.nix
     ];
 
     # Bootloader Stuff
@@ -20,19 +20,19 @@
     };
 
     # Mount my SSD
-    # boot.supportedFilesystems = [ "ntfs" ];
-    # fileSystems."/mnt/SSD" = {
-    #     device = "/dev/sda1";
-    #     fsType = "ntfs-3g"; 
-    #     options = [ "rw" ];
-    # };
+    boot.supportedFilesystems = [ "ntfs" ];
+    fileSystems."/mnt/SSD" = {
+        device = "/dev/sda1";
+        fsType = "ntfs-3g"; 
+        options = [ "rw" ];
+    };
 
     programs.zsh.enable = true;
     users.defaultUserShell = pkgs.zsh;
 
-    # environment.systemPackages = with pkgs; [
-    #     ntfs3g
-    # ];
+    environment.systemPackages = with pkgs; [
+        ntfs3g
+    ];
 
     # hardware.nvidia = {
     #     modesetting.enable = true;
