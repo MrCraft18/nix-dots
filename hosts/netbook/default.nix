@@ -3,9 +3,8 @@
 {
     imports = [
         ./hardware-configuration.nix
-        ../../modules/common.nix
-        ../../modules/hyprland+tuigreet.nix
-        ../../modules/zsh.nix
+        ../common/configuration.nix
+        ../common/tuigreet.nix
     ];
 
     # Bootloader Stuff
@@ -15,11 +14,6 @@
     boot.kernelParams = [ "fbcon=rotate:1" ];
 
     networking.hostName = "netbook";
-
-    environment.systemPackages = [
-
-    ];
-
 
 # services.openssh.enable = true;
 

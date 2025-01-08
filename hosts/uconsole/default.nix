@@ -4,9 +4,8 @@
     imports = [
         ./hardware-configuration.nix
         ./uConsole.nix
-        ../../modules/common.nix
-        ../../modules/hyprland+tuigreet.nix
-        ../../modules/zsh.nix
+        ../common/configuration.nix
+        ../common/tuigreet.nix
     ];
 
     # nix.settings = {
@@ -24,7 +23,7 @@
 
     environment.systemPackages = with pkgs; [
         tmux
-    ] ++ [ inputs.zen-browser.packages.${pkgs.system}.default ];
+    ];
 
     services.openssh = {
         enable = true;
