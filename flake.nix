@@ -59,63 +59,94 @@
                 specialArgs = {
                     inherit inputs;
                     host = "netbook";
+                    buildScope = "nixos";
                 };
                 modules = [
-                    ./configuration/hosts/netbook
+                    home-manager.nixosModules.home-manager
+                    { 
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            host = "netbook";
+                            buildScope = "nixos";
+                        };
+                    }
+
+                    ./hosts/netbook
+
+                    # Used Modules
+                    ./modules/hyprland
+                    ./modules/nvim
+                    ./modules/kitty
                 ];
             };
 
             uconsole = nixpkgs.lib.nixosSystem {
                 pkgs = import nixpkgs {
-                    system = "aarch63-linux";
+                    system = "x86_64-linux";
                     config = { allowUnfree = true; };
                 };
                 specialArgs = {
                     inherit inputs;
                     host = "uconsole";
+                    buildScope = "nixos";
                 };
                 modules = [
-                    ./configuration/hosts/uconsole
+                    home-manager.nixosModules.home-manager
+                    { 
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            host = "uconsole";
+                            buildScope = "nixos";
+                        };
+                    }
+
+                    ./hosts/uconsole
+
+                    # Used Modules
+                    ./modules/hyprland
+                    ./modules/nvim
+                    ./modules/kitty
+                    ./modules/retroarch
                 ];
             };
         };  
 
         homeConfigurations = {
-            "craft@desktop" = home-manager.lib.homeManagerConfiguration {
-                pkgs = import nixpkgs {
-                    system = "x86_64-linux";
-                    config = { allowUnfree = true; };
-                };
-                extraSpecialArgs = {
-                    inherit inputs;
-                    host = "desktop";
-                };
-                modules = [ ./home.nix ];
-            };
-
-            "user@netbook" = home-manager.lib.homeManagerConfiguration {
-                pkgs = import nixpkgs {
-                    system = "x86_64-linux";
-                    config = { allowUnfree = true; };
-                };
-                extraSpecialArgs = {
-                    inherit inputs;
-                    host = "netbook";
-                };
-                modules = [ ./home.nix ];
-            };
-
-            "user@uconsole" = home-manager.lib.homeManagerConfiguration {
-                pkgs = import nixpkgs {
-                    system = "aarch64-linux";
-                    config = { allowUnfree = true; };
-                };
-                extraSpecialArgs = {
-                    inherit inputs;
-                    host = "uconsole";
-                };
-                modules = [ ./home.nix ];
-            };
+            # "craft@desktop" = home-manager.lib.homeManagerConfiguration {
+            #     pkgs = import nixpkgs {
+            #         system = "x86_64-linux";
+            #         config = { allowUnfree = true; };
+            #     };
+            #     extraSpecialArgs = {
+            #         inherit inputs;
+            #         host = "desktop";
+            #     };
+            #     modules = [ ./home.nix ];
+            # };
+            #
+            # "user@netbook" = home-manager.lib.homeManagerConfiguration {
+            #     pkgs = import nixpkgs {
+            #         system = "x86_64-linux";
+            #         config = { allowUnfree = true; };
+            #     };
+            #     extraSpecialArgs = {
+            #         inherit inputs;
+            #         host = "netbook";
+            #     };
+            #     modules = [ ./home.nix ];
+            # };
+            #
+            # "user@uconsole" = home-manager.lib.homeManagerConfiguration {
+            #     pkgs = import nixpkgs {
+            #         system = "aarch64-linux";
+            #         config = { allowUnfree = true; };
+            #     };
+            #     extraSpecialArgs = {
+            #         inherit inputs;
+            #         host = "uconsole";
+            #     };
+            #     modules = [ ./home.nix ];
+            # };
         };
     };
 }
