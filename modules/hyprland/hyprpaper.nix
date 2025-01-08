@@ -1,7 +1,7 @@
 { host, ... }:
 
 {
-    programs.hyprpaper = {
+    services.hyprpaper = {
         enable = true;
 
         settings = if host == "uconsole" then {
