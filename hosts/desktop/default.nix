@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
     imports = [
         ./hardware-configuration.nix
         ../common/configuration.nix
-        # ../common/tuigreet.nix
+        ../common/tuigreet.nix
     ];
 
     # Bootloader Stuff

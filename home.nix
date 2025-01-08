@@ -3,8 +3,8 @@
 {
 # Home Manager needs a bit of information about you and the paths it should
 # manage.
-    # home.username = "user";
-    # home.homeDirectory = "/home/user"; 
+    home.username = "craft";
+    home.homeDirectory = "/home/craft"; 
 
     home.stateVersion = "24.05"; # Please read the comment before changing.
 
@@ -34,6 +34,7 @@
 
     imports = [
         ./modules/nvim
+        ./modules/hyprland/home.nix
         ./modules/kitty
     ];
 
