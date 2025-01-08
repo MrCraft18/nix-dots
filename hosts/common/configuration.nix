@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
     # Enable Flakes
@@ -28,17 +28,48 @@
         extraGroups = [ "networkmanager" "wheel" ];
     };
 
-    # Basic Packages
+    # Basic System Level Packages
     environment.systemPackages = with pkgs; [
-        home-manager
-        neovim
         btop
         git
         bluez
         bat
         p7zip
+        unrar
         pulsemixer
+        fastfetch
     ];
+
+    # Shared Home Config
+    home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+
+        users.craft = {
+            programs.home-manager.enable = true;
+
+            home.username = "craft";
+            home.homeDirectory = "/home/craft"; 
+
+            home.stateVersion = "24.05";
+
+            home.packages = with pkgs; [
+                yazi
+                firefox
+                kitty
+                gh
+
+
+                # You can also create simple shell scripts directly inside your
+                # configuration. For example, this adds a command 'my-hello' to your
+                # environment:
+                (pkgs.writeShellScriptBin "my-hello" ''
+                     echo "${host}"
+                '')
+
+            ] ++ [ inputs.zen-browser.packages.x86_64-linux.default ];
+        };
+    };
 
     # Use zsh
     programs.zsh.enable = true;
@@ -47,7 +78,6 @@
     # Always have Nerd Fonts
     fonts.packages = [
         pkgs.nerd-fonts.jetbrains-mono
-        # pkgs.nerdfonts
     ]; 
 
     # Set Default Editor Variable

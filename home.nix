@@ -32,13 +32,6 @@
     ]
     ++ [ inputs.zen-browser.packages.x86_64-linux.default ];
 
-    imports = [
-        ./modules/nvim
-        # ./modules/hyprland/home.nix
-        ./modules/kitty
-    ];
-
-
 # Home Manager is pretty good at managing dotfiles. The primary way to manage
 # plain files is through 'home.file'.
     home.file = {
