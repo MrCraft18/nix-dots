@@ -55,7 +55,7 @@
 
             home.packages = with pkgs; [
                 yazi
-                firefox
+                # firefox
                 kitty
                 gh
 
@@ -67,7 +67,7 @@
                      echo "${host}"
                 '')
 
-            ] ++ [ inputs.zen-browser.packages.x86_64-linux.default ];
+            ]++ [ inputs.zen-browser.packages.${pkgs.system}.default ];
         };
     };
 
