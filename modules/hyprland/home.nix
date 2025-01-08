@@ -3,7 +3,10 @@
 let
     hyprland = if host == "uconsole" then "uconsole-hyprland" else "hyprland";
 in {
-    imports = [ ./waybar.nix ];
+    imports = [
+        ./waybar.nix
+        ./hyprpaper.nix
+    ];
 
     home.packages = with pkgs; [
         hyprpaper
