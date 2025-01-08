@@ -3,11 +3,12 @@
 let
     hyprland = if host == "uconsole" then "uconsole-hyprland" else "hyprland";
 in {
+    imports = [ ./waybar.nix ];
+
     home.packages = with pkgs; [
         hyprpaper
         yaru-theme
         wl-clipboard
-        waybar
         wofi
     ];
 
