@@ -45,6 +45,9 @@
 
                     # Used Modules
                     ./modules/hyprland
+                    ./modules/nvim
+                    ./modules/kitty
+                    ./modules/retroarch
                 ];
             };
 

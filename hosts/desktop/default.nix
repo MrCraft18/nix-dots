@@ -16,7 +16,11 @@
     home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        users.craft.imports = [ ../../home.nix ];
+        users.craft = {
+            home.packages = with pkgs; [
+                prismlauncher
+            ];
+        };
     };
 
     # Mount my SSD
@@ -27,24 +31,21 @@
     #     options = [ "rw" ];
     # };
 
-    programs.zsh.enable = true;
-    users.defaultUserShell = pkgs.zsh;
+    environment.systemPackages = with pkgs; [
+        ntfs3g
+    ];
 
-    # environment.systemPackages = with pkgs; [
-    #     ntfs3g
-    # ];
+    hardware.nvidia = {
+        modesetting.enable = true;
 
-    # hardware.nvidia = {
-    #     modesetting.enable = true;
-    #
-    #     open = true;
-    #
-    #     nvidiaSettings = true;
-    #
-    #     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    # };
+        open = true;
 
-    # programs.steam.enable = true;
+        nvidiaSettings = true;
+
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
+
+    programs.steam.enable = true;
 
 
 # services.openssh.enable = true;
