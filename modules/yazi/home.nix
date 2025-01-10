@@ -8,7 +8,7 @@
 
     xdg.configFile."yazi/yazi.toml".source = pkgs.writeText "yazi.toml" ''
         [opener]
-        wine = [ { run = "wine $0 > /home/craft/the-log.txt 2>&1", orphan = true, for = "unix" } ]
+        wine = [ { run = "GAMEID=0 PROTON_VERB=run WINEPREFIX=/home/craft/.wine umu-run $@", orphan = true, for = "unix" } ]
 
         [open]
         prepend_rules = [
