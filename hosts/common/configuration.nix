@@ -54,11 +54,12 @@
             home.stateVersion = "24.05";
 
             home.packages = with pkgs; [
-                yazi
-                # firefox
+                firefox
                 kitty
                 gh
-
+                wineWowPackages.unstableFull
+                winetricks
+                vesktop
 
                 # You can also create simple shell scripts directly inside your
                 # configuration. For example, this adds a command 'my-hello' to your
@@ -68,6 +69,9 @@
                 '')
 
             ]++ [ inputs.zen-browser.packages.${pkgs.system}.default ];
+
+            # TEMPORARYISH?
+            programs.mpv.enable = true;
         };
     };
 

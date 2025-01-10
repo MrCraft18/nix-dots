@@ -17,6 +17,8 @@
         };
 
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
+        umu.url ="git+https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging/nix&submodules=1";
     };
 
     outputs = { self, nixpkgs, home-manager, ... } @inputs:{
@@ -45,7 +47,9 @@
 
                     # Used Modules
                     ./modules/hyprland
+                    ./modules/zsh
                     ./modules/nvim
+                    ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
                 ];
@@ -75,13 +79,14 @@
 
                     # Used Modules
                     ./modules/hyprland
+                    ./modules/zsh
                     ./modules/nvim
+                    ./modules/yazi
                     ./modules/kitty
                 ];
             };
 
             uconsole = nixpkgs.lib.nixosSystem {
-                system = "aarch64-linux";
                 pkgs = import nixpkgs {
                     system = "aarch64-linux";
                     config = { allowUnfree = true; };
@@ -96,10 +101,6 @@
                     { 
                         home-manager.extraSpecialArgs = {
                             inherit inputs;
-                            pkgs = import nixpkgs {
-                                system = "aarch64-linux";
-                                config = { allowUnfree = true; };
-                            };
                             host = "uconsole";
                             buildScope = "nixos";
                         };
@@ -110,6 +111,7 @@
                     # Used Modules
                     ./modules/hyprland
                     ./modules/nvim
+                    ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
                 ];

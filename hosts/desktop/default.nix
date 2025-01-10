@@ -11,39 +11,41 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
+    # Set System Name
     networking.hostName = "desktop";
 
-    home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        users.craft = {
-            home.packages = with pkgs; [
-                prismlauncher
-            ];
-        };
+    # Extra system relavent home-manager config
+    home-manager.users.craft = {
+        home.packages = with pkgs; [
+            prismlauncher
+            ryujinx-greemdev
+            lutris
+        ] ++ [
+            inputs.umu.packages.${pkgs.system}.umu
+        ];
     };
 
     # Mount my SSD
     boot.supportedFilesystems = [ "ntfs" ];
+    environment.systemPackages = [ pkgs.ntfs3g ];
     fileSystems."/mnt/SSD" = {
         device = "/dev/sda1";
         fsType = "ntfs-3g"; 
         options = [ "rw" ];
     };
 
-    environment.systemPackages = with pkgs; [
-        ntfs3g
-    ];
-
+    # Nvidia Stupidity
+    services.xserver.videoDrivers = ["nvidia"];
+    hardware.graphics.enable = true;
     hardware.nvidia = {
         modesetting.enable = true;
-
-        open = true;
-
+        open = false;
         nvidiaSettings = true;
-
         package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
+
+    # Just in case something needs this
+    hardware.graphics.enable32Bit = true;
 
     programs.steam.enable = true;
 

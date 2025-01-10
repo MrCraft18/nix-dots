@@ -34,8 +34,9 @@ in {
             ] else if host == "desktop" then [
                 # ADD TV BACK HERE
                 "DP-3, preferred, 0x0, 1"
-                "HDMI-A-1, preferred, 2560x0, 1"
-                "DP-2, preferred, 5120x0, 1"
+                "DP-1, preferred, 1920x0, 1"
+                "HDMI-A-1, preferred, 4480x0, 1"
+                "DP-2, preferred, 7040x0, 1"
             ] else [
                 ", preferred, auto, auto"
             ]; 
