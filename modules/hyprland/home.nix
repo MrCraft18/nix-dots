@@ -168,7 +168,7 @@ in {
                 "$mainMod, V, togglefloating,"
                 "$mainMod, R, exec, $menu"
                 "$mainMod, P, pseudo," # dwindle
-                "$mainMod, J, togglesplit," # dwindle
+                "$mainMod, S, togglesplit," # dwindle
                 "$mainMod, F, fullscreen,"
 
                 # Move focus with mainMod + arrow keys
@@ -176,6 +176,26 @@ in {
                 "$mainMod, right, movefocus, r"
                 "$mainMod, up, movefocus, u"
                 "$mainMod, down, movefocus, d"
+                "$mainMod, h, movefocus, l"
+                "$mainMod, l, movefocus, r"
+                "$mainMod, k, movefocus, u"
+                "$mainMod, j, movefocus, d"
+
+                # Move window with mainMod + SHIFT + arrow keys
+                "$mainMod SHIFT, left, movewindow, l"
+                "$mainMod SHIFT, right, movewindow, r"
+                "$mainMod SHIFT, up, movewindow, u"
+                "$mainMod SHIFT, down, movewindow, d"
+                "$mainMod SHIFT, h, movewindow, l"
+                "$mainMod SHIFT, l, movewindow, r"
+                "$mainMod SHIFT, k, movewindow, u"
+                "$mainMod SHIFT, j, movewindow, d"
+
+                # Resize windo
+                "bind = $mainMod ALT, right, resizeactive, 20 0"
+                "bind = $mainMod ALT, left, resizeactive, -20 0"
+                "bind = $mainMod ALT, up, resizeactive, 0 -20"
+                "bind = $mainMod ALT, down, resizeactive, 0 20"
 
                 # Switch workspaces with mainMod + [0-9]
                 "$mainMod, 1, workspace, 1"
@@ -184,8 +204,6 @@ in {
                 "$mainMod, 4, workspace, 4"
                 "$mainMod, 5, workspace, 5"
                 "$mainMod, 6, workspace, 6"
-                "$mainMod, 7, workspace, 7"
-                "$mainMod, 8, workspace, 8"
                 "$mainMod, 9, workspace, 9"
                 "$mainMod, 0, workspace, 10"
 
@@ -200,10 +218,6 @@ in {
                 "$mainMod SHIFT, 8, movetoworkspace, 8"
                 "$mainMod SHIFT, 9, movetoworkspace, 9"
                 "$mainMod SHIFT, 0, movetoworkspace, 10"
-
-                # Example special workspace (scratchpad)
-                "$mainMod, S, togglespecialworkspace, magic"
-                "$mainMod SHIFT, S, movetoworkspace, special:magic"
 
                 # Scroll through existing workspaces with mainMod + scroll
                 "$mainMod, mouse_down, workspace, e+1"

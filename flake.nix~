@@ -50,8 +50,8 @@
                     # Used Modules
                     ./modules/hyprland
                     ./modules/zsh
-                    ./modules/nvim
-                    # ./modules/nvf
+                    # ./modules/nvim
+                    ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
