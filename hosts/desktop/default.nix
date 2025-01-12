@@ -18,8 +18,8 @@
     home-manager.users.craft = {
         home.packages = with pkgs; [
             prismlauncher
-            ryujinx-greemdev
-            lutris
+            suyu
+            bottles
         ] ++ [
             inputs.umu.packages.${pkgs.system}.umu
         ];
@@ -47,7 +47,11 @@
     # Just in case something needs this
     hardware.graphics.enable32Bit = true;
 
+    # Wish this was in home-manager :(
     programs.steam.enable = true;
+
+    # For dumb GUIs that need this
+    programs.dconf.enable = true;
 
 
 # services.openssh.enable = true;
