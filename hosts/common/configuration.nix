@@ -57,7 +57,6 @@
                 firefox
                 kitty
                 gh
-                wineWowPackages.unstableFull
                 winetricks
                 vesktop
 
