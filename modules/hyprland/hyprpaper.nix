@@ -6,11 +6,11 @@
 
         settings = if host == "uconsole" then {
             preload = [
-                "./walls/uconsole.png"
+                "/home/craft/.dotfiles/modules/hyprland/walls/uconsole.png"
             ];
 
             wallpaper = [
-                ", ./walls/uconsole.png"
+                ", /home/craft/.dotfiles/modules/hyprland/walls/uconsole.png"
             ];
         } else {};
     };

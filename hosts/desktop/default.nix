@@ -19,7 +19,8 @@
         home.packages = with pkgs; [
             prismlauncher
             suyu
-            bottles
+            # bottles
+            wineWowPackages.unstableFull
         ] ++ [
             inputs.umu.packages.${pkgs.system}.umu
         ];

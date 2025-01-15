@@ -13,7 +13,7 @@
                 # "position": "bottom", 
 
                 # Waybar height (to be removed for auto height)
-                height = 30;
+                height = if host == "uconsole" then 0 else 30;
 
                  # Waybar width
                 # "width": 1280,
@@ -25,7 +25,7 @@
                 modules-left = [
                     "hyprland/workspaces"
                 ];
-                modules-center = [
+                modules-center = if host == "uconsole" then [] else [
                     "hyprland/window"
                 ];
                 modules-right = if host == "desktop" then [

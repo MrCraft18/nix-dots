@@ -113,7 +113,9 @@
 
                     # Used Modules
                     ./modules/hyprland
-                    ./modules/nvim
+                    ./modules/zsh
+                    # ./modules/nvim
+                    ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
