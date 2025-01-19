@@ -86,8 +86,8 @@
                 }; 
 
                 dashboard = {
-                    dashboard-nvim.enable = true;
-                    # alpha.enable = true;
+                    dashboard-nvim.enable = false;
+                    alpha.enable = true;
                 };
 
                 # session = {
