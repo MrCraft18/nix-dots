@@ -16,7 +16,7 @@
             inputs.aquamarine.url = "github:hyprwm/aquamarine/v0.4.4";
         };
 
-        nvf.url = "github:notashelf/nvf";
+        nvf.url = "github:NotAShelf/nvf";
 
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
@@ -83,7 +83,8 @@
                     # Used Modules
                     ./modules/hyprland
                     ./modules/zsh
-                    ./modules/nvim
+                    # ./modules/nvim
+                    ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
                 ];
