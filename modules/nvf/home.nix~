@@ -64,7 +64,14 @@
                     # highlight-undo.enable = true;
 
                     # Need To Configure but its good
-                    indent-blankline.enable = true;
+                    indent-blankline = {
+                        enable = true;
+                        setupOpts = {
+                            exclude = {
+                                filetypes = [ "dashboard" "lspinfo" "packer" "checkhealth" "help" "man" "gitcommit" "TelescopePrompt" "TelescopeResults" "" ]; 
+                            };
+                        };
+                    };
 
                     # Fun
                     cellular-automaton.enable = true;
@@ -86,8 +93,8 @@
                 }; 
 
                 dashboard = {
-                    dashboard-nvim.enable = false;
-                    alpha.enable = true;
+                    dashboard-nvim.enable = true;
+                    # alpha.enable = true;
                 };
 
                 # session = {

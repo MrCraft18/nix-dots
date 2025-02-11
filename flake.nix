@@ -19,8 +19,6 @@
         nvf.url = "github:NotAShelf/nvf";
 
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
-
-        umu.url ="git+https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging/nix&submodules=1";
     };
 
     outputs = { self, nixpkgs, home-manager, nvf, ... } @inputs:{
@@ -50,8 +48,8 @@
                     # Used Modules
                     ./modules/hyprland
                     ./modules/zsh
-                    ./modules/nvim
-                    # ./modules/nvf
+                    # ./modules/nvim
+                    ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch

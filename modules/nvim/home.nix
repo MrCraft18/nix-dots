@@ -18,6 +18,7 @@
             # Language Servers
             nil
             lua-language-server
+            vscode-langservers-extracted
 
             # Formatters
             alejandra

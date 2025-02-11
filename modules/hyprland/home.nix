@@ -15,13 +15,13 @@ in {
         wofi
     ];
 
-    # home.sessionVariables = {
-    #     NIXOS_OZONE_WL = "1";
-    # }; 
+    home.sessionVariables = {
+        NIXOS_OZONE_WL = "1";
+    }; 
 
     wayland.windowManager.hyprland = {
         enable = true;
-        # xwayland.enable = true;
+        xwayland.enable = true;
 
         package = inputs.${hyprland}.packages.${pkgs.system}.hyprland;
 
@@ -41,7 +41,6 @@ in {
             ]; 
 
             exec-once = [
-                "waybar"
                 "hyprpaper"
             ];
 

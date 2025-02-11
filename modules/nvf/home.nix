@@ -4,6 +4,8 @@
         inputs.nvf.homeManagerModules.nvf
     ];
 
+    home.packages = [ pkgs.gcc ];
+
     programs.nvf = {
         enable = true;
         settings = {
@@ -18,6 +20,8 @@
                     splitright = true; 
                     wrap = false;
                     cursorline = true;
+                    backup = false;
+                    writebackup = false;
                 };
 
                 lsp = {
@@ -30,7 +34,10 @@
                     #This is kind of in the way when I type out a function
                     lspSignature.enable = true;
 
-                    lsplines.enable = true;
+                    # lsplines.enable = true;
+
+                    # This better fucking do what its supposed to
+                    # otter-nvim.enable = true;
                 };
 
                 languages = {
@@ -38,8 +45,28 @@
                     enableTreesitter = true;
 
                     nix.enable = true;
-                    ts.enable = true;
+                    ts = {
+                        enable = true;
+                        # treesitter.jsPackage = pkgs.vimPlugins.nvim-treesitter.builtGrammars.typescript;
+
+                    };
+                    css.enable = true;
+                    html.enable = true;
                     python.enable = true;
+                };
+
+                treesitter = {
+                    context = {
+                        enable = true;
+                        setupOpts = {
+                            max_lines = 6;
+                            mode = "topline";
+                        };
+                    };
+
+                    grammars = [
+                        # pkgs.vimPlugins.nvim-treesitter.builtGrammars.typescript
+                    ];
                 };
 
                 # spellcheck = {
@@ -64,7 +91,14 @@
                     # highlight-undo.enable = true;
 
                     # Need To Configure but its good
-                    indent-blankline.enable = true;
+                    indent-blankline = {
+                        enable = true;
+                        setupOpts = {
+                            exclude = {
+                                filetypes = [ "dashboard" "lspinfo" "packer" "checkhealth" "help" "man" "gitcommit" "TelescopePrompt" "TelescopeResults" "" ]; 
+                            };
+                        };
+                    };
 
                     # Fun
                     cellular-automaton.enable = true;
@@ -76,14 +110,6 @@
                 };
 
                 tabline.nvimBufferline.enable = true;
-
-                treesitter.context = {
-                    enable = true;
-                    setupOpts = {
-                        max_lines = 6;
-                        mode = "topline";
-                    };
-                }; 
 
                 dashboard = {
                     dashboard-nvim.enable = true;

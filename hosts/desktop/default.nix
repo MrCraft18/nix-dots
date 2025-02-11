@@ -19,10 +19,12 @@
         home.packages = with pkgs; [
             prismlauncher
             suyu
-            # bottles
             wineWowPackages.unstableFull
+            mongodb-compass
+            rclone
+            umu-launcher
         ] ++ [
-            inputs.umu.packages.${pkgs.system}.umu
+        
         ];
     };
 
@@ -42,7 +44,7 @@
         modesetting.enable = true;
         open = false;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
 
     # Just in case something needs this
@@ -55,7 +57,9 @@
     programs.dconf.enable = true;
 
 
+
 # services.openssh.enable = true;
+    networking.firewall.allowedTCPPorts = [ 6930 ];
 
 # This value determines the NixOS release from which the default
 # settings for stateful data, like file locations and database versions
