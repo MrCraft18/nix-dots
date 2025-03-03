@@ -10,6 +10,9 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
+    #Auto Login User
+    services.getty.autologinUser = "craft";
+
     services.openssh = {
         enable = true;
         settings = {
