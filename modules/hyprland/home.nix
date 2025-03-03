@@ -190,11 +190,15 @@ in {
                 "$mainMod SHIFT, k, movewindow, u"
                 "$mainMod SHIFT, j, movewindow, d"
 
-                # Resize windo
-                "bind = $mainMod ALT, right, resizeactive, 20 0"
-                "bind = $mainMod ALT, left, resizeactive, -20 0"
-                "bind = $mainMod ALT, up, resizeactive, 0 -20"
-                "bind = $mainMod ALT, down, resizeactive, 0 20"
+                # Resize window
+                "bind = $mainMod ALT, right, resizeactive, 10 0"
+                "bind = $mainMod ALT, left, resizeactive, -10 0"
+                "bind = $mainMod ALT, up, resizeactive, 0 -10"
+                "bind = $mainMod ALT, down, resizeactive, 0 10"
+                "bind = $mainMod ALT, l, resizeactive, 10 0"
+                "bind = $mainMod ALT, h, resizeactive, -10 0"
+                "bind = $mainMod ALT, k, resizeactive, 0 -10"
+                "bind = $mainMod ALT, j, resizeactive, 0 10"
 
                 # Switch workspaces with mainMod + [0-9]
                 "$mainMod, 1, workspace, 1"
