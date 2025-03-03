@@ -1,26 +1,6 @@
 {
     description = "Should be a System Flake";
 
-    inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-        home-manager = {
-            url = "github:nix-community/home-manager";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
-
-        uconsole-hyprland = {
-            url = "github:hyprwm/Hyprland/v0.45.2";
-            inputs.aquamarine.url = "github:hyprwm/aquamarine/v0.4.4";
-        };
-
-        nvf.url = "github:NotAShelf/nvf";
-
-        zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    };
-
     outputs = { self, nixpkgs, home-manager, nvf, ... } @inputs:{
         nixosConfigurations = {
             desktop = nixpkgs.lib.nixosSystem {
@@ -120,6 +100,35 @@
                     ./modules/retroarch
                 ];
             };
+
+            old-laptop = nixpkgs.lib.nixosSystem {
+                pkgs = import nixpkgs {
+                    system = "x86_64-linux";
+                    config = { allowUnfree = true; };
+                };
+                specialArgs = {
+                    inherit inputs;
+                    host = "old-laptop";
+                    buildScope = "nixos";
+                };
+                modules = [
+                    home-manager.nixosModules.home-manager
+                    { 
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            host = "old-laptop";
+                            buildScope = "nixos";
+                        };
+                    }
+
+                    ./hosts/old-laptop
+
+                    # Used Modules
+                    ./modules/zsh
+                    ./modules/nvf
+                    ./modules/yazi
+                ];
+            };
         };  
 
         homeConfigurations = {
@@ -159,5 +168,25 @@
             #     modules = [ ./home.nix ];
             # };
         };
+    };
+
+    inputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+        home-manager = {
+            url = "github:nix-community/home-manager";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
+
+        uconsole-hyprland = {
+            url = "github:hyprwm/Hyprland/v0.45.2";
+            inputs.aquamarine.url = "github:hyprwm/aquamarine/v0.4.4";
+        };
+
+        nvf.url = "github:NotAShelf/nvf";
+
+        zen-browser.url = "github:0xc000022070/zen-browser-flake";
     };
 }

@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, host, ... }:
 
 {
     # Enable Flakes
@@ -6,6 +6,9 @@
 
     # Use a good Network Manager
     networking.networkmanager.enable = true;
+
+    # Set System Name
+    networking.hostName = host;
 
     #Enable Bluetooth
     hardware.bluetooth.enable = true;
@@ -30,7 +33,14 @@
     users.users.craft = {
         isNormalUser = true;
         extraGroups = [ "networkmanager" "wheel" ];
+        openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAlvRA8dmnopz4KqdRhC4fPGkBGKA+SnTbw9ubFSEVD4 craft@desktop"
+        ];
     };
+
+    #Auto Mount USB
+    services.gvfs.enable = true;
+    services.udisks2.enable = true;
 
     # Basic System Level Packages
     environment.systemPackages = with pkgs; [
@@ -42,6 +52,10 @@
         unrar
         pulsemixer
         fastfetch
+
+        usbutils
+        udiskie
+        udisks
     ];
 
     # Shared Home Config
@@ -71,10 +85,7 @@
                      echo "${host}"
                 '')
 
-            ]++ [ inputs.zen-browser.packages.${pkgs.system}.default ];
-
-            # TEMPORARYISH?
-            programs.mpv.enable = true;
+            ] ++ [ inputs.zen-browser.packages.${pkgs.system}.default ];
         };
     };
 

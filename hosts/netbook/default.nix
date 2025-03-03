@@ -13,8 +13,6 @@
     #Rotate TTY Screen 90 Degrees
     boot.kernelParams = [ "fbcon=rotate:1" ];
 
-    networking.hostName = "netbook";
-
 # services.openssh.enable = true;
 
 # This value determines the NixOS release from which the default
