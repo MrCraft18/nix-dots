@@ -52,6 +52,7 @@
         unrar
         pulsemixer
         fastfetch
+        fzf
 
         usbutils
         udiskie
