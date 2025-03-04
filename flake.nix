@@ -129,6 +129,35 @@
                     ./modules/yazi
                 ];
             };
+
+            chromebook = nixpkgs.lib.nixosSystem {
+                pkgs = import nixpkgs {
+                    system = "x86_64-linux";
+                    config = { allowUnfree = true; };
+                };
+                specialArgs = {
+                    inherit inputs;
+                    host = "chromebook";
+                    buildScope = "nixos";
+                };
+                modules = [
+                    home-manager.nixosModules.home-manager
+                    { 
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            host = "chromebook";
+                            buildScope = "nixos";
+                        };
+                    }
+
+                    ./hosts/chromebook
+
+                    # Used Modules
+                    ./modules/zsh
+                    ./modules/nvf
+                    ./modules/yazi
+                ];
+            };
         };  
 
         homeConfigurations = {
