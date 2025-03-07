@@ -130,14 +130,14 @@
                 ];
             };
 
-            chromebook = nixpkgs.lib.nixosSystem {
+            chromebook-a = nixpkgs.lib.nixosSystem {
                 pkgs = import nixpkgs {
                     system = "x86_64-linux";
                     config = { allowUnfree = true; };
                 };
                 specialArgs = {
                     inherit inputs;
-                    host = "chromebook";
+                    host = "chromebook-a";
                     buildScope = "nixos";
                 };
                 modules = [
@@ -145,12 +145,41 @@
                     { 
                         home-manager.extraSpecialArgs = {
                             inherit inputs;
-                            host = "chromebook";
+                            host = "chromebook-a";
                             buildScope = "nixos";
                         };
                     }
 
-                    ./hosts/chromebook
+                    ./hosts/chromebook-a
+
+                    # Used Modules
+                    ./modules/zsh
+                    ./modules/nvf
+                    ./modules/yazi
+                ];
+            };
+
+            chromebook-b = nixpkgs.lib.nixosSystem {
+                pkgs = import nixpkgs {
+                    system = "x86_64-linux";
+                    config = { allowUnfree = true; };
+                };
+                specialArgs = {
+                    inherit inputs;
+                    host = "chromebook-b";
+                    buildScope = "nixos";
+                };
+                modules = [
+                    home-manager.nixosModules.home-manager
+                    { 
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            host = "chromebook-b";
+                            buildScope = "nixos";
+                        };
+                    }
+
+                    ./hosts/chromebook-b
 
                     # Used Modules
                     ./modules/zsh
