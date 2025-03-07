@@ -170,19 +170,21 @@
                     buildScope = "nixos";
                 };
                 modules = [
-                    home-manager.nixosModules.home-manager
-                    { 
-                        home-manager.extraSpecialArgs = {
-                            inherit inputs;
-                            host = "chromebook-b";
-                            buildScope = "nixos";
-                        };
-                    }
+                    # home-manager.nixosModules.home-manager
+                    # { 
+                    #     home-manager.extraSpecialArgs = {
+                    #         inherit inputs;
+                    #         host = "chromebook-b";
+                    #         buildScope = "nixos";
+                    #     };
+                    # }
 
                     ./hosts/chromebook-b
 
                     # Used Modules
-                    ./modules/nvf
+                    # ./modules/zsh
+                    # ./modules/nvf
+                    # ./modules/yazi
                 ];
             };
         };  
