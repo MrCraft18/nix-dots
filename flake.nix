@@ -182,9 +182,7 @@
                     ./hosts/chromebook-b
 
                     # Used Modules
-                    ./modules/zsh
                     ./modules/nvf
-                    ./modules/yazi
                 ];
             };
         };  
