@@ -13,6 +13,24 @@
     #Rotate TTY Screen 90 Degrees
     boot.kernelParams = [ "fbcon=rotate:1" ];
 
+    # Extra system relavent home-manager config
+    home-manager.users.craft = {
+        home.packages = with pkgs; [
+            firefox
+            kitty
+            winetricks
+            vesktop
+        ] ++ [
+            inputs.zen-browser.packages.${pkgs.system}.default
+        ];
+
+        # TEMPORARYISH?
+        programs.mpv.enable = true;
+        programs.mpv.config = {
+            volume-max = 300;
+        };
+    };
+
 # services.openssh.enable = true;
 
 # This value determines the NixOS release from which the default
