@@ -74,11 +74,7 @@
             home.stateVersion = "24.05";
 
             home.packages = with pkgs; [
-                firefox
-                kitty
                 gh
-                winetricks
-                vesktop
 
                 # You can also create simple shell scripts directly inside your
                 # configuration. For example, this adds a command 'my-hello' to your
@@ -87,7 +83,9 @@
                      echo "${host}"
                 '')
 
-            ] ++ [ inputs.zen-browser.packages.${pkgs.system}.default ];
+            ] ++ [ 
+
+            ];
         };
     };
 
