@@ -17,6 +17,12 @@
         lidSwitchExternalPower = "ignore";
         lidSwitchDocked = "ignore";
     };
+    systemd.sleep.extraConfig = ''
+        AllowSuspend=no
+        AllowHibernation=no
+        AllowHybridSleep=no
+        AllowSuspendThenHibernate=no
+    '';
 
     services.openssh = {
         enable = true;
