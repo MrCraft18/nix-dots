@@ -45,6 +45,13 @@
         options = [ "rw" ];
     };
 
+    services.openssh = {
+        enable = true;
+        settings = {
+            PasswordAuthentication = false;
+        };
+    };
+
     # Nvidia Stupidity
     services.xserver.videoDrivers = ["nvidia"];
     hardware.graphics.enable = true;
