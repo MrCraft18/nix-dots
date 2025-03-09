@@ -13,6 +13,15 @@
     #Rotate TTY Screen 90 Degrees
     boot.kernelParams = [ "fbcon=rotate:1" ];
 
+
+    services.openssh = {
+        enable = true;
+        ports = [ 3500 ];
+        settings = {
+            PasswordAuthentication = true;
+        };
+    };
+
 # services.openssh.enable = true;
 
 # This value determines the NixOS release from which the default
