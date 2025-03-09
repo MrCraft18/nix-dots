@@ -20,8 +20,13 @@
             mongodb-compass
             rclone
             umu-launcher
+
+            firefox
+            kitty
+            winetricks
+            vesktop
         ] ++ [
-        
+            inputs.zen-browser.packages.${pkgs.system}.default
         ];
 
         # TEMPORARYISH?

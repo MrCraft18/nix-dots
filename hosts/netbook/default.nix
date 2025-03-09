@@ -13,12 +13,21 @@
     #Rotate TTY Screen 90 Degrees
     boot.kernelParams = [ "fbcon=rotate:1" ];
 
+    # Extra system relavent home-manager config
+    home-manager.users.craft = {
+        home.packages = with pkgs; [
+            firefox
+            kitty
+            winetricks
+            vesktop
+        ] ++ [
+            inputs.zen-browser.packages.${pkgs.system}.default
+        ];
 
-    services.openssh = {
-        enable = true;
-        ports = [ 3500 ];
-        settings = {
-            PasswordAuthentication = true;
+        # TEMPORARYISH?
+        programs.mpv.enable = true;
+        programs.mpv.config = {
+            volume-max = 300;
         };
     };
 
