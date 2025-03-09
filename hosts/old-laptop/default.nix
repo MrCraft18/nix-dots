@@ -12,6 +12,11 @@
 
     #Auto Login User
     services.getty.autologinUser = "craft";
+    services.logind = {
+        lidSwitch = "ignore";
+        lidSwitchExternalPower = "ignore";
+        lidSwitchDocked = "ignore";
+    };
 
     services.openssh = {
         enable = true;
