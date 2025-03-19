@@ -27,6 +27,7 @@
 
                     # Used Modules
                     ./modules/hyprland
+                    # ./modules/i3
                     ./modules/zsh
                     # ./modules/nvim
                     ./modules/nvf
@@ -60,8 +61,8 @@
 
                     # Used Modules
                     ./modules/hyprland
+                    # ./modules/i3
                     ./modules/zsh
-                    # ./modules/nvim
                     ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty

@@ -22,7 +22,6 @@
             umu-launcher
 
             firefox
-            kitty
             winetricks
             vesktop
         ] ++ [
