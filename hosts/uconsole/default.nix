@@ -23,9 +23,19 @@
         tmux
     ];
 
+    # Extra system relavent home-manager config
+    home-manager.users.craft = {
+        home.packages = with pkgs; [
+            vesktop
+            mongodb-compass
+            ngrok
+        ] ++ [
+            inputs.zen-browser.packages.${pkgs.system}.default
+        ];
+    };
+
     services.openssh = {
         enable = true;
-        ports = [ 22 ];
         settings = {
             PasswordAuthentication = true;
         };

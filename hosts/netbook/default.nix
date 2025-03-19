@@ -13,21 +13,24 @@
     #Rotate TTY Screen 90 Degrees
     boot.kernelParams = [ "fbcon=rotate:1" ];
 
-    # services.openssh = {
-    #     enable = true;
-    #     settings = {
-    #         PasswordAuthentication = false;
-    #     };
-    # };
+    services.openssh = {
+        enable = true;
+        settings = {
+            PasswordAuthentication = true;
+        };
+    };
 
 
     # Extra system relavent home-manager config
     home-manager.users.craft = {
         home.packages = with pkgs; [
             firefox
-            kitty
             winetricks
+            wineWowPackages.unstableFull
+            umu-launcher
             vesktop
+            mongodb-compass
+            ngrok
         ] ++ [
             inputs.zen-browser.packages.${pkgs.system}.default
         ];
@@ -39,7 +42,7 @@
         };
     };
 
-# services.openssh.enable = true;
+    programs.steam.enable = true;
 
 # This value determines the NixOS release from which the default
 # settings for stateful data, like file locations and database versions

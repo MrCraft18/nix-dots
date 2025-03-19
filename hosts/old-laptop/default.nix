@@ -4,35 +4,12 @@
     imports = [
         ./hardware-configuration.nix
         ../common/configuration.nix
+        ../common/laptop-stations.nix
     ];
 
     # Bootloader Stuff
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-
-    #Auto Login User
-    services.getty.autologinUser = "craft";
-    services.logind = {
-        lidSwitch = "ignore";
-        lidSwitchExternalPower = "ignore";
-        lidSwitchDocked = "ignore";
-    };
-    systemd.sleep.extraConfig = ''
-        AllowSuspend=no
-        AllowHibernation=no
-        AllowHybridSleep=no
-        AllowSuspendThenHibernate=no
-    '';
-
-    services.openssh = {
-        enable = true;
-        ports = [ 3500 ];
-        settings = {
-            PasswordAuthentication = false;
-        };
-    };
-
-    networking.firewall.allowedTCPPorts = [ 3501 ];
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
