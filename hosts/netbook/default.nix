@@ -31,6 +31,7 @@
             vesktop
             mongodb-compass
             ngrok
+            cloudflared
         ] ++ [
             inputs.zen-browser.packages.${pkgs.system}.default
         ];
@@ -43,6 +44,16 @@
     };
 
     programs.steam.enable = true;
+
+    # services.cloudflared = {
+    #     enable = true;
+    #     tunnels = {
+    #         "0f374c41-d3f8-4978-a056-10ebdae7e5a5" = {
+    #             credentialsFile = "/home/craft/.cloudflared/cert.pem";
+    #             default = "http_status:404";
+    #         };
+    #     };
+    # };
 
 # This value determines the NixOS release from which the default
 # settings for stateful data, like file locations and database versions
