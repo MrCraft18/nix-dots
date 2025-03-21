@@ -79,7 +79,7 @@
                 #     }
                 # },
                 clock = {
-                    # "timezone": "America/New_York",
+                    # timezone = "Asia/Tokyo";
                     tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
                     format-alt = "{:%Y-%m-%d}";
                 };

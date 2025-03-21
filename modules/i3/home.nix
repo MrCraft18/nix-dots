@@ -3,7 +3,7 @@
 {
     home.packages = with pkgs; [
         xorg.xinit
-        xorg.xorgserver
+        # xorg.xorgserver
     ];
 
     xsession = {
