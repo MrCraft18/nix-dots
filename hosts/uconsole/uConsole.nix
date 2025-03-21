@@ -21,17 +21,19 @@
     ];
 
     nix.distributedBuilds = false;
+
     nix.settings = {
         substituters = ["https://cache-nix.project2.xyz/uconsole"];
         trusted-substituters = ["https://cache-nix.project2.xyz/uconsole"];
         trusted-public-keys = ["uconsole:t2pv3NWEtXCYY0fgv9BB8r9tRdK+Tz7HYhGq9bXIIck="];
-  };
+    };
+
     boot.supportedFilesystems.zfs = false;
 
     nixpkgs.overlays = [
         (final: super: {
             makeModulesClosure = x:
-            super.makeModulesClosure (x // {allowMissing = true;});
+                super.makeModulesClosure (x // { allowMissing = true; });
         })
     ];
 
@@ -84,7 +86,7 @@
                     audio = "on";
                     spi = "off";
                     i2c_arm = "on";
-	        };
+                };
             }
             {
                 name = "cpu-revision";

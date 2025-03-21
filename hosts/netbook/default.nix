@@ -45,15 +45,18 @@
 
     programs.steam.enable = true;
 
-    # services.cloudflared = {
-    #     enable = true;
-    #     tunnels = {
-    #         "0f374c41-d3f8-4978-a056-10ebdae7e5a5" = {
-    #             credentialsFile = "/home/craft/.cloudflared/cert.pem";
-    #             default = "http_status:404";
-    #         };
-    #     };
-    # };
+    services.cloudflared = {
+        enable = true;
+        tunnels = {
+            "2ec0cbe0-e0e9-4fd2-a1e4-d6a034feedc9" = {
+                credentialsFile = "/home/craft/.cloudflared/2ec0cbe0-e0e9-4fd2-a1e4-d6a034feedc9.json";
+                default = "http_status:404";
+                ingress = {
+                    "netbook.craftthing.xyz" = "tcp://localhost:22";
+                };
+            };
+        };
+    };
 
 # This value determines the NixOS release from which the default
 # settings for stateful data, like file locations and database versions
