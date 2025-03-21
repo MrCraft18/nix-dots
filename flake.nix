@@ -1,7 +1,7 @@
 {
     description = "Should be a System Flake";
 
-    outputs = { self, nixpkgs, home-manager, ... } @inputs:{
+    outputs = { self, nixpkgs, home-manager, ... } @inputs: {
         nixosConfigurations = {
             desktop = nixpkgs.lib.nixosSystem {
                 pkgs = import nixpkgs {
