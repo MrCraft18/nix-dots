@@ -61,7 +61,7 @@
 
                     # Used Modules
                     ./modules/hyprland
-                    # ./modules/i3
+                    ./modules/i3
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi

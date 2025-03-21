@@ -4,6 +4,9 @@
     # Enable Flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+    # Optimize Nix Store After Rebuild
+    nix.settings.auto-optimise-store = true;
+
     # Use a good Network Manager
     networking.networkmanager.enable = true;
 
@@ -24,7 +27,9 @@
     };
 
     # My Timezone
-    time.timeZone = "America/Chicago";
+    # time.timeZone = "America/Chicago";
+    services.automatic-timezoned.enable = true;
+    services.geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
 
     # My Locale
     i18n.defaultLocale = "en_US.UTF-8";
