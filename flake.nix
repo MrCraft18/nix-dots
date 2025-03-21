@@ -239,9 +239,9 @@
 
         hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
 
-        uconsole-kernel-nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable/3566ab7246670a43abd2ffa913cc62dad9cdf7d5";
+        # uconsole-kernel-nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable/3566ab7246670a43abd2ffa913cc62dad9cdf7d5";
 
-        oom-hardware.url = "github:robertjakub/oom-hardware";
+        oom-hardware.url = "github:MrCraft18/oom-hardware";
 
         uconsole-hyprland = {
             url = "github:hyprwm/Hyprland/v0.45.2";
