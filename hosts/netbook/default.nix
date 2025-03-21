@@ -20,6 +20,7 @@
         };
     };
 
+    services.tailscale.enable = true;
 
     # Extra system relavent home-manager config
     home-manager.users.craft = {
@@ -30,8 +31,6 @@
             umu-launcher
             vesktop
             mongodb-compass
-            ngrok
-            cloudflared
         ] ++ [
             inputs.zen-browser.packages.${pkgs.system}.default
         ];
@@ -44,19 +43,6 @@
     };
 
     programs.steam.enable = true;
-
-    services.cloudflared = {
-        enable = true;
-        tunnels = {
-            "2ec0cbe0-e0e9-4fd2-a1e4-d6a034feedc9" = {
-                credentialsFile = "/home/craft/.cloudflared/2ec0cbe0-e0e9-4fd2-a1e4-d6a034feedc9.json";
-                default = "http_status:404";
-                ingress = {
-                    "netbook.craftthing.xyz" = "tcp://localhost:22";
-                };
-            };
-        };
-    };
 
 # This value determines the NixOS release from which the default
 # settings for stateful data, like file locations and database versions
