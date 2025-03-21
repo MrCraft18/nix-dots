@@ -2,7 +2,7 @@
 
 {
     imports = [
-        inputs.oom-hardware.uconsole
+        inputs.oom-hardware.nixosModules.uconsole
         ./hardware-configuration.nix
         ../common/configuration.nix
         ../common/tuigreet.nix
@@ -16,7 +16,6 @@
     home-manager.users.craft = {
         home.packages = with pkgs; [
             vesktop
-            mongodb-compass
             ngrok
         ] ++ [
             inputs.zen-browser.packages.${pkgs.system}.default
