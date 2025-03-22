@@ -1,4 +1,4 @@
-{ host, pkgs, inputs, ... }:
+{ host, pkgs, lib, inputs, ... }:
 
 let
     hyprland = if host == "uconsole" then "uconsole-hyprland" else "hyprland";
@@ -18,6 +18,10 @@ in {
     home.sessionVariables = {
         NIXOS_OZONE_WL = "1";
     }; 
+
+    home.activation.cleanupHyprland = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        rm -f ~/.config/hypr/hyprland.conf
+    '';
 
     wayland.windowManager.hyprland = {
         enable = true;

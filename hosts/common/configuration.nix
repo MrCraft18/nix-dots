@@ -1,8 +1,12 @@
-{ pkgs, inputs, host, ... }:
+{ pkgs, lib, host, ... }:
 
 {
     # Enable Flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+    # Enable Boot Loader
+    boot.loader.systemd-boot.enable = lib.mkDefault true;
+    boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
 
     # Optimize Nix Store After Rebuild
     nix.settings.auto-optimise-store = true;

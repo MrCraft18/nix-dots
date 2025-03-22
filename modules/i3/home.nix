@@ -6,10 +6,7 @@
         # xorg.xorgserver
     ];
 
-    xsession = {
+    xsession.windowManager.i3 = {
         enable = true;
-        windowManager.i3 = {
-            enable = true;
-        };
     };
 }

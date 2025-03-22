@@ -7,10 +7,6 @@
         ../common/tuigreet.nix
     ];
 
-    # Bootloader Stuff
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-
     # Extra system relavent home-manager config
     home-manager.users.craft = {
         home.packages = with pkgs; [
