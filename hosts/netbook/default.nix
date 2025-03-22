@@ -2,16 +2,24 @@
 
 {
     imports = [
+        inputs.nixos-hardware.nixosModules.gpd-pocket-3
         ./hardware-configuration.nix
         ../common/configuration.nix
         ../common/tuigreet.nix
     ];
 
-    # Bootloader Stuff
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-    #Rotate TTY Screen 90 Degrees
-    boot.kernelParams = [ "fbcon=rotate:1" ];
+    boot.loader.systemd-boot.enable = false;
+
+
+    boot.loader.grub.enable = true;
+    boot.loader.grub.version = 2;
+
+    # Important for UEFI systems:
+    boot.loader.grub.efiSupport = true;
+
+    # 'nodev' tells NixOS not to install GRUB to an MBR (since UEFI doesn't use that)
+    boot.loader.grub.device = "nodev";
+
 
     services.openssh = {
         enable = true;

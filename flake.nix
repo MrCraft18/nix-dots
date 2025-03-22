@@ -50,6 +50,7 @@
                 modules = [
                     home-manager.nixosModules.home-manager
                     { 
+                        home-manager.backupFileExtension = "hmFileBackups";
                         home-manager.extraSpecialArgs = {
                             inherit inputs;
                             host = "netbook";
@@ -57,11 +58,25 @@
                         };
                     }
 
+                    {
+                        specialisation = {
+                            hyprland.configuration = {
+                                imports = [ ./modules/hyprland ];
+                            };
+
+
+
+                            i3.configuration = {
+                                imports = [ ./modules/i3 ];
+                            };
+                        };
+                    }
+
                     ./hosts/netbook
 
                     # Used Modules
-                    ./modules/hyprland
-                    ./modules/i3
+                    # ./modules/hyprland
+                    # ./modules/i3
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi
@@ -231,6 +246,8 @@
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+        nixos-hardware.url = "github:nixos/nixos-hardware";
 
         home-manager = {
             url = "github:nix-community/home-manager";

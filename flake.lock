@@ -598,6 +598,21 @@
       "locked": {
         "lastModified": 1742376361,
         "narHash": "sha256-VFMgJkp/COvkt5dnkZB4D2szVdmF6DGm5ZdVvTUy61c=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "daaae13dff0ecc692509a1332ff9003d9952d7a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
+    "nixos-hardware_2": {
+      "locked": {
+        "lastModified": 1742376361,
+        "narHash": "sha256-VFMgJkp/COvkt5dnkZB4D2szVdmF6DGm5ZdVvTUy61c=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
         "rev": "daaae13dff0ecc692509a1332ff9003d9952d7a9",
@@ -795,7 +810,7 @@
     },
     "oom-hardware": {
       "inputs": {
-        "nixos-hardware": "nixos-hardware",
+        "nixos-hardware": "nixos-hardware_2",
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
@@ -864,6 +879,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nvf": "nvf",
         "oom-hardware": "oom-hardware",
