@@ -15,6 +15,8 @@
         AllowSuspendThenHibernate=no
     '';
 
+    services.tailscale.enable = true;
+
     services.openssh = {
         enable = true;
         ports = [ 3500 ];
