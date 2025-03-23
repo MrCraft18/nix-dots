@@ -11,6 +11,12 @@
     # Optimize Nix Store After Rebuild
     nix.settings.auto-optimise-store = true;
 
+    # Use Nix Helper
+    programs.nh = {
+        enable = true;
+        flake = "/home/craft/nix-dots";
+    };
+
     # Use a good Network Manager
     networking.networkmanager.enable = true;
 
@@ -94,7 +100,7 @@
                 '')
 
             ] ++ [ 
-
+                inputs.localxpose.packages.${pkgs.system}.default
             ];
         };
     };
