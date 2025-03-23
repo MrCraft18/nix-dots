@@ -31,6 +31,8 @@
         };
     };
 
+    services.tailscale.enable = true;
+
     # Mount my SSD
     boot.supportedFilesystems = [ "ntfs" ];
     environment.systemPackages = [ pkgs.ntfs3g ];
