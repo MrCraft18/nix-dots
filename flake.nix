@@ -62,12 +62,13 @@
                         specialisation = {
                             hyprland.configuration = {
                                 imports = [ ./modules/hyprland ];
+                                environment.etc."specialisation".text = "hyprland";
                             };
-
 
 
                             i3.configuration = {
                                 imports = [ ./modules/i3 ];
+                                environment.etc."specialisation".text = "i3";
                             };
                         };
                     }

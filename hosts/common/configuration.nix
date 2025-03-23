@@ -1,4 +1,4 @@
-{ pkgs, lib, host, ... }:
+{ pkgs, inputs, lib, host, ... }:
 
 {
     # Enable Flakes
