@@ -44,7 +44,7 @@
         extraGroups = [ "networkmanager" "wheel" ];
         openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAlvRA8dmnopz4KqdRhC4fPGkBGKA+SnTbw9ubFSEVD4 craft@desktop"
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB9NSgtIb+zby2kPDqlrJI6mwXf5Qh9CnayqPTuIF1ne craft@netbook"
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIlIQ73VqgtCDpdlaUcskdpRNteq6Bb6D8YnDF/enp7K craft@netbook"
         ];
     };
 
