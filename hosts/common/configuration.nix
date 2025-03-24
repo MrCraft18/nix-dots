@@ -1,6 +1,8 @@
 { pkgs, inputs, lib, host, ... }:
 
 {
+    imports = [ ./sops.nix ];
+
     # Enable Flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -70,6 +72,7 @@
         pulsemixer
         fastfetch
         fzf
+        sops
 
         usbutils
         udiskie

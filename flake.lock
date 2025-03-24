@@ -976,6 +976,7 @@
         "nixpkgs": "nixpkgs_3",
         "nvf": "nvf",
         "oom-hardware": "oom-hardware",
+        "sops-nix": "sops-nix",
         "uconsole-hyprland": "uconsole-hyprland",
         "zen-browser": "zen-browser"
       }
@@ -999,6 +1000,26 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1742700801,
+        "narHash": "sha256-ZGlpUDsuBdeZeTNgoMv+aw0ByXT2J3wkYw9kJwkAS4M=",
+        "owner": "mic92",
+        "repo": "sops-nix",
+        "rev": "67566fe68a8bed2a7b1175fdfb0697ed22ae8852",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },

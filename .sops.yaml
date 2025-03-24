@@ -1,0 +1,13 @@
+keys:
+  - &else age1yasm3t9fuufm72eytdg4jjrv55syu8tjcdtwv8qcg758fg7p0p3qxwpne4
+  # - &users:
+  #   - &craft age1tz97dum6dadchmqkaax50qfcyk35dhzjkt0tsa9fpjmrltvlyqls0u0atm
+  # - &hosts:
+  #   - &netbook age1z4ne5whkl62d8qy8xhfj96fgxlyelqld2qzm9jk70lxpnmpvpv7qhxhvc7
+creation_rules:
+  - path_regex: secrets.yaml$
+    key_groups:
+      - age:
+        # - *craft
+        # - *netbook
+        - *else

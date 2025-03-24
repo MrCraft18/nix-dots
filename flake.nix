@@ -255,11 +255,14 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
-
-        # uconsole-kernel-nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable/3566ab7246670a43abd2ffa913cc62dad9cdf7d5";
+        sops-nix = {
+            url = "github:mic92/sops-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
         oom-hardware.url = "github:MrCraft18/oom-hardware";
+
+        hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
 
         uconsole-hyprland = {
             url = "github:hyprwm/Hyprland/v0.45.2";
