@@ -600,11 +600,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1742722559,
-        "narHash": "sha256-Oc9QgALqAH6Fz7EMvyzcg+aRDmve8hhPsk7SgY722fY=",
+        "lastModified": 1742724098,
+        "narHash": "sha256-CCxEVi7Dimg52WwtA61bmWKyFVUmizPsn05wtdTuP6Q=",
         "owner": "MrCraft18",
         "repo": "localxpose-flake",
-        "rev": "a33a5ea514aa9c02a2bdaea1fe3d6e9695aba2a2",
+        "rev": "2ef0d0f062a6964698a4a95b004504a9a4833ede",
         "type": "github"
       },
       "original": {
