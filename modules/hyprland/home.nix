@@ -58,8 +58,13 @@ in {
             # ];
 
             general = {
-                "gaps_in" = if host == "uconsole" then 0 else 5;
-                "gaps_out" = if host == "uconsole" then 0 else 20;
+                "gaps_in" = if host == "uconsole" then 0
+                else if host  == "netbook" then 2
+                else 5;
+
+                "gaps_out" = if host == "uconsole" then 0 
+                else if host == "netbook" then 8
+                else 20;
 
                 "border_size" = if host == "uconsole" then 0 else 2;
 
@@ -74,7 +79,9 @@ in {
             };
             
             decoration = {
-                rounding = if host == "uconsole" then 0 else 10;
+                rounding = if host == "uconsole" then 0
+                else if host == "netbook" then 5
+                else 10;
 
                 active_opacity = 1.0;
                 inactive_opacity = 1.0;
