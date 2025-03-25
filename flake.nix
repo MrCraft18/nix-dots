@@ -34,6 +34,7 @@
                     ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
+                    ./modules/localxpose
                     ./modules/sops
                 ];
             };
@@ -118,6 +119,7 @@
                     ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
+                    ./modules/localxpose
                     ./modules/sops
                 ];
             };
@@ -148,6 +150,7 @@
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi
+                    ./modules/localxpose
                     ./modules/sops
                 ];
             };
@@ -178,6 +181,7 @@
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi
+                    ./modules/localxpose
                     ./modules/sops
                 ];
             };
@@ -208,6 +212,7 @@
                     # ./modules/zsh
                     # ./modules/nvf
                     # ./modules/yazi
+                    ./modules/localxpose
                     ./modules/sops
                 ];
             };
