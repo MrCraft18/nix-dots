@@ -101,6 +101,10 @@
                 (pkgs.writeShellScriptBin "my-hello" ''
                      echo "${host}"
                 '')
+                
+                (pkgs.writeShellScriptBin "gen-age-keys" ''
+                    nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/keys.txt && nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
+                '')
 
             ] ++ [ 
                 inputs.localxpose.packages.${pkgs.system}.default
