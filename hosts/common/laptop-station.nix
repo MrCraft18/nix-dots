@@ -25,7 +25,5 @@
         };
     };
 
-    programs.kitty.terminfo.enable = true;
-
     networking.firewall.allowedTCPPorts = [ 3501 ];
 }
