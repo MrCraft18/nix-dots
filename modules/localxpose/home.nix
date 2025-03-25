@@ -39,7 +39,7 @@
                 set -e
                 export PATH=${localxposeEnv}/bin:$PATH
 
-                ACCESS_TOKEN=$(cat ${config.sops.secrets."tunnel_service/authkey".path})
+                export ACCESS_TOKEN=$(cat ${config.sops.secrets."tunnel_service/authkey".path})
 
                 exec loclx tunnel config -f ${config.sops.templates."localxpose-config.yaml".path}
             '';
