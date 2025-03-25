@@ -34,6 +34,7 @@
                     ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
+                    ./modules/sops
                 ];
             };
 
@@ -82,6 +83,8 @@
                     ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
+                    ./modules/localxpose
+                    ./modules/sops
                 ];
             };
 
@@ -115,6 +118,7 @@
                     ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
+                    ./modules/sops
                 ];
             };
 
@@ -144,6 +148,7 @@
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi
+                    ./modules/sops
                 ];
             };
 
@@ -173,6 +178,7 @@
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi
+                    ./modules/sops
                 ];
             };
 
@@ -187,14 +193,14 @@
                     buildScope = "nixos";
                 };
                 modules = [
-                    # home-manager.nixosModules.home-manager
-                    # { 
-                    #     home-manager.extraSpecialArgs = {
-                    #         inherit inputs;
-                    #         host = "chromebook-b";
-                    #         buildScope = "nixos";
-                    #     };
-                    # }
+                    home-manager.nixosModules.home-manager
+                    { 
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            host = "chromebook-b";
+                            buildScope = "nixos";
+                        };
+                    }
 
                     ./hosts/chromebook-b
 
@@ -202,6 +208,7 @@
                     # ./modules/zsh
                     # ./modules/nvf
                     # ./modules/yazi
+                    ./modules/sops
                 ];
             };
         };  

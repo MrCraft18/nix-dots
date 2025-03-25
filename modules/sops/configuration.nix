@@ -1,6 +1,8 @@
 { inputs, config, ... }:
 
 {
+    home-manager.users.craft.imports = [ ./home.nix ];
+
     imports = [ inputs.sops-nix.nixosModules.sops ];
 
     sops = {
@@ -14,6 +16,8 @@
             
             # This is where the age private key will be after its generate from the ssh host private key.
             # keyFile = "/var/lib/sops-nix/key.txt";
+
+
             keyFile = "/home/craft/.config/sops/age/keys.txt";
 
             # Generate the private age private key from the ssh host private key if its not there.
@@ -21,9 +25,21 @@
         };
 
         secrets = {
-            hello = { };
+            "tunnel_service/authkey" = { };
+            "tunnel_service/domain" = { };
+
+            "tunnel_service/ports/desktop/ssh" = { };
+            "tunnel_service/ports/netbook/ssh" = { };
+            "tunnel_service/ports/uconsole/ssh" = { };
+
+            "tunnel_service/ports/old-laptop/ssh" = { };
+            "tunnel_service/ports/old-laptop/playwright" = { };
+
+            "tunnel_service/ports/chromebook-a/ssh" = { };
+            "tunnel_service/ports/chromebook-a/playwright" = { };
+
+            "tunnel_service/ports/chromebook-b/ssh" = { };
+            "tunnel_service/ports/chromebook-b/playwright" = { };
         };
     };
-
-    
 }
