@@ -105,7 +105,7 @@
                 '')
 
             ] ++ [ 
-                inputs.localxpose.packages.${pkgs.system}.default
+                # inputs.localxpose.packages.${pkgs.system}.default
             ];
         };
     };
