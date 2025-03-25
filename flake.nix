@@ -180,7 +180,7 @@
                     # Used Modules
                     ./modules/zsh
                     ./modules/nvf
-                    ./modules/yazi
+                    # ./modules/yazi
                     ./modules/localxpose
                     ./modules/sops
                 ];
