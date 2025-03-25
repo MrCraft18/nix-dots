@@ -1,6 +1,8 @@
 { pkgs, inputs, config, lib, host, ... }:
 
 {
+    # home.packages = [ inputs.localxpose.packages.${pkgs.system}.default ];
+
     sops.templates = {
         "localxpose-config.yaml".content = 
             if host == "netbook" || host == "desktop" || host == "uconsole" then ''
@@ -25,13 +27,21 @@
 
     systemd.user.services.localxpose = 
         let
+            localxposeEnv = pkgs.buildEnv {
+                name = "localxpose-env";
+                paths = [
+                    pkgs.coreutils
+                    inputs.localxpose.packages.${pkgs.system}.default
+                ];
+            };
+
             startScript = pkgs.writeShellScript "localxpose-start" ''
                 set -e
+                export PATH=${localxposeEnv}/bin:$PATH
 
                 ACCESS_TOKEN=$(cat ${config.sops.secrets."tunnel_service/authkey".path})
 
-                exec ${inputs.localxpose.packages.${pkgs.system}.default}/bin/loclx tunnel config \
-                  -f ${config.sops.templates."localxpose-config.yaml".path}
+                exec loclx tunnel config -f ${config.sops.templates."localxpose-config.yaml".path}
             '';
         in {
         Unit = {
