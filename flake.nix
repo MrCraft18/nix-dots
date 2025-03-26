@@ -34,6 +34,7 @@
                     ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
+                    ./modules/ssh-client
                     ./modules/localxpose
                     ./modules/sops
                 ];
@@ -84,6 +85,7 @@
                     ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
+                    ./modules/ssh-client
                     ./modules/localxpose
                     ./modules/sops
                 ];
@@ -119,6 +121,7 @@
                     ./modules/yazi
                     ./modules/kitty
                     ./modules/retroarch
+                    ./modules/ssh-client
                     ./modules/localxpose
                     ./modules/sops
                 ];
@@ -150,6 +153,7 @@
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi
+                    ./modules/ssh-client
                     ./modules/localxpose
                     ./modules/sops
                 ];
@@ -209,8 +213,8 @@
                     ./hosts/chromebook-b
 
                     # Used Modules
-                    # ./modules/zsh
-                    # ./modules/nvf
+                    ./modules/zsh
+                    ./modules/nvf
                     # ./modules/yazi
                     ./modules/localxpose
                     ./modules/sops
