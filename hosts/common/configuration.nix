@@ -79,6 +79,7 @@
 
     # Shared Home Config
     home-manager = {
+        backupFileExtension = "hmFileBackups";
         useGlobalPkgs = true;
         useUserPackages = true;
 

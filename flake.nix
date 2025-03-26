@@ -53,7 +53,6 @@
                 modules = [
                     home-manager.nixosModules.home-manager
                     { 
-                        home-manager.backupFileExtension = "hmFileBackups";
                         home-manager.extraSpecialArgs = {
                             inherit inputs;
                             host = "netbook";
