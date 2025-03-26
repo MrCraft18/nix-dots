@@ -31,12 +31,12 @@
         description = "playwright-server agent";
         after = [ "network.target" ];
 
-        script = ''
-            export HOST=$(echo $HOST) 
-            ${inputs.playwright-server.apps.${pkgs.system}.default.program} 
-        '';
+        environment = {
+            HOST = "${config.networking.hostName}";
+        };
 
         serviceConfig = {
+            ExecStart = inputs.playwright-server.apps.${pkgs.system}.default.program;
             Restart = "always";
         };
 
