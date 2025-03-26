@@ -289,5 +289,7 @@
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
         localxpose.url = "github:MrCraft18/localxpose-flake";
+
+        playwright-server.url = "github:MrCraft18/playwright-server";
     };
 }
