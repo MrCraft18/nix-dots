@@ -32,7 +32,7 @@
         after = [ "network.target" ];
 
         script = ''
-            ${inputs.playwright-server.apps.${pkgs.system}.default.program} 
+            HOST=$(echo $HOST) ${inputs.playwright-server.apps.${pkgs.system}.default.program} 
         '';
 
         serviceConfig = {
