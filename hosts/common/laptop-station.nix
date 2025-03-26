@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, config, inputs, ... }:
 
 {
     #Auto Login User
@@ -26,4 +26,19 @@
     };
 
     networking.firewall.allowedTCPPorts = [ 3501 ];
+
+    systemd.services.playwright-server = {
+        description = "playwright-server agent";
+        after = [ "network.target" ];
+
+        script = ''
+            ${inputs.playwright-server.apps.${pkgs.system}.default.program} 
+        '';
+
+        serviceConfig = {
+            Restart = "always";
+        };
+
+        wantedBy = [ "multi-user.target" ];
+    };
 }
