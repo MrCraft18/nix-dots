@@ -1,7 +1,7 @@
 { pkgs, inputs, config, lib, host, ... }:
 
 {
-    home.packages = [ inputs.localxpose.packages.${pkgs.system}.default ];
+    # home.packages = [ inputs.localxpose.packages.${pkgs.system}.default ];
 
     sops.templates = {
         "localxpose-config.yaml".content = 
