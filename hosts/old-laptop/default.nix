@@ -7,6 +7,18 @@
         ../common/laptop-station.nix
     ];
 
+    systemd.services.JVF-index = {
+        description = "JVF scraper manager agent";
+        after = [ "network.target" ];
+
+        serviceConfig = {
+            ExecStart = "nix develop /home/craft/programming/JVF/ --command node index.js";
+            Restart = "always";
+            RestartSec = 10;
+        };
+
+        wantedBy = [ "multi-user.target" ];
+    };
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions

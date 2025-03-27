@@ -38,6 +38,7 @@
         serviceConfig = {
             ExecStart = inputs.playwright-server.apps.${pkgs.system}.default.program;
             Restart = "always";
+            RestartSec = 5;
         };
 
         wantedBy = [ "multi-user.target" ];
