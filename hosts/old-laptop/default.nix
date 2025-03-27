@@ -12,9 +12,11 @@
         after = [ "network.target" ];
 
         serviceConfig = {
-            ExecStart = "nix develop /home/craft/programming/JVF/ --command node index.js";
+            ExecStart = "/run/current-system/sw/bin/nix develop /home/craft/programming/JVF/ --command node /home/craft/programming/JVF/index.js";
+            WorkingDirectory = "/home/craft/programming/JVF";
             Restart = "always";
             RestartSec = 10;
+            User = "craft";
         };
 
         wantedBy = [ "multi-user.target" ];
