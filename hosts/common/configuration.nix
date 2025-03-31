@@ -19,6 +19,7 @@
 
     # Use a good Network Manager
     networking.networkmanager.enable = true;
+    networking.networkmanager.settings.main.autoconnect-retries-default = 0;
 
     # Set System Name
     networking.hostName = host;
@@ -47,7 +48,7 @@
     # Have a User
     users.users.craft = {
         isNormalUser = true;
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "video" "input" ];
         openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAlvRA8dmnopz4KqdRhC4fPGkBGKA+SnTbw9ubFSEVD4 craft@desktop"
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIlIQ73VqgtCDpdlaUcskdpRNteq6Bb6D8YnDF/enp7K craft@netbook"

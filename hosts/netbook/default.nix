@@ -12,7 +12,6 @@
 
 
     boot.loader.grub.enable = true;
-    boot.loader.grub.version = 2;
 
     # Important for UEFI systems:
     boot.loader.grub.efiSupport = true;
