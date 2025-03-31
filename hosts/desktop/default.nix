@@ -36,7 +36,7 @@
     # Mount my SSD
     boot.supportedFilesystems = [ "ntfs" ];
     environment.systemPackages = [ pkgs.ntfs3g ];
-    fileSystems."/mnt/SSD" = {
+    fileSystems."/home/craft/SSD" = {
         device = "/dev/sda1";
         fsType = "ntfs-3g"; 
         options = [ "rw" ];
