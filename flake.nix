@@ -60,26 +60,26 @@
                         };
                     }
 
-                    {
-                        specialisation = {
-                            hyprland.configuration = {
-                                imports = [ ./modules/hyprland ];
-                                environment.etc."specialisation".text = "hyprland";
-                            };
-
-
-                            i3.configuration = {
-                                imports = [ ./modules/i3 ];
-                                environment.etc."specialisation".text = "i3";
-                            };
-                        };
-                    }
+                    # {
+                    #     specialisation = {
+                    #         hyprland.configuration = {
+                    #             imports = [ ./modules/hyprland ];
+                    #             environment.etc."specialisation".text = "hyprland";
+                    #         };
+                    #
+                    #
+                    #         i3.configuration = {
+                    #             imports = [ ./modules/i3 ];
+                    #             environment.etc."specialisation".text = "i3";
+                    #         };
+                    #     };
+                    # }
 
                     ./hosts/netbook
 
                     # Used Modules
-                    # ./modules/hyprland
-                    # ./modules/i3
+                    ./modules/hyprland
+                    ./modules/i3
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi
@@ -213,10 +213,10 @@
 
                     # Used Modules
                     ./modules/zsh
-                    ./modules/nvf
+                    # ./modules/nvf
                     # ./modules/yazi
-                    ./modules/localxpose
-                    ./modules/sops
+                    # ./modules/localxpose
+                    # ./modules/sops
                 ];
             };
         };  
