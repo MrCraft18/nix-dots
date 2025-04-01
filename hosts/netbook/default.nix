@@ -9,8 +9,6 @@
     ];
 
     boot.loader.systemd-boot.enable = false;
-
-
     boot.loader.grub.enable = true;
 
     # Important for UEFI systems:
@@ -18,7 +16,6 @@
 
     # 'nodev' tells NixOS not to install GRUB to an MBR (since UEFI doesn't use that)
     boot.loader.grub.device = "nodev";
-
 
     services.openssh = {
         enable = true;
