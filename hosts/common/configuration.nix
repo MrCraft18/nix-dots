@@ -38,7 +38,6 @@
     };
 
     # My Timezone
-    # time.timeZone = "America/Chicago";
     services.automatic-timezoned.enable = true;
     services.geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
 
@@ -72,6 +71,7 @@
         fastfetch
         fzf
         sops
+        tmux
 
         usbutils
         udiskie
