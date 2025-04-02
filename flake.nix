@@ -213,10 +213,10 @@
 
                     # Used Modules
                     ./modules/zsh
-                    # ./modules/nvf
-                    # ./modules/yazi
-                    # ./modules/localxpose
-                    # ./modules/sops
+                    ./modules/nvf
+                    ./modules/yazi
+                    ./modules/localxpose
+                    ./modules/sops
                 ];
             };
         };  
