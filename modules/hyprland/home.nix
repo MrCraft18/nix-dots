@@ -217,6 +217,8 @@ in {
                 "$mainMod, 4, workspace, 4"
                 "$mainMod, 5, workspace, 5"
                 "$mainMod, 6, workspace, 6"
+                "$mainMod, 7, workspace, 6"
+                "$mainMod, 8, workspace, 6"
                 "$mainMod, 9, workspace, 9"
                 "$mainMod, 0, workspace, 10"
 
