@@ -4,7 +4,7 @@
     imports = [
         ./hardware-configuration.nix
         ../common/configuration.nix
-        # ../common/laptop-station.nix
+        ../common/laptop-station.nix
     ];
 
     #Auto Login User
