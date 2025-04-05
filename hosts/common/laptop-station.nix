@@ -22,6 +22,7 @@
         ports = [ 3500 ];
         settings = {
             PasswordAuthentication = false;
+            X11Forwarding = true;
         };
     };
 
