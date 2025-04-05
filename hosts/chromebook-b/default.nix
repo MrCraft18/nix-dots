@@ -7,30 +7,6 @@
         ../common/laptop-station.nix
     ];
 
-    #Auto Login User
-    services.getty.autologinUser = "craft";
-    services.logind = {
-        lidSwitch = "ignore";
-        lidSwitchExternalPower = "ignore";
-        lidSwitchDocked = "ignore";
-    };
-    systemd.sleep.extraConfig = ''
-        AllowSuspend=no
-        AllowHibernation=no
-        AllowHybridSleep=no
-        AllowSuspendThenHibernate=no
-    '';
-
-    services.tailscale.enable = true;
-
-    services.openssh = {
-        enable = true;
-        ports = [ 3500 ];
-        settings = {
-            PasswordAuthentication = false;
-        };
-    };
-
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
     # on your system were taken. It‘s perfectly fine and recommended to leave
