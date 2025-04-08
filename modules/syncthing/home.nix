@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, host, ... }:
 
 {
     services.syncthing = {
@@ -7,8 +7,8 @@
         overrideDevices = true;
         overrideFolders = true;
 
-        key = "${config.sops.secrets."syncthing/key/${config.networking.hostName}".path}";
-        cert = "${config.sops.secrets."syncthing/cert/${config.networking.hostName}".path}";
+        key = "${config.sops.secrets."syncthing/key/${host}".path}";
+        cert = "${config.sops.secrets."syncthing/cert/${host}".path}";
 
         settings = {
             devices = {
@@ -22,7 +22,7 @@
                     path = {
                         desktop = "/home/craft/SSD/Homework/HGames/Favorites";
                         netbook = "/home/craft/Homework/HGames/Favorites";
-                    }."${config.networking.hostname}";
+                    }."${host}";
 
                     devices = [
                         "desktop"
