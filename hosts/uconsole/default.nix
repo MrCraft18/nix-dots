@@ -19,6 +19,8 @@
         home.packages = with pkgs; [
             vesktop
             ngrok
+
+            x86pkgs.wineWowPackages.unstableFull
         ] ++ [
             inputs.zen-browser.packages.${pkgs.system}.default
         ];
