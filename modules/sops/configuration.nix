@@ -25,6 +25,12 @@
 
             "tunnel_service/ports/chromebook-b/ssh" = { };
             "tunnel_service/ports/chromebook-b/playwright" = { };
+
+            "syncthing/cert/desktop" = { };
+            "syncthing/cert/netbook" = { };
+
+            "syncthing/key/desktop" = { };
+            "syncthing/key/netbook" = { };
         };
     };
 }
