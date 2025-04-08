@@ -32,6 +32,21 @@
 
                     id = "78e69817-7456-40dc-b0bc-8a8df2212354";
                 };
+
+                "HGames/Playing" = {
+                    path = {
+                        desktop = "/home/craft/SSD/Homework/HGames/Playing";
+                        netbook = "/home/craft/Homework/HGames/Playing";
+                    }."${host}";
+
+                    devices = [
+                        "desktop"
+                        "netbook"
+                        "zflip"
+                    ];
+
+                    id = "4a592e1b-c8e4-4e99-80cc-6db115059db0";
+                };
             };
         };
     };
