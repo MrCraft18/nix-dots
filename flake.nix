@@ -36,6 +36,7 @@
                     ./modules/retroarch
                     ./modules/ssh-client
                     ./modules/localxpose
+                    ./modules/syncthing
                     ./modules/sops
                 ];
             };
@@ -86,6 +87,7 @@
                     ./modules/kitty
                     ./modules/ssh-client
                     ./modules/localxpose
+                    ./modules/syncthing
                     ./modules/sops
                 ];
             };
