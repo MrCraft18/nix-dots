@@ -40,7 +40,7 @@
                     path = {
                         desktop = "/home/craft/SSD/Homework/HGames/Playing";
                         netbook = "/home/craft/Homework/HGames/Playing";
-                        uconsole = "/home/craft/Homework/HGames/Favorites";
+                        uconsole = "/home/craft/Homework/HGames/Playing";
                     }."${host}";
 
                     devices = [
