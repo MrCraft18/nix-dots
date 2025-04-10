@@ -19,6 +19,17 @@
             };
 
             folders = {
+                ".zen" = {
+                    path = "/home/craft/.zen";
+
+                    devices = [
+                        "netbook"
+                        "uconsole"
+                    ];
+
+                    id = "81e7cfc6-f2b3-48ad-8efd-7189da2c79f7";
+                };
+
                 "HGames/Favorites" = {
                     path = {
                         desktop = "/home/craft/SSD/Homework/HGames/Favorites";
