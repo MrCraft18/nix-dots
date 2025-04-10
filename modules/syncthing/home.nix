@@ -19,16 +19,16 @@
             };
 
             folders = {
-                ".zen" = lib.mkIf (builtins.elem host [ "uconsole" "netbook" ]) {
-                    path = "/home/craft/.zen";
-
-                    devices = [
-                        "netbook"
-                        "uconsole"
-                    ];
-
-                    id = "81e7cfc6-f2b3-48ad-8efd-7189da2c79f7";
-                };
+                # ".zen" = lib.mkIf (builtins.elem host [ "uconsole" "netbook" ]) {
+                #     path = "/home/craft/.zen";
+                #
+                #     devices = [
+                #         "netbook"
+                #         "uconsole"
+                #     ];
+                #
+                #     id = "81e7cfc6-f2b3-48ad-8efd-7189da2c79f7";
+                # };
 
                 "HGames/Favorites" = lib.mkIf (builtins.elem host [ "desktop" "netbook" "zflip" ]) {
                     path = {
