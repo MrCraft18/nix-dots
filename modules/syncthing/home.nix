@@ -1,4 +1,4 @@
-{ config, host, ... }:
+{ config, lib, host, ... }:
 
 {
     services.syncthing = {
@@ -19,7 +19,7 @@
             };
 
             folders = {
-                ".zen" = {
+                ".zen" = lib.mkIf (builtins.elem host [ "uconsole" "netbook" ]) {
                     path = "/home/craft/.zen";
 
                     devices = [
@@ -30,11 +30,10 @@
                     id = "81e7cfc6-f2b3-48ad-8efd-7189da2c79f7";
                 };
 
-                "HGames/Favorites" = {
+                "HGames/Favorites" = lib.mkIf (builtins.elem host [ "desktop" "netbook" "zflip" ]) {
                     path = {
                         desktop = "/home/craft/SSD/Homework/HGames/Favorites";
                         netbook = "/home/craft/Homework/HGames/Favorites";
-                        uconsole = "/home/craft/Homework/HGames/Favorites";
                     }."${host}";
 
                     devices = [
@@ -46,11 +45,10 @@
                     id = "78e69817-7456-40dc-b0bc-8a8df2212354";
                 };
 
-                "HGames/Playing" = {
+                "HGames/Playing" = lib.mkIf (builtins.elem host [ "desktop" "netbook" "zflip" ]) {
                     path = {
                         desktop = "/home/craft/SSD/Homework/HGames/Playing";
                         netbook = "/home/craft/Homework/HGames/Playing";
-                        uconsole = "/home/craft/Homework/HGames/Playing";
                     }."${host}";
 
                     devices = [
@@ -63,7 +61,7 @@
                 };
 
 
-                "programming/nihon-go!" = {
+                "programming/nihon-go!" = lib.mkIf (builtins.elem host [ "desktop" "uconsole" "netbook" ]) {
                     path = "/home/craft/programming/nihon-go!";
 
                     devices = [
