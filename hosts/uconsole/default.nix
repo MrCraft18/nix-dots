@@ -18,12 +18,6 @@
     home-manager.users.craft = {
         home.packages = with pkgs; [
             vesktop
-            ngrok
-
-            x86pkgs.wineWowPackages.unstableFull
-            winetricks
-            box64
-            box86
         ] ++ [
             inputs.zen-browser.packages.${pkgs.system}.default
         ];

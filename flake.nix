@@ -96,13 +96,6 @@
                 pkgs = import nixpkgs {
                     system = "aarch64-linux";
                     config = { allowUnfree = true; };
-                    overlays = [
-                        (final: prev: {
-                            x86pkgs = import nixpkgs {
-                                system = "x86_64-linux";
-                            };
-                        })
-                    ];
                 };
                 specialArgs = {
                     inherit inputs;
@@ -131,6 +124,7 @@
                     ./modules/retroarch
                     ./modules/ssh-client
                     ./modules/localxpose
+                    ./modules/syncthing
                     ./modules/sops
                 ];
             };
