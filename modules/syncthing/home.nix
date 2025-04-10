@@ -23,14 +23,12 @@
                     path = {
                         desktop = "/home/craft/SSD/Homework/HGames/Favorites";
                         netbook = "/home/craft/Homework/HGames/Favorites";
-                        uconsole = "/home/craft/Homework/HGames/Favorites";
                     }."${host}";
 
                     devices = [
                         "desktop"
                         "netbook"
                         "zflip"
-                        "uconsole"
                     ];
 
                     id = "78e69817-7456-40dc-b0bc-8a8df2212354";
@@ -40,17 +38,28 @@
                     path = {
                         desktop = "/home/craft/SSD/Homework/HGames/Playing";
                         netbook = "/home/craft/Homework/HGames/Playing";
-                        uconsole = "/home/craft/Homework/HGames/Playing";
                     }."${host}";
 
                     devices = [
                         "desktop"
                         "netbook"
                         "zflip"
-                        "uconsole"
                     ];
 
                     id = "4a592e1b-c8e4-4e99-80cc-6db115059db0";
+                };
+
+
+                "programming/nihon-go!" = {
+                    path = "/home/craft/programming/nihon-go!";
+
+                    devices = [
+                        "desktop"
+                        "netbook"
+                        "uconsole"
+                    ];
+
+                    id = "fad2bb88-01f6-478d-ad5f-4f8f83b598c4";
                 };
             };
         };
