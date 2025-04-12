@@ -940,11 +940,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1742987571,
-        "narHash": "sha256-RP6LHiVAV6CWdgxh4rDUJq7bIOtve9EzgXwNhwcF760=",
+        "lastModified": 1744443929,
+        "narHash": "sha256-222spK4GHITADqVjcxea33q5m4wWbe1AmhWn6qm+0kY=",
         "owner": "MrCraft18",
         "repo": "playwright-server",
-        "rev": "b447560cfb77af03ecf972e15d49434ed1fd2397",
+        "rev": "f6ee689219d672520da09abf9db727264670c882",
         "type": "github"
       },
       "original": {

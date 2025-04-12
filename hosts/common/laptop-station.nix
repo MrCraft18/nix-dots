@@ -34,6 +34,7 @@
 
         environment = {
             HOST = "${config.networking.hostName}";
+            HEADLESS = "true";
         };
 
         serviceConfig = {
