@@ -56,6 +56,10 @@
         ];
     };
 
+    # Set User Password With sops
+    sops.secrets."craft_password".neededForUsers = true;
+    users.users.craft.hashedPasswordFile = config.sops.secrets."craft_password".path;
+
     #Auto Mount USB
     services.gvfs.enable = true;
     services.udisks2.enable = true;
@@ -81,7 +85,7 @@
 
     # Shared Home Config
     home-manager = {
-        backupFileExtension = "hmFileBackups";
+        backupFileExtension = "hmBackup";
         useGlobalPkgs = true;
         useUserPackages = true;
 

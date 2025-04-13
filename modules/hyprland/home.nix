@@ -20,7 +20,7 @@ in {
     }; 
 
     home.activation.cleanupHyprland = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        rm -f ~/.config/hypr/hyprland.conf
+        rm -f ~/.config/hypr/hyprland.conf.hmBackup
     '';
 
     wayland.windowManager.hyprland = {
