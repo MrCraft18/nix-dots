@@ -8,14 +8,15 @@
         ../common/tuigreet.nix
     ];
 
-    boot.loader.systemd-boot.enable = false;
-    boot.loader.grub.enable = true;
-
-    # Important for UEFI systems:
-    boot.loader.grub.efiSupport = true;
-
-    # 'nodev' tells NixOS not to install GRUB to an MBR (since UEFI doesn't use that)
-    boot.loader.grub.device = "nodev";
+    boot.loader = {
+        systemd-boot.enable = false;
+        grub = {
+            enable = true;
+            efiSupport = true;
+            device = "nodev";
+            useOSProber = true;
+        };
+    };
 
     services.openssh = {
         enable = true;
