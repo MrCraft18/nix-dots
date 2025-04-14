@@ -56,8 +56,23 @@
         ];
     };
 
+    # Set SSH Host Keys
+    sops.secrets."ssh_host_keys/${host}/rsa".path = "/etc/ssh/ssh_host_rsa_key";
+    sops.secrets."ssh_host_keys/${host}/ed25519".path = "/etc/ssh/ssh_host_ed25519_key";
+    services.openssh.hostKeys = [
+        {
+            path = "/etc/ssh/ssh_host_rsa_key";
+            type = "rsa";
+        }
+        {
+            path = "/etc/ssh/ssh_host_ed25519_key";
+            type = "ed25519";
+        }
+    ];
+
     # Set User Password With sops
     sops.secrets."craft_password".neededForUsers = true;
+    users.mutableUsers = false;
     users.users.craft.hashedPasswordFile = config.sops.secrets."craft_password".path;
 
     #Auto Mount USB
@@ -68,6 +83,7 @@
     environment.systemPackages = with pkgs; [
         btop
         git
+        gh
         bluez
         bat
         p7zip
@@ -98,8 +114,6 @@
             home.stateVersion = "24.05";
 
             home.packages = with pkgs; [
-                gh
-
                 # You can also create simple shell scripts directly inside your
                 # configuration. For example, this adds a command 'my-hello' to your
                 # environment:
@@ -114,6 +128,12 @@
             ] ++ [ 
                 # inputs.localxpose.packages.${pkgs.system}.default
             ];
+
+            programs.git = {
+                enable = true;
+                userName = "MrCraft18";
+                userEmail = "mariocaden@gmail.com";
+            };
         };
     };
 

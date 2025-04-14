@@ -42,20 +42,5 @@
         ];
     };
 
-    sops.secrets."private_ssh_keys/${host}".path = "/home/craft/.ssh/id_ed25519";
-
-    systemd.user.services.gen-ssh-pubkey = {
-        Unit = {
-            Description = "Generate SSH public key";
-            After = [ "sops-nix.service" ];
-            Wants = [ "sops-nix.service" ];
-        };
-        Service = {
-            Type = "oneshot";
-            ExecStart = "${pkgs.bash}/bin/bash -c 'ssh-keygen -y -f ~/.ssh/id_ed25519 > ~/.ssh/id_ed25519.pub'";
-        };
-        Install = {
-            WantedBy = [ "default.target" ];
-        };
-    };
+    sops.secrets."ssh_client_keys/${host}".path = "/home/craft/.ssh/id_ed25519";
 }
