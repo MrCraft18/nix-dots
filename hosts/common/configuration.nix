@@ -133,7 +133,89 @@
                 enable = true;
                 userName = "MrCraft18";
                 userEmail = "mariocaden@gmail.com";
+
+                extraConfig = {
+                    init.defaultBranch = "master";
+                    credential = {
+                        "https://gist.github.com" = {
+                            helper = [
+                                ""
+                                "!${pkgs.gh}/bin/gh auth git-credential"
+                            ];
+                        };
+
+                        "https://github.com" = {
+                            helper = [
+                                ""
+                                "!${pkgs.gh}/bin/gh auth git-credential"
+                            ];
+                        };
+                    };
+                };
             };
+
+            programs.gpg = {
+                enable = true;
+            };
+
+            home.sessionVariables = {
+                BEMENU_OPTS = "--center --width-factor 0.5 --margin 20 --line-height 30 --fn 'JetBrains Mono 12' --ff '#ffffff' --fb '#1d1f21'";
+            };
+
+            services.gpg-agent = {
+                enable = true;
+                pinentryPackage = pkgs.pinentry-rofi;
+                # pinentryPackage = pkgs.writeShellScriptBin "pinentry-hyprland" ''
+                #     if [ "$PINENTRY_USER_DATA" = "popup" ]; then
+                #         sleep 3
+                #         exec ${pkgs.pinentry-curses}/bin/pinentry "$@"
+                #     else
+                #         sleep 2
+                #
+                #         kitty sh -c '
+                #             export GPG_TTY=$(tty)
+                #             export PINENTRY_USER_DATA=popup
+                #             # gpgconf --kill gpg-agent
+                #             sleep 0.2
+                #             echo test | gpg --local-user mariocaden@gmail.com --sign
+                #         '
+                #
+                #         exec ${pkgs.pinentry-curses}/bin/pinentry "$@"
+                #
+                #         # exit 0
+                #     fi
+                # '';
+            };
+
+            programs.password-store = {
+                enable = true;
+                settings = {
+                    PASSWORD_STORE_DIR = "/home/craft/.password-store";
+                };
+            };
+
+            programs.browserpass.enable = true;
+
+            # xdg.desktopEntries.vesktop = {
+            #     name = "MongoDB Compass";
+            #     comment = "The MongoDB GUI";
+            #     genericName = "MongoDB Compass";
+            #     exec = ''mongodb-compass --password-store="gnome-libsecret" --ignore-additional-command-line-flags %U'';
+            #     icon = "mongodb-compass";
+            #     type = "Application";
+            #     startupNotify = true;
+            #     categories = [
+            #         "GNOME"
+            #         "GTK"
+            #         "Utility"
+            #     ];
+            #     mimeType = [
+            #         "x-scheme-handler/mongodb"
+            #         "x-scheme-handler/mongodb+srv"
+            #     ];
+            # };
+            #
+            # services.gnome-keyring.enable = true;
         };
     };
 

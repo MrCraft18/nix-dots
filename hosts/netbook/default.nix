@@ -38,6 +38,7 @@
             mongodb-compass
         ] ++ [
             inputs.zen-browser.packages.${pkgs.system}.default
+            inputs.lobster.packages.${pkgs.system}.lobster
         ];
 
         # TEMPORARYISH?

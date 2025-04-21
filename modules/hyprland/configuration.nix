@@ -7,9 +7,9 @@ in {
 
     hardware.graphics = {
         enable = true;
-        package = inputs.${hyprland}.inputs.nixpkgs.legacyPackages.${pkgs.system}.mesa.drivers;
+        # package = inputs.${hyprland}.inputs.nixpkgs.legacyPackages.${pkgs.system}.mesa.drivers;
 
-        # driSupport32Bit = true;
+        enable32Bit = true;
         # package32 = inputs.uconsole-hyprland.inputs.nixpkgs.legacyPackages.${pkgs.system}.pkgsi686Linux.mesa.drivers;
     };
 }

@@ -169,12 +169,29 @@
                     "oil.nvim" = {
                         package = pkgs.vimPlugins.oil-nvim;
                         setupModule = "oil";
-                        keys = [ { mode = [ "n" ]; key = "<Leader>o"; action = ":Oil<CR>"; noremap = true; silent = true; desc = "Open Oil"; } ];
+                        keys = [{
+                            mode = [ "n" ];
+                            key = "<Leader>o";
+                            lua = true;
+                            action = ''
+        function()
+          local bufname = vim.api.nvim_buf_get_name(0)
+          if bufname:match("^oil://") then
+            require("oil").close()
+          else
+            require("oil").open()
+          end
+        end
+                            '';
+                            desc = "Toggle Oil";
+                            silent = true;
+                        }];
                     };
 
                     "toggleterm.nvim" = {
                         package = pkgs.vimPlugins.toggleterm-nvim;
                         setupModule = "toggleterm";
+                        setupOpts = { direction = "float"; };
                         keys = [
                             { mode = [ "n" ]; key = "<Leader>t"; action = ":ToggleTerm<CR>"; noremap = true; silent = true; desc = "Toggle Terminal"; }
 
