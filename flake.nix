@@ -45,6 +45,21 @@
                 pkgs = import nixpkgs {
                     system = "x86_64-linux";
                     config = { allowUnfree = true; };
+
+                    overlays = [
+                        (self: super: {
+                            pinentry-rofi = super.pinentry-rofi.overrideAttrs (old: {
+                                postInstall = ''
+                                    wrapProgram $out/bin/pinentry-rofi --prefix PATH : ${
+                                        super.lib.makeBinPath [
+                                            super.rofi-wayland
+                                            super.coreutils
+                                        ]
+                                    }
+                                '';
+                            });
+                        })
+                    ];
                 };
                 specialArgs = {
                     inherit inputs;
@@ -80,7 +95,7 @@
 
                     # Used Modules
                     ./modules/hyprland
-                    ./modules/i3
+                    # ./modules/i3
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi
@@ -294,5 +309,10 @@
         localxpose.url = "github:MrCraft18/localxpose-flake";
 
         playwright-server.url = "github:MrCraft18/playwright-server";
+
+        lobster = {
+            url = "github:justchokingaround/lobster";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 }

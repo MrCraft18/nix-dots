@@ -12,11 +12,12 @@ in {
         hyprpaper
         yaru-theme
         wl-clipboard
-        wofi
+        rofi-wayland
     ];
 
     home.sessionVariables = {
         NIXOS_OZONE_WL = "1";
+        ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     }; 
 
     home.activation.cleanupHyprland = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -50,12 +51,22 @@ in {
             ];
 
             "$terminal" = "kitty";
-            "$menu" = "wofi --show drun";            
+            "$menu" = "rofi -show drun";            
 
-            # env = [
-            #     "XCURSOR_THEME,Yaru"                
-            #     "XCURSOR_SIZE,24"
-            # ];
+            env = [
+                "NIXOS_OZONE_WL,1"
+                "ELECTRON_OZONE_PLATFORM_HINT,wayland"
+
+                # "GDK_SCALE,2"
+                # "XCURSOR_THEME,Yaru"                
+                # "XCURSOR_SIZE,24"
+
+                # "GDK_SCALE,2"
+                # "QT_SCALE_FACTOR,2"
+                # "XCURSOR_SIZE,32"
+                # "ELECTRON_ENABLE_HIGH_DPI_SCALING,1"
+                # "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+            ];
 
             general = {
                 "gaps_in" = if host == "uconsole" then 0
@@ -176,7 +187,7 @@ in {
                 "$mainMod, B, exec, zen"
                 "$mainMod, E, exec, $fileManager"
                 "$mainMod, V, togglefloating,"
-                "$mainMod, R, exec, $menu"
+                "$mainMod, R, exec, NIXOS_OZONE_WL=1 ELECTRON_OZONE_PLATFORM_HINT=wayland $menu"
                 "$mainMod, P, pseudo," # dwindle
                 "$mainMod, S, togglesplit," # dwindle
                 "$mainMod, F, fullscreen,"
@@ -218,8 +229,8 @@ in {
                 "$mainMod, 4, workspace, 4"
                 "$mainMod, 5, workspace, 5"
                 "$mainMod, 6, workspace, 6"
-                "$mainMod, 7, workspace, 6"
-                "$mainMod, 8, workspace, 6"
+                "$mainMod, 7, workspace, 7"
+                "$mainMod, 8, workspace, 8"
                 "$mainMod, 9, workspace, 9"
                 "$mainMod, 0, workspace, 10"
 
@@ -248,12 +259,12 @@ in {
 
             bindel = [
                 # Laptop multimedia keys for volume and LCD brightness
-                ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-                ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+                ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+"
+                ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
                 ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
                 ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-                ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
-                ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+                ",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
+                ",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
             ];
             
             bindl = [
@@ -263,6 +274,8 @@ in {
                 ", XF86AudioPlay, exec, playerctl play-pause"
                 ", XF86AudioPrev, exec, playerctl previous"
             ];
+
+            # xwayland.force_zero_scaling = true;
 
             windowrulev2 = [
                 "suppressevent maximize, class:.*"

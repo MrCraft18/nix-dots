@@ -35,7 +35,7 @@
                     "cpu"
                     "memory"
                     "clock"
-                    "custom/power"
+                    # "custom/power"
                 ] else if host == "uconsole" then [
                     "pulseaudio"
                     "network"
@@ -56,7 +56,7 @@
                     "backlight"
                     "battery"
                     "clock"
-                    "custom/power"
+                    # "custom/power"
                 ];
 
 
