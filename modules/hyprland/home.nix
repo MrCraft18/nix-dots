@@ -29,6 +29,7 @@ in {
         xwayland.enable = true;
 
         package = inputs.${hyprland}.packages.${pkgs.system}.hyprland;
+        portalPackage = inputs.${hyprland}.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 
         settings = {
             monitor = if host == "netbook" then [
@@ -87,7 +88,7 @@ in {
 
                 "layout" = "dwindle";
             };
-            
+
             decoration = {
                 rounding = if host == "uconsole" then 0
                 else if host == "netbook" then 5
@@ -142,16 +143,16 @@ in {
                     "workspacesOut, 1, 1.94, almostLinear, fade"
                 ];
             };
-            
+
             dwindle = {
                 pseudotile = true;
                 preserve_split =true;
             };
-            
+
             master = {
                 new_status = "master";
             };
-            
+
             misc = {
                 force_default_wallpaper = -1;
                 disable_hyprland_logo = false;
@@ -265,7 +266,7 @@ in {
                 ",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
                 ",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
             ];
-            
+
             bindl = [
                 # Requires playerctl
                 ", XF86AudioNext, exec, playerctl next"

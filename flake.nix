@@ -311,7 +311,7 @@
 
         oom-hardware.url = "github:MrCraft18/oom-hardware";
 
-        hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
+        hyprland.url = "github:hyprwm/Hyprland/v0.48.1";
 
         uconsole-hyprland = {
             url = "github:hyprwm/Hyprland/v0.45.2";
