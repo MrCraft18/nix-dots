@@ -1,7 +1,7 @@
 {
     description = "Should be a System Flake";
 
-    outputs = { self, nixpkgs, home-manager, ... } @inputs: {
+    outputs = { self, nixpkgs, home-manager, nix-on-droid, ... } @inputs: {
         nixosConfigurations = {
             desktop = nixpkgs.lib.nixosSystem {
                 pkgs = import nixpkgs {
@@ -240,41 +240,51 @@
         };  
 
         homeConfigurations = {
-            # "craft@desktop" = home-manager.lib.homeManagerConfiguration {
-            #     pkgs = import nixpkgs {
-            #         system = "x86_64-linux";
-            #         config = { allowUnfree = true; };
-            #     };
-            #     extraSpecialArgs = {
-            #         inherit inputs;
-            #         host = "desktop";
-            #     };
-            #     modules = [ ./home.nix ];
-            # };
-            #
-            # "user@netbook" = home-manager.lib.homeManagerConfiguration {
-            #     pkgs = import nixpkgs {
-            #         system = "x86_64-linux";
-            #         config = { allowUnfree = true; };
-            #     };
-            #     extraSpecialArgs = {
-            #         inherit inputs;
-            #         host = "netbook";
-            #     };
-            #     modules = [ ./home.nix ];
-            # };
-            #
-            # "user@uconsole" = home-manager.lib.homeManagerConfiguration {
-            #     pkgs = import nixpkgs {
-            #         system = "aarch64-linux";
-            #         config = { allowUnfree = true; };
-            #     };
-            #     extraSpecialArgs = {
-            #         inherit inputs;
-            #         host = "uconsole";
-            #     };
-            #     modules = [ ./home.nix ];
-            # };
+            "craft" = home-manager.lib.homeManagerConfiguration {
+                pkgs = import nixpkgs {
+                    system = "aarch64-linux";
+                    config = { allowUnfree = true; };
+                };
+                extraSpecialArgs = {
+                    inherit inputs;
+                    buildScope = "home-manager";
+                };
+                modules = [
+                    ./hosts/commom/home.nix
+                    ./modules/nvf
+                ];
+            };
+        };
+
+        nixOnDroidConfigurations = {
+            default = nix-on-droid.lib.nixOnDroidConfiguration {
+                pkgs = import nixpkgs {
+                    system = "aarch64-linux";
+                    config = { allowUnfree = true; };
+                    overlays = [ nix-on-droid.overlays.default ];
+                };
+                extraSpecialArgs = {
+                    inherit inputs;
+                    host = "zflip";
+                    buildScope = "nix-on-droid";
+                };
+                modules = [
+                    { 
+                        home-manager = {
+                            useGlobalPkgs = true;
+                            extraSpecialArgs = {
+                                inherit inputs;
+                                host = "zflip";
+                            };
+                        };
+                    }
+
+                    ./hosts/zflip
+
+                    ./modules/nvf
+                ];
+                home-manager-path = home-manager.outPath;
+            }; 
         };
     };
 
@@ -286,6 +296,12 @@
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        nix-on-droid = {
+            url = "github:nix-community/nix-on-droid";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.home-manager.follows = "home-manager";
         };
 
         sops-nix = {
