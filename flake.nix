@@ -240,57 +240,51 @@
         };  
 
         homeConfigurations = {
-            # "craft@desktop" = home-manager.lib.homeManagerConfiguration {
-            #     pkgs = import nixpkgs {
-            #         system = "x86_64-linux";
-            #         config = { allowUnfree = true; };
-            #     };
-            #     extraSpecialArgs = {
-            #         inherit inputs;
-            #         host = "desktop";
-            #     };
-            #     modules = [ ./home.nix ];
-            # };
-            #
-            # "user@netbook" = home-manager.lib.homeManagerConfiguration {
-            #     pkgs = import nixpkgs {
-            #         system = "x86_64-linux";
-            #         config = { allowUnfree = true; };
-            #     };
-            #     extraSpecialArgs = {
-            #         inherit inputs;
-            #         host = "netbook";
-            #     };
-            #     modules = [ ./home.nix ];
-            # };
-
-            "zflip" = home-manager.lib.homeManagerConfiguration {
+            "craft" = home-manager.lib.homeManagerConfiguration {
                 pkgs = import nixpkgs {
                     system = "aarch64-linux";
                     config = { allowUnfree = true; };
                 };
                 extraSpecialArgs = {
                     inherit inputs;
-                    host = "uconsole";
                     buildScope = "home-manager";
                 };
                 modules = [
+                    ./hosts/commom/home.nix
                     ./modules/nvf
                 ];
             };
         };
 
-        nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-            pkgs = import nixpkgs {
-                system = "aarch64-linux";
-                config = { allowUnfree = true; };
-		overlays = [ nix-on-droid.overlays.default ];
-            };
-            extraSpecialArgs = {
-                inherit inputs;
-                host = "zflip";
-            };
-            modules = [ ./hosts/zflip ];
+        nixOnDroidConfigurations = {
+            default = nix-on-droid.lib.nixOnDroidConfiguration {
+                pkgs = import nixpkgs {
+                    system = "aarch64-linux";
+                    config = { allowUnfree = true; };
+                    overlays = [ nix-on-droid.overlays.default ];
+                };
+                extraSpecialArgs = {
+                    inherit inputs;
+                    host = "zflip";
+                    buildScope = "nix-on-droid";
+                };
+                modules = [
+                    { 
+                        home-manager = {
+                            useGlobalPkgs = true;
+                            extraSpecialArgs = {
+                                inherit inputs;
+                                host = "zflip";
+                            };
+                        };
+                    }
+
+                    ./hosts/zflip
+
+                    ./modules/nvf
+                ];
+                home-manager-path = home-manager.outPath;
+            }; 
         };
     };
 
