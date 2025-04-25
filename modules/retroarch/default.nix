@@ -1,15 +1,11 @@
 { buildScope, lib, ... }:
 
-let
-    imports = {
-        nixos = [ ./configuration.nix ];
-        home-manager = [ ./home.nix ];
-        nix-on-droid = [];
-    }."${buildScope}";
-in {
-    inherit imports;
+if buildScope == "nixos" then {
+    imports = [ ./configuration.nix ];
 
-    home-manager = lib.mkIf (buildScope == "nix-on-droid") {
-        config.imports = [ ./home.nix ];
-    };
-}
+    home-manager.users.craft.imports = [ ./home.nix ];
+} else if buildScope == "home-manager" then {
+    imports = [ ./home.nix ];
+} else if buildScope == "nix-on-droid" then {
+    home-manager.config.imports = [ ./home.nix ];
+} else { }
