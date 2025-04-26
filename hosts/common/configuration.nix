@@ -75,6 +75,9 @@
     users.mutableUsers = false;
     users.users.craft.hashedPasswordFile = config.sops.secrets."craft_password".path;
 
+    # Enable Mosh
+    programs.mosh.enable = true;
+
     #Auto Mount USB
     services.gvfs.enable = true;
     services.udisks2.enable = true;
