@@ -87,6 +87,7 @@
         btop
         git
         gh
+        lazygit
         bluez
         bat
         p7zip
