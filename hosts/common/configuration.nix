@@ -85,7 +85,6 @@
     # Basic System Level Packages
     environment.systemPackages = with pkgs; [
         btop
-        git
         gh
         lazygit
         bluez
