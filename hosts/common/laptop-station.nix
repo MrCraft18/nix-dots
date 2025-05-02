@@ -28,21 +28,21 @@
 
     networking.firewall.allowedTCPPorts = [ 3501 ];
 
-    systemd.services.playwright-server = {
-        description = "playwright-server agent";
+    systemd.services.scraping-client = {
+        description = "REventures scraping agent";
         after = [ "network.target" ];
-
-        environment = {
-            HOST = "${config.networking.hostName}";
-            HEADLESS = "true";
-        };
+        wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
-            ExecStart = inputs.playwright-server.apps.${pkgs.system}.default.program;
-            Restart = "always";
-            RestartSec = 5;
-        };
+            Type = "forking";
 
-        wantedBy = [ "multi-user.target" ];
+            ExecStart = ''${pkgs.tmux}/bin/tmux -L scraping-client new -d "nix develop '#scrape-client' --command node scraping/index.js"'';
+            ExecStop = "${pkgs.tmux}/bin/tmux -L scraping-client kill-session";
+            WorkingDirectory = "/home/craft/REventures";
+            Restart = "on-failure";
+            RestartSec = 10;
+            KillMode = "control-group";
+            User = "craft";
+        };
     };
 }

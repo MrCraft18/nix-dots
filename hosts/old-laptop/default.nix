@@ -7,19 +7,22 @@
         ../common/laptop-station.nix
     ];
 
-    systemd.services.JVF-index = {
-        description = "JVF scraper manager agent";
+    systemd.services.post-processor = {
+        description = "REventures post processor";
         after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
-            ExecStart = "/run/current-system/sw/bin/nix develop /home/craft/programming/JVF/ --command node /home/craft/programming/JVF/index.js";
-            WorkingDirectory = "/home/craft/programming/JVF";
-            Restart = "always";
+            Type = "forking";
+
+            ExecStart = ''${pkgs.tmux}/bin/tmux -L post-processor new -d "nix develop '#post-processing' --command node post-processing/index.js"'';
+            ExecStop = "${pkgs.tmux}/bin/tmux -L post-processor kill-server";
+            WorkingDirectory = "/home/craft/REventures";
+            Restart = "on-failure";
             RestartSec = 10;
+            KillMode = "control-group";
             User = "craft";
         };
-
-        wantedBy = [ "multi-user.target" ];
     };
 
     # This value determines the NixOS release from which the default
