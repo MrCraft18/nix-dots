@@ -33,6 +33,7 @@
                     ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
+                    ./modules/zellij
                     ./modules/retroarch
                     ./modules/ssh-client
                     ./modules/localxpose
@@ -100,6 +101,7 @@
                     ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
+                    ./modules/zellij
                     ./modules/ssh-client
                     ./modules/localxpose
                     ./modules/syncthing
@@ -136,6 +138,7 @@
                     ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
+                    ./modules/zellij
                     ./modules/retroarch
                     ./modules/ssh-client
                     ./modules/localxpose
@@ -282,6 +285,7 @@
                     ./hosts/zflip
 
                     ./modules/nvf
+                    ./modules/zellij
                 ];
                 home-manager-path = home-manager.outPath;
             }; 
