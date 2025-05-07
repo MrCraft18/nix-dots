@@ -30,6 +30,8 @@
                     # ./modules/i3
                     ./modules/zsh
                     # ./modules/nvim
+                    ./modules/git
+                    ./modules/password-store
                     ./modules/nvf
                     ./modules/yazi
                     ./modules/kitty
@@ -98,6 +100,8 @@
                     ./modules/hyprland
                     ./modules/stylix
                     # ./modules/i3
+                    ./modules/git
+                    ./modules/password-store
                     ./modules/zsh
                     ./modules/nvf
                     ./modules/yazi
@@ -137,6 +141,8 @@
                     ./modules/zsh
                     # ./modules/nvim
                     ./modules/nvf
+                    ./modules/git
+                    ./modules/password-store
                     ./modules/yazi
                     ./modules/stylix
                     ./modules/kitty
