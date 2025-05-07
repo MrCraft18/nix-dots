@@ -8,9 +8,6 @@
         ../common/tuigreet.nix
     ];
 
-    #TEMP RESCUE
-    users.mutableUsers = true;
-
     boot.loader.systemd-boot.enable = false;
 
     environment.systemPackages = with pkgs; [
