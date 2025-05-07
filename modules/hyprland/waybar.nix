@@ -1,4 +1,4 @@
-{ host, ... }:
+{ lib, host, ... }:
 
 {
     programs.waybar = {
@@ -20,86 +20,67 @@
                 # "width": 1280,
 
                 # Gaps between modules (4px)
-                spacing = if host == "uconsole" then 0 else 4; 
+                spacing = 4; 
 
                 # Choose the order of the modules
                 modules-left = [
-                    "hyprland/workspaces"
+                    "clock"
                 ];
-                modules-center = if host == "uconsole" then [] else [
-                    "hyprland/window"
+                modules-center = [
+                    "hyprland/workspaces"
                 ];
                 modules-right = if host == "desktop" then [
                     "pulseaudio"
                     "network"
                     "cpu"
                     "memory"
-                    "clock"
-                    # "custom/power"
                 ] else if host == "uconsole" then [
                     "pulseaudio"
                     "network"
-                    "power-profiles-daemon"
                     "cpu"
                     "memory"
                     "temperature"
                     "battery"
-                    "clock"
                 ] else [
                     "mpd"
                     "pulseaudio"
                     "network"
-                    "power-profiles-daemon"
                     "cpu"
                     "memory"
                     "temperature"
                     "backlight"
                     "battery"
-                    "clock"
-                    # "custom/power"
                 ];
 
 
 
                 # Modules configuration
-                # "sway/workspaces": {
-                #     "disable-scroll": true,
-                #     "all-outputs": true,
-                #     "warp-on-scroll": false,
-                #     "format": "{name}: {icon}",
-                #     "format-icons": {
-                #         "1": "",
-                #         "2": "",
-                #         "3": "",
-                #         "4": "",
-                #         "5": "",
-                #         "urgent": "",
-                #         "focused": "",
-                #         "default": ""
-                #     }
-                # },
                 clock = {
-                    # timezone = "Asia/Tokyo";
+                    interval = 1;
+                    format = "{:%A, %B %d, %Y %H:%M:%S}";
+                    on-click = "";
+                    on-click-middle = "";
+                    on-click-right = "";
+                    on-scroll-up = "";
+                    on-scroll-down = "";
                     tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-                    format-alt = "{:%Y-%m-%d}";
                 };
                 cpu = {
-                    format = "{usage}% ";
+                    format = "CPU {usage}%";
                     tooltip = false;
                 };
                 memory = {
-                    format = "{}% ";
+                    format = "RAM {}%";
                 };
                 temperature = {
                     # "thermal-zone": 2,
                     critical-threshold = 80;
                     # "format-critical": "{temperatureC}°C {icon}",
-                    format = "{temperatureC}°C {icon}";
-                    format-icons = ["" "" ""];
+                    format = "TEMP {temperatureC}°";
                 };
                 backlight = {
                     # "device": "acpi_video1",
-                    format = "{percent}% {icon}";
+                    format = "BRIGHT {percent}%";
                     format-icons = ["" "" "" "" "" "" "" "" ""];
                 };
                 battery = {
@@ -108,38 +89,27 @@
                         warning = 30;
                         critical = 15;
                     };
-                    format = "{capacity}% {icon}";
-                    format-full = "{capacity}% {icon}";
-                    format-charging = "{capacity}% ";
-                    format-plugged = "{capacity}% ";
-                    format-alt = "{time} {icon}";
+                    format = "BAT {capacity}%";
+                    # format-full = "{capacity}% {icon}";
+                    # format-charging = "{capacity}% ";
+                    # format-plugged = "{capacity}% ";
+                    # format-alt = "{time} {icon}";
                     # "format-good": "", # An empty format will hide the module
                     # "format-full": "",
-                    format-icons = ["" "" "" "" ""];
-                };
-                power-profiles-daemon = {
-                    format = "{icon}";
-                        tooltip-format = "Power profile: {profile}\nDriver: {driver}";
-                        tooltip = true;
-                    format-icons = {
-                        default = "";
-                        performance = "";
-                        balanced = "";
-                        power-saver = "";
-                    };
+                    # format-icons = ["" "" "" "" ""];
                 };
                 network = {
                     # "interface": "wlp2*", # (Optional) To force the use of this interface
-                    format-wifi = "{signalStrength}% ";
-                    format-ethernet = "{ipaddr}/{cidr} ";
-                    tooltip-format = "{ifname} via {gwaddr} ";
-                    format-linked = "{ifname} (No IP) ";
-                    format-disconnected = "Disconnected ⚠";
+                    format-wifi = "WIFI {signalStrength}%";
+                    format-ethernet = "WIFI ETH";
+                    tooltip-format = "{ifname} via {gwaddr}";
+                    format-linked = "{ifname} (No IP)";
+                    format-disconnected = "WIFI NONE";
                     format-alt = "{ifname}: {ipaddr}/{cidr}";
                 };
                 pulseaudio = {
                     # "scroll-step": 1, # %, can be a float
-                    format = "{volume}% {icon}";
+                    format = "SOUND {volume}%";
                     format-bluetooth = "{volume}% {icon} {format_source}";
                     format-bluetooth-muted = " {icon} {format_source}";
                     format-muted = " {format_source}";
@@ -156,39 +126,16 @@
                     };
                     on-click = "pavucontrol";
                 };
-                "custom/power" = {
-                    format = "⏻ ";
-                    tooltip = false;
-                    menu = "on-click";
-                    menu-file = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
-                    menu-actions = {
-                        shutdown = "shutdown";
-                        reboot = "reboot";
-                        suspend = "systemctl suspend";
-                        hibernate = "systemctl hibernate";
-                    };
-                };
             };
         };
 
 
 
-
-
-
-        style = ''
+        style = lib.mkAfter ''
             * {
                 border: none;
                 border-radius: 0;
-                font-family: Roboto,'Font Awesome 5', 'SFNS Display',  Helvetica, Arial, sans-serif;
-                font-size: 13px;
                 min-height: 0;
-            }
-
-            window#waybar {
-                background: rgba(43, 48, 59, 0.5);
-                /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
-                color: #ffffff;
             }
 
             window#waybar.hidden {
@@ -203,119 +150,88 @@
                 border-bottom: 3px solid transparent;
             }
 
-            #workspaces button.focused {
-                background: #64727D;
-                border-bottom: 3px solid #ffffff;
+
+            .modules-left #workspaces button {
+                border-bottom: 3px solid transparent;
+            }
+
+            .modules-left #workspaces button.focused, .modules-left #workspaces button.active {
+                border-bottom: 3px solid @base05;
+            }
+            .modules-center #workspaces button {
+                border-bottom: 3px solid transparent;
+            }
+            .modules-center #workspaces button.focused, .modules-center #workspaces button.active {
+                border-bottom: 3px solid @base05;
+            }
+            .modules-right #workspaces button {
+                border-bottom: 3px solid transparent;
+            }
+            .modules-right #workspaces button.focused, .modules-right #workspaces button.active {
+                border-bottom: 3px solid @base05;
             }
 
             #workspaces button.urgent {
                 background-color: #eb4d4b;
             }
 
-            #mode {
-                background: #64727D;
-                border-bottom: 3px solid #ffffff;
-            }
-
-            #clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-media, #tray, #mode, #idle_inhibitor {
-                padding: 0 10px;
-                /* margin: 0 5px; */
-            }
-
             #clock {
-                background-color: #64727D;
+                color: @base05;
+                border-bottom: 3px solid @base05;
             }
 
             #battery {
-                background-color: #ffffff;
-                color: #000000;
+                color: @base0B;
+                border-bottom: 3px solid @base0B;
             }
 
             #battery.charging {
-                color: #ffffff;
-                background-color: #26A65B;
-            }
-
-            @keyframes blink {
-                to {
-                    background-color: #ffffff;
-                    color: #000000;
-                }
+                color: @base0A;
+                border-bottom: 3px solid @base0A;
             }
 
             #battery.critical:not(.charging) {
-                background: #f53c3c;
-                color: #ffffff;
-                animation-name: blink;
-                animation-duration: 0.5s;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                animation-direction: alternate;
+                color: @base0F;
+                border-bottom: 3px solid @base0F;
             }
 
             #cpu {
-                background: #2ecc71;
-                color: #000000;
+                color: @base0E;
+                border-bottom: 3px solid @base0E;
             }
 
             #memory {
-                background: #9b59b6;
+                color: @base09;
+                border-bottom: 3px solid @base09;
             }
 
             #backlight {
-                background: #90b1b1;
+                color: @base07;
+                border-bottom: 3px solid @base07;
             }
 
             #network {
-                background: #2980b9;
+                color: @base0C;
+                border-bottom: 3px solid @base0C;
             }
 
             #network.disconnected {
-                background: #f53c3c;
+                color: @base0F;
+                border-bottom: 3px solid @base0F;
             }
 
             #pulseaudio {
-                background: #f1c40f;
-                color: #000000;
-            }
-
-            #pulseaudio.muted {
-                background: #90b1b1;
-                color: #2a5c45;
-            }
-
-            #custom-media {
-                background: #66cc99;
-                color: #2a5c45;
-            }
-
-            .custom-spotify {
-                background: #66cc99;
-            }
-
-            .custom-vlc {
-                background: #ffa000;
+                color: @base0A;
+                border-bottom: 3px solid @base0A;
             }
 
             #temperature {
-                background: #f0932b;
+                color: @base0D;
+                border-bottom: 3px solid @base0D;
             }
 
             #temperature.critical {
                 background: #eb4d4b;
-            }
-
-            #tray {
-                background-color: #2980b9;
-            }
-
-            #idle_inhibitor {
-                background-color: #2d3436;
-            }
-
-            #idle_inhibitor.activated {
-                background-color: #ecf0f1;
-                color: #2d3436;
             }
         '';
     };

@@ -96,6 +96,7 @@
 
                     # Used Modules
                     ./modules/hyprland
+                    ./modules/stylix
                     # ./modules/i3
                     ./modules/zsh
                     ./modules/nvf
@@ -312,6 +313,8 @@
             url = "github:mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        stylix.url = "github:danth/stylix";
 
         oom-hardware.url = "github:MrCraft18/oom-hardware";
 

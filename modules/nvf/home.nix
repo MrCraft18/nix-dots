@@ -106,7 +106,7 @@
 
                 statusline.lualine = {
                     enable = true;
-                    theme = "onedark";
+                    # theme = "onedark";
                 };
 
                 tabline.nvimBufferline.enable = true;
@@ -159,12 +159,12 @@
                 presence.neocord.enable = true;
 
                 lazy.plugins = {
-                    "onedarkpro.nvim" = {
-                        package = pkgs.vimPlugins.onedarkpro-nvim;
-                        setupModule = "onedarkpro";
-                        setupOpts = { colors.onedark.bg = "#16181c"; };
-                        after = ''vim.cmd("colorscheme onedark")'';
-                    };
+                    # "onedarkpro.nvim" = {
+                    #     package = pkgs.vimPlugins.onedarkpro-nvim;
+                    #     setupModule = "onedarkpro";
+                    #     setupOpts = { colors.onedark.bg = "#16181c"; };
+                    #     after = ''vim.cmd("colorscheme onedark")'';
+                    # };
 
                     "oil.nvim" = {
                         package = pkgs.vimPlugins.oil-nvim;
