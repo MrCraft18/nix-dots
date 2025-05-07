@@ -138,6 +138,7 @@
                     # ./modules/nvim
                     ./modules/nvf
                     ./modules/yazi
+                    ./modules/stylix
                     ./modules/kitty
                     ./modules/zellij
                     ./modules/retroarch
