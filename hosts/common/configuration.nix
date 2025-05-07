@@ -110,8 +110,7 @@
 
         users.craft.imports = [ ./home.nix ];
 
-        users.craft = {
-        };
+        users.craft = { };
     };
 
     # Use zsh

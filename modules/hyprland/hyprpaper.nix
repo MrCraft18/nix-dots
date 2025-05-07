@@ -1,4 +1,4 @@
-{ host, ... }:
+{ config, host, ... }:
 
 {
     services.hyprpaper = {
@@ -6,11 +6,11 @@
 
         settings = if host == "uconsole" then {
             preload = [
-                "/home/craft/nix-dots/modules/hyprland/walls/uconsole.png"
+                "${config.home.homeDirectory}/nix-dots/modules/hyprland/walls/uconsole.png"
             ];
 
             wallpaper = [
-                ", /home/craft/nix-dots/modules/hyprland/walls/uconsole.png"
+                ", ${config.home.homeDirectory}/nix-dots/modules/hyprland/walls/uconsole.png"
             ];
         } else {};
     };

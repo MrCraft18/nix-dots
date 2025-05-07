@@ -9,19 +9,13 @@
 	home.stateVersion = "24.05";
 
 	home.packages = with pkgs; [
-# You can also create simple shell scripts directly inside your
-# configuration. For example, this adds a command 'my-hello' to your
-# environment:
 		(pkgs.writeShellScriptBin "my-hello" ''
-		 echo "${host}"
+             echo "${config.home.homeDirectory}"
 		 '')
 
-			(pkgs.writeShellScriptBin "gen-age-keys" ''
-			 mkdir -p ~/.config/sops/age && nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/keys.txt && nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
-			 '')
-
-	] ++ [ 
-# inputs.localxpose.packages.${pkgs.system}.default
+        (pkgs.writeShellScriptBin "gen-age-keys" ''
+             mkdir -p ~/.config/sops/age && nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/keys.txt && nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
+        '')
 	];
 
 	programs.git = {

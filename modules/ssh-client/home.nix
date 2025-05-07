@@ -42,5 +42,5 @@
         ];
     };
 
-    sops.secrets."ssh_client_keys/${host}".path = "/home/craft/.ssh/id_ed25519";
+    sops.secrets."ssh_client_keys/${host}".path = "${config.home.homeDirectory}/.ssh/id_ed25519";
 }
