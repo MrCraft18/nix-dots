@@ -286,8 +286,11 @@
 
                     ./hosts/zflip
 
+                    ./modules/zsh
                     ./modules/nvf
                     ./modules/zellij
+                    ./modules/git
+                    ./modules/password-store
                 ];
                 home-manager-path = home-manager.outPath;
             }; 
