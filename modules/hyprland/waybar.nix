@@ -23,10 +23,14 @@
                 spacing = 4; 
 
                 # Choose the order of the modules
-                modules-left = [
+                modules-left = if host == "uconsole" then [
+                    "hyprland/workspaces"
+                ] else [
                     "clock"
                 ];
-                modules-center = [
+                modules-center = if host == "uconsole" then [
+
+                ] else [
                     "hyprland/workspaces"
                 ];
                 modules-right = if host == "desktop" then [
@@ -41,6 +45,7 @@
                     "memory"
                     "temperature"
                     "battery"
+                    "clock"
                 ] else [
                     "mpd"
                     "pulseaudio"
@@ -80,7 +85,7 @@
                 };
                 backlight = {
                     # "device": "acpi_video1",
-                    format = "BRIGHT {percent}%";
+                    format = "LIGHT {percent}%";
                     format-icons = ["" "" "" "" "" "" "" "" ""];
                 };
                 battery = {

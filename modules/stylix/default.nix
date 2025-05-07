@@ -3,7 +3,7 @@
 if buildScope == "nixos" then {
     imports = [ ./configuration.nix ];
 
-    # home-manager.users.craft.imports = [ ./home.nix ];
+    home-manager.users.craft.imports = [ ./home.nix ];
 } else if buildScope == "home-manager" then {
     imports = [ ./home.nix ];
 } else if buildScope == "nix-on-droid" then {

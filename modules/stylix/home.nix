@@ -1,8 +1,10 @@
 { lib, inputs, buildScope, ... }:
 
 {
-    imports = lib.mkIf (buildScope == "home-manager") [
+    imports = lib.optionals (buildScope == "home-manager") [
         inputs.stylix.homeManagerModules.stylix
         ./stylix.nix
     ];
+
+    stylix.targets.waybar.addCss = false;
 }
