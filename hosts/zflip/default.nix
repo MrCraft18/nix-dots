@@ -16,7 +16,10 @@
         iproute2
         nettools
         glib.bin
-        # bat
+        bat
+        mosh
+        tmux
+        lazygit
 
         # Some common stuff that people expect to have
         #procps
@@ -49,6 +52,8 @@
         xdg-open.enable = true;
     };
 
+    user.shell = "${pkgs.zsh}/bin/zsh";
+
     # Backup etc files instead of failing to activate generation if a file already exists in /etc
     environment.etcBackupExtension = ".bak";
 
@@ -61,9 +66,10 @@
     '';
 
     environment.etc."resolv.conf".text = lib.mkForce ''
-        nameserver 1.1.1.1
-        nameserver 8.8.8.8
+        nameserver 100.100.100.100
     '';
+
+    terminal.font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFontMono-Regular.ttf";
 
     home-manager = {
         config = {
@@ -73,13 +79,6 @@
 
             home.username = "nix-on-droid";
             home.homeDirectory = "/data/data/com.termux.nix/files/home";
-
-            # home.file.".bashrc".text =
-            # let dnshack = pkgs.callPackage (builtins.fetchTarball "https://github.com/ettom/dnshack/tarball/master") { };
-            # in ''
-            #     export DNSHACK_RESOLVER_CMD="${dnshack}/bin/dnshackresolver"
-            #     export LD_PRELOAD="${dnshack}/lib/libdnshackbridge.so"
-            # '';
         };
     };
 }
