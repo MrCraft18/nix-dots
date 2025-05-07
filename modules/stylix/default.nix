@@ -7,5 +7,7 @@ if buildScope == "nixos" then {
 } else if buildScope == "home-manager" then {
     imports = [ ./home.nix ];
 } else if buildScope == "nix-on-droid" then {
+    imports = [ ./droid-configuration.nix ];
+
     home-manager.config.imports = [ ./home.nix ];
 } else { }
