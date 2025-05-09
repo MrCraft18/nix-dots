@@ -23,14 +23,10 @@
                 spacing = 4; 
 
                 # Choose the order of the modules
-                modules-left = if host == "uconsole" then [
-                    "hyprland/workspaces"
-                ] else [
+                modules-left = [
                     "clock"
                 ];
-                modules-center = if host == "uconsole" then [
-
-                ] else [
+                modules-center = [
                     "hyprland/workspaces"
                 ];
                 modules-right = if host == "desktop" then [
@@ -45,7 +41,6 @@
                     "memory"
                     "temperature"
                     "battery"
-                    "clock"
                 ] else [
                     "mpd"
                     "pulseaudio"
@@ -71,21 +66,21 @@
                     tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
                 };
                 cpu = {
-                    format = "CPU {usage}%";
+                    format = "  {usage}%";
                     tooltip = false;
                 };
                 memory = {
-                    format = "RAM {}%";
+                    format = "  {}%";
                 };
                 temperature = {
                     # "thermal-zone": 2,
                     critical-threshold = 80;
                     # "format-critical": "{temperatureC}°C {icon}",
-                    format = "TEMP {temperatureC}°";
+                    format = " {temperatureC}°";
                 };
                 backlight = {
                     # "device": "acpi_video1",
-                    format = "LIGHT {percent}%";
+                    format = "  {percent}%";
                     format-icons = ["" "" "" "" "" "" "" "" ""];
                 };
                 battery = {
@@ -94,7 +89,7 @@
                         warning = 30;
                         critical = 15;
                     };
-                    format = "BAT {capacity}%";
+                    format = "  {capacity}%";
                     # format-full = "{capacity}% {icon}";
                     # format-charging = "{capacity}% ";
                     # format-plugged = "{capacity}% ";
@@ -105,16 +100,16 @@
                 };
                 network = {
                     # "interface": "wlp2*", # (Optional) To force the use of this interface
-                    format-wifi = "WIFI {signalStrength}%";
-                    format-ethernet = "WIFI ETH";
+                    format-wifi = "  {signalStrength}%";
+                    format-ethernet = "  ETH";
                     tooltip-format = "{ifname} via {gwaddr}";
                     format-linked = "{ifname} (No IP)";
-                    format-disconnected = "WIFI NONE";
+                    format-disconnected = "  NONE";
                     format-alt = "{ifname}: {ipaddr}/{cidr}";
                 };
                 pulseaudio = {
                     # "scroll-step": 1, # %, can be a float
-                    format = "SOUND {volume}%";
+                    format = "󰕾  {volume}%";
                     format-bluetooth = "{volume}% {icon} {format_source}";
                     format-bluetooth-muted = " {icon} {format_source}";
                     format-muted = " {format_source}";
@@ -181,7 +176,7 @@
             }
 
             #clock {
-                color: @base05;
+                color: @base07;
                 border-bottom: 3px solid @base05;
             }
 
