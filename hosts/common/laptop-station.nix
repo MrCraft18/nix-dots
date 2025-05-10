@@ -39,7 +39,7 @@
             ExecStart = ''${pkgs.tmux}/bin/tmux -L scraping-client new -d "nix develop '#scrape-client' --command node scraping/index.js"'';
             ExecStop = "${pkgs.tmux}/bin/tmux -L scraping-client kill-session";
             WorkingDirectory = "/home/craft/REventures";
-            Restart = "on-failure";
+            Restart = "always";
             RestartSec = 10;
             KillMode = "control-group";
             User = "craft";
