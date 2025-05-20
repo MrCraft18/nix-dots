@@ -161,19 +161,12 @@ in {
             };
 
             input = {
-                kb_layout = "us";
-                # kb_variant =
-                # kb_model =
-                # kb_options =
-                # kb_rules =
+                kb_layout = if host == "panasonic" then "jp" else "us";
+                kb_model = lib.mkIf (host == "panasonic") "jp106";
 
                 follow_mouse = 1;
 
                 sensitivity = if host == "netbook" then -0.25 else 0;
-
-                touchpad = {
-                    natural_scroll = false;
-                };
             };
 
             gestures = {
