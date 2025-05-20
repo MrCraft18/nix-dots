@@ -42,6 +42,8 @@ in {
                 "DP-1, preferred, 1920x0, 1"
                 "HDMI-A-1, preferred, 4480x0, 1"
                 "DP-2, preferred, 7040x0, 1"
+            ] else if host == "panasonic" then [
+                "LVDS-1, preferred, auto, 1"
             ] else [
                 ", preferred, auto, auto"
             ]; 
