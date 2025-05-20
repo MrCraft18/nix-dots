@@ -155,6 +155,58 @@
                 ];
             };
 
+            panasonic = nixpkgs.lib.nixosSystem {
+                pkgs = import nixpkgs {
+                    system = "x86_64-linux";
+                    config = { allowUnfree = true; };
+
+                    overlays = [
+                        (self: super: {
+                            pinentry-rofi = super.pinentry-rofi.overrideAttrs (old: {
+                                postInstall = ''
+                                    wrapProgram $out/bin/pinentry-rofi --prefix PATH : ${
+                                        super.lib.makeBinPath [
+                                            super.rofi-wayland
+                                            super.coreutils
+                                        ]
+                                    }
+                                '';
+                            });
+                        })
+                    ];
+                };
+                specialArgs = {
+                    inherit inputs;
+                    host = "panasonic";
+                    buildScope = "nixos";
+                };
+                modules = [
+                    home-manager.nixosModules.home-manager
+                    { 
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            host = "panasonic";
+                            buildScope = "nixos";
+                        };
+                    }
+
+                    ./hosts/panasonic
+
+                    # Used Modules
+                    ./modules/hyprland
+                    ./modules/stylix
+                    ./modules/git
+                    ./modules/password-store
+                    ./modules/zsh
+                    ./modules/nvf
+                    ./modules/yazi
+                    ./modules/kitty
+                    ./modules/zellij
+                    ./modules/ssh-client
+                    ./modules/sops
+                ];
+            };
+
             old-laptop = nixpkgs.lib.nixosSystem {
                 pkgs = import nixpkgs {
                     system = "x86_64-linux";

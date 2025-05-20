@@ -53,6 +53,7 @@
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIlIQ73VqgtCDpdlaUcskdpRNteq6Bb6D8YnDF/enp7K craft@netbook"
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPQ0aiXTNegpOpD6KGZBtTIraPynYxftP0UV+L4uKSVu craft@uconsole"
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGWz8lyOKlKD3XfiYq8ZPwpLszoWRXYltCBVvQB1JQT/ nix-on-droid@localhost"
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIS6/tzfk88+XtidEH8GLbDX3uf1OZ6lCL6MfDzJO5zP craft@panasonic"
         ];
     };
 
