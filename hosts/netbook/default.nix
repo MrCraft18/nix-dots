@@ -40,6 +40,7 @@
             umu-launcher
             vesktop
             mongodb-compass
+            anki
         ] ++ [
             inputs.zen-browser.packages.${pkgs.system}.default
             inputs.lobster.packages.${pkgs.system}.lobster
