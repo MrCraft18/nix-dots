@@ -4,7 +4,7 @@
     programs.zsh = {
         enable = true;
 
-        initExtra = ''
+        initContent = ''
             setopt PROMPT_SUBST
             PROMPT='%n@%m:%~/ > '
         '';
