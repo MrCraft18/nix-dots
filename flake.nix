@@ -27,9 +27,9 @@
 
                     # Used Modules
                     ./modules/hyprland
+                    ./modules/stylix
                     # ./modules/i3
                     ./modules/zsh
-                    # ./modules/nvim
                     ./modules/git
                     ./modules/password-store
                     ./modules/nvf
