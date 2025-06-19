@@ -7,6 +7,9 @@
         ../common/tuigreet.nix
     ];
 
+    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+    nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
+
     # Extra system relavent home-manager config
     home-manager.users.craft = {
         home.packages = with pkgs; [
