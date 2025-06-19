@@ -14,7 +14,6 @@
     home-manager.users.craft = {
         home.packages = with pkgs; [
             prismlauncher
-            suyu
             wineWowPackages.unstableFull
             mongodb-compass
             rclone
