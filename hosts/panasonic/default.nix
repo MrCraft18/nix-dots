@@ -30,6 +30,7 @@
     home-manager.users.craft = {
         home.packages = with pkgs; [
             firefox
+            mongodb-compass
         ] ++ [
             inputs.zen-browser.packages.${pkgs.system}.default
             inputs.lobster.packages.${pkgs.system}.lobster
