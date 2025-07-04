@@ -232,6 +232,7 @@
                     # Used Modules
                     ./modules/zsh
                     ./modules/nvf
+                    ./modules/git
                     ./modules/yazi
                     ./modules/ssh-client
                     ./modules/localxpose
@@ -264,6 +265,7 @@
                     # Used Modules
                     ./modules/zsh
                     ./modules/nvf
+                    ./modules/git
                     # ./modules/yazi
                     ./modules/localxpose
                     ./modules/sops
@@ -295,6 +297,7 @@
                     # Used Modules
                     ./modules/zsh
                     ./modules/nvf
+                    ./modules/git
                     ./modules/yazi
                     ./modules/localxpose
                     ./modules/sops
