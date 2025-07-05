@@ -7,23 +7,23 @@
         ../common/laptop-station.nix
     ];
 
-    systemd.services.post-processor = {
-        description = "REventures post processor";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-
-        serviceConfig = {
-            Type = "forking";
-
-            ExecStart = ''${pkgs.tmux}/bin/tmux -L post-processor new -d "nix develop '#post-processing' --command node post-processing/index.js"'';
-            ExecStop = "${pkgs.tmux}/bin/tmux -L post-processor kill-server";
-            WorkingDirectory = "/home/craft/REventures";
-            Restart = "on-failure";
-            RestartSec = 10;
-            KillMode = "control-group";
-            User = "craft";
-        };
-    };
+    # systemd.services.post-processor = {
+    #     description = "REventures post processor";
+    #     after = [ "network.target" ];
+    #     wantedBy = [ "multi-user.target" ];
+    #
+    #     serviceConfig = {
+    #         Type = "forking";
+    #
+    #         ExecStart = ''${pkgs.tmux}/bin/tmux -L post-processor new -d "nix develop '#post-processing' --command node post-processing/index.js"'';
+    #         ExecStop = "${pkgs.tmux}/bin/tmux -L post-processor kill-server";
+    #         WorkingDirectory = "/home/craft/REventures";
+    #         Restart = "on-failure";
+    #         RestartSec = 10;
+    #         KillMode = "control-group";
+    #         User = "craft";
+    #     };
+    # };
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
