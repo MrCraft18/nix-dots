@@ -3,11 +3,13 @@
 {
     #Auto Login User
     services.getty.autologinUser = "craft";
+
     services.logind = {
         lidSwitch = "ignore";
         lidSwitchExternalPower = "ignore";
         lidSwitchDocked = "ignore";
     };
+
     systemd.sleep.extraConfig = ''
         AllowSuspend=no
         AllowHibernation=no
@@ -25,6 +27,10 @@
             X11Forwarding = true;
         };
     };
+
+    environment.systemPackages = with pkgs; [
+        xorg.xauth
+    ];
 
     networking.firewall.allowedTCPPorts = [ 3501 ];
 
