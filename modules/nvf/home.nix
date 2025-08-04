@@ -25,6 +25,8 @@
                 };
 
                 lsp = {
+                    enable = true;
+
                     # formatOnSave = true;
 
                     lspkind.enable = true;
@@ -41,7 +43,6 @@
                 };
 
                 languages = {
-                    enableLSP = true;
                     enableTreesitter = true;
 
                     nix.enable = true;
