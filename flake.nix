@@ -38,7 +38,6 @@
                     ./modules/zellij
                     ./modules/retroarch
                     ./modules/ssh-client
-                    ./modules/localxpose
                     ./modules/syncthing
                     ./modules/sops
                 ];
@@ -108,7 +107,6 @@
                     ./modules/kitty
                     ./modules/zellij
                     ./modules/ssh-client
-                    ./modules/localxpose
                     ./modules/syncthing
                     ./modules/sops
                 ];
@@ -149,7 +147,6 @@
                     ./modules/zellij
                     ./modules/retroarch
                     ./modules/ssh-client
-                    ./modules/localxpose
                     ./modules/syncthing
                     ./modules/sops
                 ];
@@ -235,7 +232,6 @@
                     ./modules/git
                     ./modules/yazi
                     ./modules/ssh-client
-                    ./modules/localxpose
                     ./modules/sops
                 ];
             };
@@ -267,7 +263,6 @@
                     ./modules/nvf
                     ./modules/git
                     # ./modules/yazi
-                    ./modules/localxpose
                     ./modules/sops
                 ];
             };
@@ -299,7 +294,6 @@
                     ./modules/nvf
                     ./modules/git
                     ./modules/yazi
-                    ./modules/localxpose
                     ./modules/sops
                 ];
             };
@@ -393,8 +387,6 @@
         nvf.url = "github:NotAShelf/nvf";
 
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
-
-        localxpose.url = "github:MrCraft18/localxpose-flake";
 
         playwright-server.url = "github:MrCraft18/playwright-server";
 
