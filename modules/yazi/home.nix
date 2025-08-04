@@ -6,7 +6,7 @@
         enableZshIntegration = true;
 
         keymap = {
-            manager.prepend_keymap = [
+            mgr.prepend_keymap = [
                 { on = [ "g" "s" ]; run = "cd /mnt/SSD"; desc = "Goto SSD"; }
             ];
         };
