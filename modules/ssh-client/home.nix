@@ -3,35 +3,14 @@
 {
     sops.templates = {
         "ssh-config".content = ''
-            Host desktop
-                User craft
-                HostName ${config.sops.placeholder."tunnel_service/domain"}
-                Port ${config.sops.placeholder."tunnel_service/ports/desktop/ssh"}
-                
-            Host netbook
-                User craft
-                HostName ${config.sops.placeholder."tunnel_service/domain"}
-                Port ${config.sops.placeholder."tunnel_service/ports/netbook/ssh"}
-
-            Host uconsole
-                User craft
-                HostName ${config.sops.placeholder."tunnel_service/domain"}
-                Port ${config.sops.placeholder."tunnel_service/ports/uconsole/ssh"}
-
             Host old-laptop
-                User craft
-                HostName ${config.sops.placeholder."tunnel_service/domain"}
-                Port ${config.sops.placeholder."tunnel_service/ports/old-laptop/ssh"}
+                Port 3500
 
             Host chromebook-a
-                User craft
-                HostName ${config.sops.placeholder."tunnel_service/domain"}
-                Port ${config.sops.placeholder."tunnel_service/ports/chromebook-a/ssh"}
+                Port 3500
 
             Host chromebook-b
-                User craft
-                HostName ${config.sops.placeholder."tunnel_service/domain"}
-                Port ${config.sops.placeholder."tunnel_service/ports/chromebook-b/ssh"}
+                Port 3500
         '';
     };
 
