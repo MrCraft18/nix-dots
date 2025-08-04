@@ -33,6 +33,10 @@
 
     # Extra system relavent home-manager config
     home-manager.users.craft = {
+        imports = [
+            inputs.zen-browser.homeModules.beta
+        ];
+
         home.packages = with pkgs; [
             firefox
             winetricks
@@ -42,9 +46,10 @@
             mongodb-compass
             anki
         ] ++ [
-            inputs.zen-browser.packages.${pkgs.system}.default
             inputs.lobster.packages.${pkgs.system}.lobster
         ];
+
+        programs.zen-browser.enable = true;
 
         # TEMPORARYISH?
         programs.mpv.enable = true;
