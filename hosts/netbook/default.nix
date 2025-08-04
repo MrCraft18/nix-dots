@@ -54,6 +54,7 @@
     };
 
     programs.steam.enable = true;
+    programs.steam.extraCompatPackages = [ pkgs.proton-ge-bin ];
     hardware.graphics.enable = true;
     hardware.graphics.enable32Bit = true;
 
