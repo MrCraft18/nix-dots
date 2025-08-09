@@ -49,7 +49,16 @@
             inputs.lobster.packages.${pkgs.system}.lobster
         ];
 
-        programs.zen-browser.enable = true;
+        programs.zen-browser  = {
+            enable = true;
+
+            profileVersion = null;
+
+            profiles."default" = {
+                id = 0;
+                isDefault = true;
+            };
+        };
 
         # TEMPORARYISH?
         programs.mpv.enable = true;

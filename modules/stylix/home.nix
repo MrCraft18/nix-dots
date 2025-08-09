@@ -7,4 +7,5 @@
     ];
 
     stylix.targets.waybar.addCss = false;
+    stylix.targets.zen-browser.profileNames = [ "default" ];
 }
