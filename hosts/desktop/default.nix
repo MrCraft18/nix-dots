@@ -12,6 +12,10 @@
 
     # Extra system relavent home-manager config
     home-manager.users.craft = {
+        imports = [
+            inputs.zen-browser.homeModules.beta
+        ];
+
         home.packages = with pkgs; [
             prismlauncher
             wineWowPackages.unstableFull
@@ -23,8 +27,19 @@
             winetricks
             vesktop
         ] ++ [
-            inputs.zen-browser.packages.${pkgs.system}.default
+
         ];
+
+        programs.zen-browser  = {
+            enable = true;
+
+            profileVersion = null;
+
+            profiles."default" = {
+                id = 0;
+                isDefault = true;
+            };
+        };
 
         # TEMPORARYISH?
         programs.mpv.enable = true;
