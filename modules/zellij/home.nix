@@ -419,7 +419,7 @@
         // Whether to show tips on startup
         // Default: true
         // 
-        // show_startup_tips false
+        show_startup_tips false
          
         // Whether to show release notes on first version run
         // Default: true
