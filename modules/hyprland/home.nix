@@ -156,6 +156,8 @@ in {
             };
 
             misc = {
+                enable_swallow = true;
+                swallow_regex = "^(kitty)$";
                 force_default_wallpaper = -1;
                 # disable_hyprland_logo = false;
             };
