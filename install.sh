@@ -14,7 +14,7 @@ sudo nix run github:nix-community/disko/latest -- --root-mountpoint /mnt/nixos-i
 
 tmpdir=$(mktemp -d)
 
-sops -d "configurations/nixos/$configuration_name/secrets.yaml" | nix run nixpkgs#yq-go -- -r '.ssh.host.ed25519' > "$tmpdir/ssh_client"
+sops -d "configurations/nixos/$configuration_name/secrets.yaml" | nix run nixpkgs#yq-go -- -r '.ssh.client' > "$tmpdir/ssh_client"
 
 sudo mkdir -p /mnt/nixos-install/home/craft/.config/sops/age
 
