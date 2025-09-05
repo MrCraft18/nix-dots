@@ -5,6 +5,9 @@
 
     sops = {
         defaultSopsFile = ../../../configurations/nixos + "/${configurationName}/secrets.yaml";
-        # age.keyFile = "/home/craft/.config/sops/age/keys.txt";
+        age = {
+            keyFile = "/home/craft/.config/sops/age/key.txt";
+            # sshKeyPaths = lib.mkOverride [];
+        };
     };
 }

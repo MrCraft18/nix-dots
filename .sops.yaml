@@ -1,10 +1,10 @@
 gpg_key: &gpg_key "D631 C1CA BA65 01DF 4CDB  7D81 0F07 76EB A1E8 EBF8"
 keys:
   age: &age_keys
-    - &desktop age1jace72hhf9s8fvpp05rnmd3mzvtn5dwhp3mc7cnarcu6mfj4238qagr6u2
+    - &desktop age1vef5ysjf3nz3ddjgvrfwu0f0tgyj3lfd2ah88yvg3mttgrf2fpzsm6nw7r
     - &netbook age1yasm3t9fuufm72eytdg4jjrv55syu8tjcdtwv8qcg758fg7p0p3qxwpne4
     - &uconsole age19xdn8e66zzf2lmwzwlxnuu3uqxxmj9chxhms2slydvra9uczzf5qgvw973
-    - &usb age15v3gynrw2mar8hlm5fgnffpu57elp2gzaqe7ws9dmrykjg24c53swsnjdg
+    - &usb age1f2v7vkggr29jvpyadj4nnjpyjmn0sewec7k02nstw35yvaeqwy5s74sm2s
 creation_rules:
   # Shared Secrets
   - path_regex: ^secrets.yaml$
@@ -26,4 +26,5 @@ creation_rules:
         age: [*uconsole]
   - path_regex: ^configurations/nixos/usb/secrets.yaml$
     key_groups:
-      - age: [*usb]
+      - pgp: [*gpg_key]
+        age: [*usb]

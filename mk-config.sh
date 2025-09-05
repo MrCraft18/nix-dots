@@ -30,15 +30,6 @@ sed -i "s|<name>|$device|g" "$config_dir/disko-config.nix"
 
 nixos-generate-config --no-filesystems --show-hardware-config > "$config_dir/hardware-configuration.nix"
 
-# add secrets creation rules to .sops.yaml
-#
-nix run nixpkgs#yq-go -- -i ".creation_rules += [{
-    \"path_regex\": \"^configurations/nixos/$configuration_name/secrets.yaml$\",
-    \"key_groups\": [ { \"pgp\": [  ] } ]
-}]
-| .creation_rules[-1].key_groups[0].pgp[0] alias |= \"gpg_key\"
-| .creation_rules[-1].key_groups[0].pgp style=\"flow\"" /home/craft/nix-dots/.sops.yaml
-
 # generate temp dir
 
 tmpdir=$(mktemp -d)
@@ -47,8 +38,14 @@ tmpdir=$(mktemp -d)
 
 ssh-keygen -t ed25519 -N "" -f "$tmpdir/id_ed25519" >/dev/null 2>&1
 
-ssh_client_private_key=$(nix run nixpkgs#jq -- -Rs . < "$tmpdir/id_ed25519")
+ssh_client_private_key=$(nix run nixpkgs\#jq -- -Rs . < "$tmpdir/id_ed25519")
 ssh_client_pub_key=$(cat "$tmpdir/id_ed25519.pub")
+
+# generate age pubkey from ssh client pubkey
+
+age_pub_key=$(nix run nixpkgs\#ssh-to-age -- -i "$tmpdir/id_ed25519.pub")
+
+# clean out tmpdir
 
 rm -rf $tmpdir
 tmpdir=$(mktemp -d)
@@ -62,8 +59,25 @@ echo $ssh_client_pub_key > "$config_dir/ssh_client.pub"
 ssh-keygen -t ed25519 -N "" -f "$tmpdir/ssh_host_ed25519_key" >/dev/null 2>&1
 ssh-keygen -t rsa -N "" -f "$tmpdir/ssh_host_rsa_key" >/dev/null 2>&1
 
-ssh_host_ed25519_key=$(nix run nixpkgs#jq -- -Rs . < "$tmpdir/ssh_host_ed25519_key")
-ssh_host_rsa_key=$(nix run nixpkgs#jq -- -Rs . < "$tmpdir/ssh_host_rsa_key")
+ssh_host_ed25519_key=$(nix run nixpkgs\#jq -- -Rs . < "$tmpdir/ssh_host_ed25519_key")
+ssh_host_rsa_key=$(nix run nixpkgs\#jq -- -Rs . < "$tmpdir/ssh_host_rsa_key")
+
+# remove tmpdir
+rm -rf $tmpdir
+
+# add secrets creation rules to .sops.yaml
+
+nix run nixpkgs\#yq-go -- -i "
+    .keys.age += [ \"$age_pub_key\" ]
+    | .keys.age[-1] anchor = \"$configuration_name\"
+    |.creation_rules += [{
+        \"path_regex\": \"^configurations/nixos/$configuration_name/secrets.yaml$\",
+        \"key_groups\": [ { \"pgp\": [  ], \"age\": [  ] } ]
+    }]
+    | .creation_rules[-1].key_groups[0].pgp[0] alias |= \"gpg_key\"
+    | .creation_rules[-1].key_groups[0].age[0] alias |= \"$configuration_name\"
+    | .creation_rules[-1].key_groups[0].pgp style=\"flow\"
+    | .creation_rules[-1].key_groups[0].age style=\"flow\"" /home/craft/nix-dots/.sops.yaml
 
 # generate empty secrets.yaml
 
