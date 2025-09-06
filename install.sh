@@ -20,6 +20,8 @@ sudo mkdir -p /mnt/nixos-install/home/craft/.config/sops/age
 
 sudo nix run nixpkgs#ssh-to-age -- -private-key -i "$tmpdir/ssh_client" -o /mnt/nixos-install/home/craft/.config/sops/age/key.txt
 
+sudo chown -R craft:"$(id -gn craft)" /mnt/nixos-install/home/craft
+
 rm -rf $tmpdir
 
 # run nixos install
