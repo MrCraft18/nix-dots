@@ -5,6 +5,8 @@
         ./sops/home.nix
     ];
 
+    programs.home-manager.enable = true;
+
     home.username = "craft";
     home.homeDirectory = "/home/craft";
 
