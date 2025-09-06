@@ -1,14 +1,14 @@
-{ ... }:
+{ lib, ... }:
 
 {
     boot.loader = {
         grub = {
-            enable = true;
-            efiSupport = true;
-            devices = [ "nodev" ];
+            enable = lib.mkDefault true;
+            efiSupport = lib.mkDefault true;
+            devices = lib.mkDefault [ "nodev" ];
             # useOSProber = true;
         };
 
-        efi.canTouchEfiVariables = true;
+        efi.canTouchEfiVariables = lib.mkDefault true;
     };
 }

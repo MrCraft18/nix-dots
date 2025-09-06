@@ -38,6 +38,12 @@
 
     ];
 
+    boot.loader = {
+        grub.enable = false;
+        systemd-boot.enable = true;
+        efi.canTouchEfiVariables = false;
+    };
+
     system.stateVersion = "25.05";
     home-manager.users.craft.home.stateVersion = "25.05";
 }
