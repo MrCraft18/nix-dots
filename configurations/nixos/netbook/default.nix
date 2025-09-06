@@ -4,68 +4,49 @@
     imports = [
         inputs.nixos-hardware.nixosModules.gpd-pocket-3
         ./hardware-configuration.nix
-        ../common/configuration.nix
-        ../common/tuigreet.nix
+        ../../../modules
     ];
 
-    boot.loader = {
-        systemd-boot.enable = false;
-        grub = {
-            enable = true;
-            efiSupport = true;
-            device = "nodev";
-            # useOSProber = true;
+    moduleLoadout = {
+        desktop = "hyprland-onedarkpro";
+        greeter = "tui";
+
+        terminal = {
+            emulator = "kitty";
+            shell = "zsh";
+            multiplexer = "zellij";
+            editor = "nvf";
+            fileBrowser = "yazi";
+        };
+
+        applications = {
+            zen-browser.enable = true;
+            steam.enable = true;
+        };
+
+        programs = {
+            mpv.enable = true;
+            git.enable = true;
+            password-store.enable = true;
+        };
+
+        services = {
+            ssh.enable = true;
+            # udiskie.enable = true;
         };
     };
-
-    
-    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-    nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
-
-    services.openssh = {
-        enable = true;
-        settings = {
-            PasswordAuthentication = false;
-        };
-    };
-
-    services.tailscale.enable = true;
 
     # Extra system relavent home-manager config
-    home-manager.users.craft = {
-        imports = [
-            inputs.zen-browser.homeModules.beta
-        ];
+    home-manager.users.craft.home.packages = with pkgs; [
+        firefox
+        winetricks
+        wineWowPackages.unstableFull
+        umu-launcher
+        vesktop
+        mongodb-compass
+        anki
+    ];
 
-        home.packages = with pkgs; [
-            firefox
-            winetricks
-            wineWowPackages.unstableFull
-            umu-launcher
-            vesktop
-            mongodb-compass
-            anki
-        ] ++ [
-            inputs.lobster.packages.${pkgs.system}.lobster
-        ];
-
-        programs.zen-browser  = {
-            enable = true;
-
-            profileVersion = null;
-
-            profiles."default" = {
-                id = 0;
-                isDefault = true;
-            };
-        };
-    };
-
-# This value determines the NixOS release from which the default
-# settings for stateful data, like file locations and database versions
-# on your system were taken. It‘s perfectly fine and recommended to leave
-# this value at the release version of the first install of this system.
-# Before changing this value read the documentation for this option
-# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = "24.05"; # Did you read the comment?
+    system.stateVersion = "24.05";
+    home-manager.users.craft.home.stateVersion = "24.05";
 }
