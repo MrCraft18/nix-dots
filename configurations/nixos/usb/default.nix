@@ -38,8 +38,6 @@
 
     ];
 
-    boot.loader.grub.efiInstallAsRemovable = true;
-
     system.stateVersion = "25.05";
     home-manager.users.craft.home.stateVersion = "25.05";
 }
