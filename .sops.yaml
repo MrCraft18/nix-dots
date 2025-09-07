@@ -4,6 +4,7 @@ keys:
     - &desktop age1vef5ysjf3nz3ddjgvrfwu0f0tgyj3lfd2ah88yvg3mttgrf2fpzsm6nw7r
     - &netbook age1yasm3t9fuufm72eytdg4jjrv55syu8tjcdtwv8qcg758fg7p0p3qxwpne4
     - &uconsole age19xdn8e66zzf2lmwzwlxnuu3uqxxmj9chxhms2slydvra9uczzf5qgvw973
+    - &panasonic age1qyyx2vchvdn2kcn2mm300a7ll3nelrgn9l9lgqwyxjxzmdjtff6qugmg5t
     - &usb age1f2v7vkggr29jvpyadj4nnjpyjmn0sewec7k02nstw35yvaeqwy5s74sm2s
     - &thinkpad age1aaq43a2406tjyl7nrq9tscgx0sajx03755y94605jpwe35yqmvyq293hrd
 creation_rules:
@@ -25,6 +26,10 @@ creation_rules:
     key_groups:
       - pgp: [*gpg_key]
         age: [*uconsole]
+  - path_regex: ^configurations/nixos/panasonic/secrets.yaml$
+    key_groups:
+      - pgp: [*gpg_key]
+        age: [*panasonic]
   - path_regex: ^configurations/nixos/usb/secrets.yaml$
     key_groups:
       - pgp: [*gpg_key]

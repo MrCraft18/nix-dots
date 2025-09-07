@@ -2,9 +2,8 @@
 
 {
     imports = [
-        "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
         ./hardware-configuration.nix
-        # ./disko-config.nix
+        ./disko-config.nix
         ../../../modules
     ];
 

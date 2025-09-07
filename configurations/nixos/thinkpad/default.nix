@@ -36,7 +36,7 @@
     };
 
     home-manager.users.craft.home.packages = with pkgs; [
-
+        firefox
     ];
 
     system.stateVersion = "25.05";

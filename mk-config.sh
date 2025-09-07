@@ -36,7 +36,7 @@ tmpdir=$(mktemp -d)
 
 # generate ssh client key pair
 
-ssh-keygen -t ed25519 -N "" -f "$tmpdir/id_ed25519" -C "craft@$device" >/dev/null 2>&1
+ssh-keygen -t ed25519 -N "" -f "$tmpdir/id_ed25519" -C "craft@$configuration_name" >/dev/null 2>&1
 
 ssh_client_private_key=$(nix run nixpkgs\#jq -- -Rs . < "$tmpdir/id_ed25519")
 ssh_client_pub_key=$(cat "$tmpdir/id_ed25519.pub")

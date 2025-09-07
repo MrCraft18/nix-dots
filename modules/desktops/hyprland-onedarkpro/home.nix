@@ -58,6 +58,8 @@ in {
                     "DP-2, preferred, 7040x0, 1"
                 ] else if configurationName == "panasonic" then [
                     "LVDS-1, preferred, auto, 1"
+                ] else if configurationName == "thinkpad" then [
+                    "eDP-1, preferred, auto, 1.2"
                 ] else [
                     ", preferred, auto, auto"
                 ]; 
