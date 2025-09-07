@@ -12,6 +12,7 @@
         extraGroups = [ "networkmanager" "wheel" "video" "input" ];
         hashedPasswordFile = config.sops.secrets."craft_password".path;
 
+        # openssh.authorizedKeys.keys = map (name: ../../configurations/nixos + "/${name}/ssh_client.pub") (builtins.attrNames (builtins.readDir ../../configurations/nixos));
         openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAlvRA8dmnopz4KqdRhC4fPGkBGKA+SnTbw9ubFSEVD4 craft@desktop"
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIlIQ73VqgtCDpdlaUcskdpRNteq6Bb6D8YnDF/enp7K craft@netbook"
