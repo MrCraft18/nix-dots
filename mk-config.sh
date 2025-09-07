@@ -79,6 +79,10 @@ nix run nixpkgs\#yq-go -- -i "
     | .creation_rules[-1].key_groups[0].pgp style=\"flow\"
     | .creation_rules[-1].key_groups[0].age style=\"flow\"" /home/craft/nix-dots/.sops.yaml
 
+# update secrets.yaml keys
+
+sops updatekeys secrets.yaml
+
 # generate empty secrets.yaml
 
 secrets_file="$config_dir/secrets.yaml"
