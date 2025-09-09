@@ -11,6 +11,10 @@ in {
                 setopt PROMPT_SUBST
                 PROMPT='%n@%m:%~/ > '
             '';
+
+            shellAliases = {
+                proton = "WINEPREFIX=~/.umu-prefix PROTON_VERB=run umu-run";
+            };
         };
     };
 }

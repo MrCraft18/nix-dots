@@ -37,6 +37,7 @@
 
     home-manager.users.craft.home.packages = with pkgs; [
         firefox
+        umu-launcher
     ];
 
     system.stateVersion = "25.05";
