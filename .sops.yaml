@@ -1,15 +1,40 @@
-# key:
-#   - &netbook age1yasm3t9fuufm72eytdg4jjrv55syu8tjcdtwv8qcg758fg7p0p3qxwpne4
-#   - &uconsole age19xdn8e66zzf2lmwzwlxnuu3uqxxmj9chxhms2slydvra9uczzf5qgvw973
-#   - &old-laptop age10307wulde2n4h3nn98rqtgsn7q0rmutstl4mv3umwx7jzeuwjsvq0uzddz
-
+gpg_key: &gpg_key "D631 C1CA BA65 01DF 4CDB  7D81 0F07 76EB A1E8 EBF8"
+keys:
+  age: &age_keys
+    - &desktop age1vef5ysjf3nz3ddjgvrfwu0f0tgyj3lfd2ah88yvg3mttgrf2fpzsm6nw7r
+    - &netbook age1yasm3t9fuufm72eytdg4jjrv55syu8tjcdtwv8qcg758fg7p0p3qxwpne4
+    - &uconsole age19xdn8e66zzf2lmwzwlxnuu3uqxxmj9chxhms2slydvra9uczzf5qgvw973
+    - &panasonic age1qyyx2vchvdn2kcn2mm300a7ll3nelrgn9l9lgqwyxjxzmdjtff6qugmg5t
+    - &usb age1f2v7vkggr29jvpyadj4nnjpyjmn0sewec7k02nstw35yvaeqwy5s74sm2s
+    - &thinkpad age1aaq43a2406tjyl7nrq9tscgx0sajx03755y94605jpwe35yqmvyq293hrd
 creation_rules:
-  - path_regex: secrets.yaml$
+  # Shared Secrets
+  - path_regex: ^secrets.yaml$
     key_groups:
-      - age:
-        - &netbook age1yasm3t9fuufm72eytdg4jjrv55syu8tjcdtwv8qcg758fg7p0p3qxwpne4
-        - &uconsole age19xdn8e66zzf2lmwzwlxnuu3uqxxmj9chxhms2slydvra9uczzf5qgvw973
-        - &old-laptop age10307wulde2n4h3nn98rqtgsn7q0rmutstl4mv3umwx7jzeuwjsvq0uzddz
-        - &desktop age1vef5ysjf3nz3ddjgvrfwu0f0tgyj3lfd2ah88yvg3mttgrf2fpzsm6nw7r
-        - &chromebook-a age14f3gplhglus9vm4l2hsf43pn8gk820jfy6eecr408t5fq5h7nctqh92evr
-        - &chromebook-b age1e6k23gfxdc55mkx3vvp3wf7u54vlajzepazj92w599phj0j794rseegfuw
+      - pgp: [*gpg_key]
+        age: *age_keys
+  # Individual Secrets
+  - path_regex: ^configurations/nixos/desktop/secrets.yaml$
+    key_groups:
+      - pgp: [*gpg_key]
+        age: [*desktop]
+  - path_regex: ^configurations/nixos/netbook/secrets.yaml$
+    key_groups:
+      - pgp: [*gpg_key]
+        age: [*netbook]
+  - path_regex: ^configurations/nixos/uconsole/secrets.yaml$
+    key_groups:
+      - pgp: [*gpg_key]
+        age: [*uconsole]
+  - path_regex: ^configurations/nixos/panasonic/secrets.yaml$
+    key_groups:
+      - pgp: [*gpg_key]
+        age: [*panasonic]
+  - path_regex: ^configurations/nixos/usb/secrets.yaml$
+    key_groups:
+      - pgp: [*gpg_key]
+        age: [*usb]
+  - path_regex: ^configurations/nixos/thinkpad/secrets.yaml$
+    key_groups:
+      - pgp: [*gpg_key]
+        age: [*thinkpad]
