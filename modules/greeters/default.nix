@@ -8,6 +8,7 @@ in {
 
     options.moduleLoadout.greeter = lib.mkOption {
         type = lib.types.str;
+        default = "";
         description = "Desktop module selection";
     };
 }

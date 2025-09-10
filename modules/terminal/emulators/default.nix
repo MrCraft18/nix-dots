@@ -8,12 +8,14 @@ in {
 
     options.moduleLoadout.terminal.emulator = lib.mkOption {
         type = lib.types.str;
+        default = "";
         description = "Terminal emulator module selection";
     };
 } // (if (buildScope == "nixos") then {
     config.home-manager.users.craft = { lib, ... }: {
         options.moduleLoadout.terminal.emulator = lib.mkOption {
             type = lib.types.str;
+            default = "";
             description = "Terminal emulator module selection";
         };
     };

@@ -8,12 +8,14 @@ in {
 
     options.moduleLoadout.terminal.multiplexer = lib.mkOption {
         type = lib.types.str;
+        default = "";
         description = "Terminal multiplexer module selection";
     };
 } // (if (buildScope == "nixos") then {
     config.home-manager.users.craft = { lib, ... }: {
         options.moduleLoadout.terminal.multiplexer = lib.mkOption {
             type = lib.types.str;
+            default = "";
             description = "Terminal multiplexer module selection";
         };
     };

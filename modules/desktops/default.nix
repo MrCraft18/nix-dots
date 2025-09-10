@@ -8,12 +8,14 @@ in {
 
     options.moduleLoadout.desktop = lib.mkOption {
         type = lib.types.str;
+        default = "";
         description = "Desktop module selection";
     };
 } // (if (buildScope == "nixos") then {
     config.home-manager.users.craft = { lib, ... }: {
         options.moduleLoadout.desktop = lib.mkOption {
             type = lib.types.str;
+            default = "";
             description = "Desktop module selection";
         };
     };
