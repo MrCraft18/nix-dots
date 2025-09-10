@@ -12,7 +12,10 @@
                     buildScope = "nixos";
                 };
 
-                modules = [ home-manager.nixosModules.home-manager (./configurations/nixos + "/${name}") ];
+                modules = [
+                    self.nixosModules.default
+                    (./configurations/nixos + "/${name}")
+                ];
             });  
 
             # homeConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir ./configurations/home)) (name: home-manager.lib.homeManagerConfiguration {
@@ -37,6 +40,8 @@
                     home-manager-path = home-manager.outPath;
                 }; 
             };
+
+            nixosModules.default = import ./modules;
         };
 
     inputs = {

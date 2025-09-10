@@ -32,7 +32,7 @@
 
         services = {
             ssh.enable = true;
-            # udiskie.enable = true;
+            udiskie.enable = true;
         };
     };
 

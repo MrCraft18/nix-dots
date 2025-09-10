@@ -5,7 +5,7 @@
         inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t480
         ./hardware-configuration.nix
         ./disko-config.nix
-        ../../../modules
+        # ../../../modules
     ];
 
     moduleLoadout = {
