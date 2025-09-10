@@ -8,12 +8,14 @@ in {
 
     options.moduleLoadout.terminal.shell = lib.mkOption {
         type = lib.types.str;
+        default = "";
         description = "Terminal shells module selection";
     };
 } // (if (buildScope == "nixos") then {
     config.home-manager.users.craft = { lib, ... }: {
         options.moduleLoadout.terminal.shell = lib.mkOption {
             type = lib.types.str;
+            default = "";
             description = "Terminal shells module selection";
         };
     };

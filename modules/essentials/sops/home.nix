@@ -1,8 +1,6 @@
 { config, lib, pkgs, inputs, configurationName, buildScope, ... }:
 
 {
-    imports = [ inputs.sops-nix.homeManagerModules.sops ];
-
     home.packages = [ pkgs.sops ];
 
     sops = {

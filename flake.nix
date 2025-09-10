@@ -41,7 +41,21 @@
                 }; 
             };
 
-            nixosModules.default = import ./modules;
+            nixosModules.default = { ... }: {
+                imports = [
+                    inputs.home-manager.nixosModules.home-manager
+                    inputs.sops-nix.nixosModules.sops
+                    inputs.disko.nixosModules.disko
+                    inputs.stylix.nixosModules.stylix
+                    ./modules
+                ];
+
+                home-manager.users.craft.imports = [
+                    inputs.nvf.homeManagerModules.nvf
+                    inputs.sops-nix.homeManagerModules.sops
+                    inputs.zen-browser.homeModules.beta
+                ];
+            };
         };
 
     inputs = {

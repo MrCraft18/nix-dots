@@ -3,8 +3,6 @@
 let
     cfg = config.moduleLoadout.terminal.editor;
 in {
-    imports = [ inputs.nvf.homeManagerModules.nvf ];
-
     config = lib.mkIf (cfg == "nvf") {
         home.sessionVariables = { EDITOR = "nvim"; };
 

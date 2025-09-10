@@ -4,10 +4,6 @@ let
     cfg = config.moduleLoadout.desktop;
     hyprland = if configurationName == "uconsole" then "uconsole-hyprland" else "hyprland";
 in {
-    imports = [
-        inputs.stylix.nixosModules.stylix
-    ];
-
     config = lib.mkIf (cfg == "hyprland-onedarkpro") {
         stylix = {
             enable = true;
