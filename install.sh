@@ -18,7 +18,7 @@ sops -d "configurations/nixos/$configuration_name/secrets.yaml" | nix run nixpkg
 
 sudo mkdir -p /mnt/nixos-install/home/craft/.config/sops/age
 
-sudo nix run nixpkgs#ssh-to-age -- -private-key -i "$tmpdir/ssh_client" -o /mnt/nixos-install/home/craft/.config/sops/age/key.txt
+sudo nix run nixpkgs#ssh-to-age -- -private-key -i "$tmpdir/ssh_client" -o /mnt/nixos-install/home/craft/.config/sops/age/keys.txt
 
 sudo chown -R craft:"$(id -gn craft)" /mnt/nixos-install/home/craft
 
