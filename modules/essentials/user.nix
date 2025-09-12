@@ -1,9 +1,9 @@
-{ config, ... }:
+{ inputs, config, ... }:
 
 {
     sops.secrets."craft_password" = {
         neededForUsers = true;
-        sopsFile = ../../secrets.yaml;
+        sopsFile = "${inputs.self}/secrets.yaml";
     };
 
     users.mutableUsers = false;

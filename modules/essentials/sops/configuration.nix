@@ -2,7 +2,7 @@
 
 {
     sops = {
-        defaultSopsFile = ../../../configurations/nixos + "/${configurationName}/secrets.yaml";
+        defaultSopsFile = "${inputs.self}/configurations/nixos/${configurationName}/secrets.yaml";
         age = {
             keyFile = "/home/craft/.config/sops/age/keys.txt";
             sshKeyPaths = lib.mkForce [];
