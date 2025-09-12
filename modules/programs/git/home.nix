@@ -21,6 +21,7 @@ in {
             extraConfig = {
                 init.defaultBranch = "master";
                 push.autoSetupRemote = "true";
+                pull.rebase = "true";
                 credential = {
                     "https://gist.github.com" = {
                         helper = [
