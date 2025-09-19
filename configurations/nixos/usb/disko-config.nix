@@ -8,10 +8,12 @@
                     type = "gpt";
                     partitions = {
                         boot = {
+                            name = "BIOS_USB";
                             size = "1M";
                             type = "EF02"; # for grub MBR
                         };
                         ESP = {
+                            name = "ESP_USB";
                             size = "1G";
                             type = "EF00";
                             content = {
@@ -22,6 +24,7 @@
                             };
                         };
                         root = {
+                            name = "ROOT_USB";
                             size = "100%";
                             content = {
                                 type = "filesystem";
