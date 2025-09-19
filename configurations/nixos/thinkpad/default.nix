@@ -27,6 +27,7 @@
         programs = {
             git.enable = true;
             password-store.enable = true;
+            mpv.enable = true;
         };
 
         services = {
