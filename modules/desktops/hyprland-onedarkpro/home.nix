@@ -40,10 +40,14 @@ in {
 
         wayland.windowManager.hyprland = {
             enable = true;
+            systemd.enable = true;
             xwayland.enable = true;
 
-            package = inputs.${hyprland}.packages.${pkgs.system}.hyprland;
-            portalPackage = inputs.${hyprland}.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+            # package = inputs.${hyprland}.packages.${pkgs.system}.hyprland;
+            # portalPackage = inputs.${hyprland}.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+
+            package = null;
+            portalPackage = null;
 
             settings = {
                 monitor = if configurationName == "netbook" then [

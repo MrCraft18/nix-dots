@@ -26,5 +26,15 @@ in {
             enable32Bit = lib.mkIf (pkgs.system != "aarch64-linux") true;
             package32 = inputs.uconsole-hyprland.inputs.nixpkgs.legacyPackages.${pkgs.system}.pkgsi686Linux.mesa;
         };
+
+        programs.hyprland = {
+            enable = true;
+            withUWSM = true;
+
+            xwayland.enable = true;
+
+            package = inputs.${hyprland}.packages.${pkgs.system}.hyprland;
+            portalPackage = inputs.${hyprland}.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+        };
     };
 }
