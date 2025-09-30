@@ -26,7 +26,7 @@ in {
             hyprpaper
             yaru-theme
             wl-clipboard
-            rofi-wayland
+            rofi
         ];
 
         home.sessionVariables = {
