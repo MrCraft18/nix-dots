@@ -39,6 +39,7 @@
     home-manager.users.craft.home.packages = with pkgs; [
         firefox
         umu-launcher
+        mongodb-compass
     ];
 
     system.stateVersion = "25.05";
