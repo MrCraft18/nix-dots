@@ -187,10 +187,6 @@ in {
                     sensitivity = if configurationName == "netbook" then -0.25 else 0;
                 };
 
-                gestures = {
-                    workspace_swipe = false;
-                };
-
                 "$mainMod" = "SUPER";
 
                 bind = [
