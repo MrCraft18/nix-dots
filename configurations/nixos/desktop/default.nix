@@ -46,6 +46,8 @@
         vdhcoapp
         winetricks
         vesktop
+        obs-studio
+        obs-studio-plugins.wlrobs
     ];
 
     # Support emulated building for aarch64
