@@ -18,7 +18,6 @@ in {
 
             {
                 targets.waybar.addCss = false;
-                targets.zen-browser.profileNames = [ "default" ];
             }
         ];
 
