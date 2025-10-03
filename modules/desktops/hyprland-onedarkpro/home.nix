@@ -234,6 +234,9 @@ in {
                     "bind = $mainMod ALT, k, resizeactive, 0 -10"
                     "bind = $mainMod ALT, j, resizeactive, 0 10"
 
+                    # Pin floating window
+                    "bind = ALT, P, exec, hyprctl dispatch pin active"
+
                     # Switch workspaces with mainMod + [0-9]
                     "$mainMod, 1, workspace, 1"
                     "$mainMod, 2, workspace, 2"
