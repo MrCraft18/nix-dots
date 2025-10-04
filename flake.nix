@@ -88,7 +88,13 @@
 
         oom-hardware.url = "github:MrCraft18/oom-hardware";
 
-        hyprland.url = "github:hyprwm/Hyprland/v0.51.1";
+        hyprland = {
+            url = "github:3l0w/Hyprland?ref=feat/input-capture-impl";
+            inputs = {
+                xdph.url = "github:3l0w/xdg-desktop-portal-hyprland?ref=feat/input-capture-impl";
+                hyprland-protocols.url = "github:3l0w/hyprland-protocols?ref=feat/input-capture-impl";
+            };
+        };
 
         uconsole-hyprland = {
             url = "github:hyprwm/Hyprland/v0.45.2";

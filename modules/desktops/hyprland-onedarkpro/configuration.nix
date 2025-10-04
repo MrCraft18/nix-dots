@@ -33,8 +33,15 @@ in {
 
             xwayland.enable = true;
 
-            package = inputs.${hyprland}.packages.${pkgs.system}.hyprland;
-            portalPackage = inputs.${hyprland}.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+            # package = inputs.${hyprland}.packages.${pkgs.system}.hyprland;
+            package = inputs.hyprland.packages.${pkgs.system}.hyprland.overrideAttrs (old: {
+                buildInputs = (old.buildInputs or []) ++ [ pkgs.libei ];
+            });
+
+            # portalPackage = inputs.${hyprland}.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+            portalPackage = inputs.hyprland.inputs.xdph.packages.${pkgs.system}.xdg-desktop-portal-hyprland.overrideAttrs (old: {
+                buildInputs = (old.buildInputs or []) ++ [ pkgs.libei ];
+            });
         };
     };
 }

@@ -482,16 +482,16 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1758574443,
-        "narHash": "sha256-eLU5Zo1L3IFr8LgOsvTcoYW04/K+Sb8OvpwbaTSTGF4=",
-        "owner": "hyprwm",
+        "lastModified": 1758987888,
+        "narHash": "sha256-uTST9alpcK1p/Wgxy58R4odKO0+LSQULc5ri8/sQCjM=",
+        "owner": "3l0w",
         "repo": "Hyprland",
-        "rev": "71a1216abcc7031776630a6d88f105605c4dc1c9",
+        "rev": "d13f617150d9f7b86524514fe25fc5ef6ec492df",
         "type": "github"
       },
       "original": {
-        "owner": "hyprwm",
-        "ref": "v0.51.1",
+        "owner": "3l0w",
+        "ref": "feat/input-capture-impl",
         "repo": "Hyprland",
         "type": "github"
       }
@@ -508,15 +508,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1749046714,
-        "narHash": "sha256-kymV5FMnddYGI+UjwIw8ceDjdeg7ToDVjbHCvUlhn14=",
-        "owner": "hyprwm",
+        "lastModified": 1758932265,
+        "narHash": "sha256-FB/yCK0IDYq+YFgjXGKru+qBaUnqFrkUfOfL58+6FUU=",
+        "owner": "3l0w",
         "repo": "hyprland-protocols",
-        "rev": "613878cb6f459c5e323aaafe1e6f388ac8a36330",
+        "rev": "41c3b79c9c69f2465ca1ca71855fcb3c3509b9a3",
         "type": "github"
       },
       "original": {
-        "owner": "hyprwm",
+        "owner": "3l0w",
+        "ref": "feat/input-capture-impl",
         "repo": "hyprland-protocols",
         "type": "github"
       }
@@ -1535,15 +1536,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1755354946,
-        "narHash": "sha256-zdov5f/GcoLQc9qYIS1dUTqtJMeDqmBmo59PAxze6e4=",
-        "owner": "hyprwm",
+        "lastModified": 1758987931,
+        "narHash": "sha256-GjO6A97hWV4WVWUpMmb8wB7BtXCeNfcA/Hw+2ehYpxw=",
+        "owner": "3l0w",
         "repo": "xdg-desktop-portal-hyprland",
-        "rev": "a10726d6a8d0ef1a0c645378f983b6278c42eaa0",
+        "rev": "09aa607138db7615d55bac6dee0dfa7a51055bfc",
         "type": "github"
       },
       "original": {
-        "owner": "hyprwm",
+        "owner": "3l0w",
+        "ref": "feat/input-capture-impl",
         "repo": "xdg-desktop-portal-hyprland",
         "type": "github"
       }
