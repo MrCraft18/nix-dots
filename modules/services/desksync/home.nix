@@ -11,5 +11,9 @@ in {
         programs.lan-mouse = {
             enable = true;
         };
+
+        home.packages = [
+            pkgs.pulseaudioFull
+        ];
     };
 }
