@@ -40,6 +40,7 @@
         firefox
         umu-launcher
         mongodb-compass
+        vesktop
     ];
 
     system.stateVersion = "25.05";
