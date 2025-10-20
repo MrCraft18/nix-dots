@@ -14,6 +14,8 @@ in {
 
         home.packages = [
             pkgs.pulseaudioFull
+
+            (pkgs.writeShellScriptBin "desksync" (builtins.readFile ./desksync.sh))
         ];
     };
 }
