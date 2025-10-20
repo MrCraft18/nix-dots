@@ -32,6 +32,7 @@
 
         services = {
             ssh.enable = true;
+            desksync.enable = true;
             # udiskie.enable = true;
         };
     };

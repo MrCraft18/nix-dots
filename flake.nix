@@ -54,6 +54,7 @@
                     inputs.nvf.homeManagerModules.nvf
                     inputs.sops-nix.homeManagerModules.sops
                     inputs.zen-browser.homeModules.beta
+                    inputs.lan-mouse.homeManagerModules.default
                 ];
             };
         };
@@ -105,5 +106,7 @@
             url = "github:justchokingaround/lobster";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        lan-mouse.url = "github:feschber/lan-mouse";
     };
 }
