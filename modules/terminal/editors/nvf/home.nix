@@ -24,6 +24,7 @@ in {
                         cursorline = true;
                         backup = false;
                         writebackup = false;
+                        undofile = true;
                     };
 
                     lsp = {
