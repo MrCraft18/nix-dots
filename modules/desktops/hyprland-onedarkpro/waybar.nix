@@ -61,11 +61,6 @@ in {
                     clock = {
                         interval = 1;
                         format = "{:%A, %B %d, %Y %H:%M:%S}";
-                        on-click = "";
-                        on-click-middle = "";
-                        on-click-right = "";
-                        on-scroll-up = "";
-                        on-scroll-down = "";
                         tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
                     };
                     cpu = {
@@ -117,15 +112,10 @@ in {
                         format-bluetooth-muted = " {icon} {format_source}";
                         format-muted = " {format_source}";
                         format-source = "";
-                        format-source-muted = "";
+                        format-source-muted = " ";
                         format-icons = {
-                            headphone = "";
-                                hands-free = "";
-                                headset = "";
-                                phone = "";
-                                portable = "";
-                                car = "";
-                                default = ["" "" ""];
+                            headphone = " ";
+                            default = ["" " " " "];
                         };
                         on-click = "pavucontrol";
                     };
@@ -152,7 +142,6 @@ in {
                     color: #ffffff;
                     border-bottom: 3px solid transparent;
                 }
-
 
                 .modules-left #workspaces button {
                     border-bottom: 3px solid transparent;
