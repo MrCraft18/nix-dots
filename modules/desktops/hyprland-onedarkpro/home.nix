@@ -197,6 +197,7 @@ in {
                     "$mainMod, Q, killactive,"
                     "$mainMod, M, exit,"
                     "$mainMod, B, exec, zen"
+                    "$mainMod, W, exec, zen -P wanky"
                     "$mainMod, E, exec, $fileManager"
                     "$mainMod, V, togglefloating,"
                     "$mainMod, R, exec, NIXOS_OZONE_WL=1 ELECTRON_OZONE_PLATFORM_HINT=wayland $menu"

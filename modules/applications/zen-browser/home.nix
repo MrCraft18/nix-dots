@@ -13,9 +13,16 @@ in {
 
             profileVersion = null;
 
-            profiles."default" = {
-                id = 0;
-                isDefault = true;
+            profiles = {
+                "default" = {
+                    id = 0;
+                    isDefault = true;
+                };
+
+                "wanky" = {
+                    id = 1;
+                    isDefault = false;
+                };
             };
         };
 
