@@ -31,6 +31,7 @@
         };
 
         services = {
+            desksync.enable = true;
             ssh.enable = true;
             udiskie.enable = true;
         };
