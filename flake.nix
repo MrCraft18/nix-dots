@@ -96,7 +96,7 @@
             inputs.aquamarine.url = "github:hyprwm/aquamarine/v0.4.4";
         };
 
-        nvf.url = "github:NotAShelf/nvf";
+        nvf.url = "github:NotAShelf/nvf/v0.8";
 
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
