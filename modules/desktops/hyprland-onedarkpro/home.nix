@@ -90,13 +90,9 @@ in {
                 ];
 
                 general = {
-                    "gaps_in" = if configurationName == "uconsole" then 0
-                    else if configurationName  == "netbook" then 2
-                    else 5;
+                    "gaps_in" = if configurationName == "uconsole" then 0 else 2;
 
-                    "gaps_out" = if configurationName == "uconsole" then 0 
-                    else if configurationName == "netbook" then 8
-                    else 20;
+                    "gaps_out" = if configurationName == "uconsole" then 0 else 8;
 
                     "border_size" = if configurationName == "uconsole" then 0 else 2;
 
@@ -111,9 +107,7 @@ in {
                 };
 
                 decoration = {
-                    rounding = if configurationName == "uconsole" then 0
-                    else if configurationName == "netbook" then 5
-                    else 10;
+                    rounding = 0;
 
                     active_opacity = 1.0;
                     inactive_opacity = 1.0;
