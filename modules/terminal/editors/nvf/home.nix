@@ -37,7 +37,7 @@ in {
                         # lspsaga.enable = true;
 
                         #This is kind of in the way when I type out a function
-                        lspSignature.enable = true;
+                        # lspSignature.enable = true;
 
                         # lsplines.enable = true;
 
@@ -142,7 +142,7 @@ in {
 
                     autopairs.nvim-autopairs.enable = true;
 
-                    autocomplete.nvim-cmp = {
+                    autocomplete.blink-cmp = {
                         enable = true;
                     };
 
@@ -192,28 +192,28 @@ in {
                             }];
                         };
 
-                        "toggleterm.nvim" = {
-                            package = pkgs.vimPlugins.toggleterm-nvim;
-                            setupModule = "toggleterm";
-                            setupOpts = { direction = "float"; };
-                            keys = [
-                                { mode = [ "n" ]; key = "<Leader>t"; action = ":ToggleTerm<CR>"; noremap = true; silent = true; desc = "Toggle Terminal"; }
-
-                                { mode = [ "n" ]; key = "<Leader>Tf"; action = ":ToggleTerm direction=float<CR>"; noremap = true; silent = true; desc = "Toggle Float Terminal"; }
-                                { mode = [ "n" ]; key = "<Leader>Tt"; action = ":ToggleTerm direction=tab<CR>"; noremap = true; silent = true; desc = "Toggle Tab Terminal"; }
-                                { mode = [ "n" ]; key = "<Leader>Th"; action = ":ToggleTerm direction=horizontal<CR>"; noremap = true; silent = true; desc = "Toggle Horizontal Terminal"; }
-                                { mode = [ "n" ]; key = "<Leader>Tv"; action = ":ToggleTerm direction=vertical<CR>"; noremap = true; silent = true; desc = "Toggle Vertical Terminal"; }
-                            ];
-                            after = ''
-                                function _G.set_terminal_keymaps()
-                                    local opts = {buffer = 0}
-                                    vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-                                    vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
-                                end 
-
-                                vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-                            '';
-                        };
+                        # "toggleterm.nvim" = {
+                        #     package = pkgs.vimPlugins.toggleterm-nvim;
+                        #     setupModule = "toggleterm";
+                        #     setupOpts = { direction = "float"; };
+                        #     keys = [
+                        #         { mode = [ "n" ]; key = "<Leader>t"; action = ":ToggleTerm<CR>"; noremap = true; silent = true; desc = "Toggle Terminal"; }
+                        #
+                        #         { mode = [ "n" ]; key = "<Leader>Tf"; action = ":ToggleTerm direction=float<CR>"; noremap = true; silent = true; desc = "Toggle Float Terminal"; }
+                        #         { mode = [ "n" ]; key = "<Leader>Tt"; action = ":ToggleTerm direction=tab<CR>"; noremap = true; silent = true; desc = "Toggle Tab Terminal"; }
+                        #         { mode = [ "n" ]; key = "<Leader>Th"; action = ":ToggleTerm direction=horizontal<CR>"; noremap = true; silent = true; desc = "Toggle Horizontal Terminal"; }
+                        #         { mode = [ "n" ]; key = "<Leader>Tv"; action = ":ToggleTerm direction=vertical<CR>"; noremap = true; silent = true; desc = "Toggle Vertical Terminal"; }
+                        #     ];
+                        #     after = ''
+                        #         function _G.set_terminal_keymaps()
+                        #             local opts = {buffer = 0}
+                        #             vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+                        #             vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+                        #         end 
+                        #
+                        #         vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+                        #     '';
+                        # };
                     };
 
                     keymaps = [
