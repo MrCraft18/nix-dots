@@ -286,9 +286,9 @@ in {
 
                 # xwayland.force_zero_scaling = true;
 
-                windowrulev2 = [
-                    "suppressevent maximize, class:.*"
-                    "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+                windowrule = [
+                    "match:class .*, suppress_event maximize"
+                    "match:class ^$, match:title ^$, match:xwayland true, match:float true, match:fullscreen false, match:pin false, no_focus on"
                 ];
             };
        }; 
