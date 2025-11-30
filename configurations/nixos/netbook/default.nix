@@ -46,6 +46,7 @@
         vesktop
         mongodb-compass
         anki
+        prismlauncher
     ];
 
     system.stateVersion = "24.05";
