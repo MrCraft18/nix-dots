@@ -18,6 +18,8 @@ in {
 
             {
                 targets.waybar.addCss = false;
+
+                enableReleaseChecks = false;
             }
         ];
 
