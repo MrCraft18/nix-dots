@@ -32,8 +32,8 @@
             firefox
             mongodb-compass
         ] ++ [
-            inputs.zen-browser.packages.${pkgs.system}.default
-            inputs.lobster.packages.${pkgs.system}.lobster
+            inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+            inputs.lobster.packages.${pkgs.stdenv.hostPlatform.system}.lobster
         ];
     };
 

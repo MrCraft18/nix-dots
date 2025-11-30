@@ -22,11 +22,11 @@ in {
         hardware.graphics = {
             enable = true;
             package = if configurationName == "uconsole"
-                then inputs.${hyprland}.inputs.nixpkgs.legacyPackages.${pkgs.system}.mesa.drivers
-                else inputs.${hyprland}.inputs.nixpkgs.legacyPackages.${pkgs.system}.mesa;
+                then inputs.${hyprland}.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa.drivers
+                else inputs.${hyprland}.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa;
 
-            enable32Bit = lib.mkIf (pkgs.system != "aarch64-linux") true;
-            package32 = inputs.uconsole-hyprland.inputs.nixpkgs.legacyPackages.${pkgs.system}.pkgsi686Linux.mesa;
+            enable32Bit = lib.mkIf (pkgs.stdenv.hostPlatform.system != "aarch64-linux") true;
+            package32 = inputs.uconsole-hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.pkgsi686Linux.mesa;
         };
 
         programs.hyprland = {
@@ -35,8 +35,8 @@ in {
 
             xwayland.enable = true;
 
-            package = inputs.${hyprland}.packages.${pkgs.system}.hyprland;
-            portalPackage = inputs.${hyprland}.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+            package = inputs.${hyprland}.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+            portalPackage = inputs.${hyprland}.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         };
     };
 }
