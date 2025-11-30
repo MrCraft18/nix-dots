@@ -15,10 +15,13 @@ in {
 
         programs.git = {
             enable = true;
-            userName = "MrCraft18";
-            userEmail = "mariocaden@gmail.com";
 
-            extraConfig = {
+            settings = {
+                user = {
+                    name = "MrCraft18";
+                    email = "mariocaden@gmail.com";
+                };
+
                 init.defaultBranch = "master";
                 push.autoSetupRemote = "true";
                 pull.rebase = "true";
