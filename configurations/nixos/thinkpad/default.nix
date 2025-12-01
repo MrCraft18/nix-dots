@@ -42,6 +42,7 @@
         umu-launcher
         mongodb-compass
         vesktop
+        prismlauncher
     ];
 
     system.stateVersion = "25.05";
