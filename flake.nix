@@ -96,6 +96,13 @@
             inputs.aquamarine.url = "github:hyprwm/aquamarine/v0.4.4";
         };
 
+        iio-hyprland.url = "github:JeanSchoeller/iio-hyprland";
+
+        hyprgrass = {
+            url = "github:horriblename/hyprgrass";
+            inputs.hyprland.follows = "hyprland";
+        };
+
         nvf.url = "github:NotAShelf/nvf/v0.8";
 
         zen-browser.url = "github:0xc000022070/zen-browser-flake";

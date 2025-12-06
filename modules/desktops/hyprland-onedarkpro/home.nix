@@ -28,7 +28,10 @@ in {
             yaru-theme
             wl-clipboard
             rofi
-        ];
+        ] ++ (if configurationName == "netbook" then [
+            inputs.iio-hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default
+            wvkbd
+        ] else []);
 
         home.sessionVariables = {
             NIXOS_OZONE_WL = "1";
@@ -46,6 +49,10 @@ in {
 
             package = null;
             portalPackage = null;
+
+            plugins = [
+                inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.default
+            ];
 
             settings = {
                 monitor = if configurationName == "netbook" then [
@@ -68,7 +75,10 @@ in {
 
                 exec-once = [
                     "hyprpaper"
-                ];
+                ] ++ (if configurationName == "netbook" then [
+                    "iio-hyprland DSI-1"
+                    "wvkbd-mobintl -L 230 -H 350 --hidden"
+                ] else []);
 
                 "$terminal" = "kitty";
                 "$menu" = "rofi -show drun";            
@@ -284,11 +294,20 @@ in {
                     ", XF86AudioPrev, exec, playerctl previous"
                 ];
 
+                plugin = {
+                    touch_gestures = {
+                        hyprgrass-bind = [
+                            ", edge:d:u, exec, kill -34 $(ps -C wvkbd-mobintl -o pid=)"
+                        ];
+                    };
+                };
+
                 # xwayland.force_zero_scaling = true;
 
                 windowrule = [
                     "match:class .*, suppress_event maximize"
                     "match:class ^$, match:title ^$, match:xwayland true, match:float true, match:fullscreen false, match:pin false, no_focus on"
+                    "match:class ^steam_app_.*, fullscreen_state 2 1, suppress_event fullscreen"
                 ];
             };
        }; 
