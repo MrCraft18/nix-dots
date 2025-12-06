@@ -4,8 +4,11 @@
     outputs = { self, nixpkgs, home-manager, nix-on-droid, ... } @inputs:
         let
             # lib = nixpkgs.lib.extend (final: prev: (import ./lib final) // home-manager.lib);
+
+            nixosConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nixos));
+            manualConfigurations = [ "uconsole" ];
         in {
-            nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir ./configurations/nixos)) (name: nixpkgs.lib.nixosSystem {
+            nixosConfigurations = nixpkgs.lib.genAttrs (nixpkgs.lib.subtractLists manualConfigurations nixosConfigurationNames) (name: nixpkgs.lib.nixosSystem {
                 specialArgs = {
                     inherit inputs;
                     configurationName = name;
@@ -16,7 +19,22 @@
                     self.nixosModules.default
                     (./configurations/nixos + "/${name}")
                 ];
-            });  
+            }) // {
+                "uconsole" = inputs.nixos-raspberrypi.lib.nixosSystem {
+                    trustCaches = false;
+
+                    specialArgs = {
+                        inherit inputs;
+                        configurationName = "uconsole";
+                        buildScope = "nixos";
+                    };
+
+                    modules = [
+                        self.nixosModules.default
+                        (./configurations/nixos + "/uconsole")
+                    ];
+                };
+            };  
 
             # homeConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir ./configurations/home)) (name: home-manager.lib.homeManagerConfiguration {
             #     extraSpecialArgs = {
@@ -85,9 +103,19 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        stylix.url = "github:danth/stylix";
+        # For uconsole
+        nixos-raspberrypi = {
+            url = "github:robertjakub/nixos-raspberrypi/develop";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
-        oom-hardware.url = "github:MrCraft18/oom-hardware";
+        oom-hardware = {
+            url = "github:robertjakub/oom-hardware/devel";
+            inputs.nixpkgs.follows = "nixpkgs";
+            inputs.nixos-raspberrypi.follows = "nixos-raspberrypi";
+        }; 
+
+        stylix.url = "github:danth/stylix";
 
         hyprland.url = "github:hyprwm/Hyprland";
 
