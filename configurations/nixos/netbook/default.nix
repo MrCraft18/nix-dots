@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
     imports = [
@@ -49,6 +49,21 @@
         prismlauncher
         obs-studio
         obs-studio-plugins.wlrobs
+    ];
+
+    hardware.sensor.iio.enable = true;
+
+    nixpkgs.overlays = [
+        (final: prev: {
+            wvkbd = prev.wvkbd.overrideAttrs (old: {
+                src = prev.fetchFromGitHub {
+                    owner = "greymouser";
+                    repo = "wvkbd";
+                    rev = "master";
+                    hash = "sha256-86MoNjwl0/O4F/5mjl8aFo1wZjnkqTK2kRZgQhTFC/I=";
+                };
+            });
+        })
     ];
 
     system.stateVersion = "24.05";
