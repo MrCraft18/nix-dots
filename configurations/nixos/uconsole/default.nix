@@ -1,48 +1,65 @@
-{ inputs, pkgs, ... }:
+{ inputs, lib, pkgs, modulesPath, ... }:
 
 {
     imports = [
+        (lib.mkAliasOptionModule [ "environment" "checkConfigurationOptions" ] [ "_module" "check" ])
+        inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
+        inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.bluetooth
         inputs.oom-hardware.nixosModules.uconsole
+        inputs.oom-hardware.nixosModules.uc.kernel
+        inputs.oom-hardware.nixosModules.uc.configtxt
+        inputs.oom-hardware.nixosModules.uc.base-cm4
         ./hardware-configuration.nix
         ../common/configuration.nix
         ../common/tuigreet.nix
     ];
 
-    boot.loader.systemd-boot.enable = false;
+    moduleLoadout = {
+        desktop = "hyprland-onedarkpro";
+        greeter = "tui";
 
-    environment.systemPackages = with pkgs; [
-        tmux
-    ];
+        terminal = {
+            emulator = "kitty";
+            shell = "zsh";
+            multiplexer = "zellij";
+            editor = "nvf";
+            fileBrowser = "yazi";
+        };
 
-    # Extra system relavent home-manager config
-    home-manager.users.craft = {
-        home.packages = with pkgs; [
-            vesktop
-        ] ++ [
-            inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-        ];
-    };
+        applications = {
+            zen-browser.enable = true;
+            retroarch.enable = true;
+        };
 
-    services.tailscale.enable = true;
+        programs = {
+            mpv.enable = true;
+            git.enable = true;
+            password-store.enable = true;
+        };
 
-    services.openssh = {
-        enable = true;
-        settings = {
-            PasswordAuthentication = false;
+        services = {
+            ssh.enable = true;
+            udiskie.enable = true;
         };
     };
 
-    # This option defines the first version of NixOS you have installed on this particular machine,
-    # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-    # Most users should NEVER change this value after the initial install, for any reason,
-    # even if you've upgraded your system to a new NixOS release.
-    # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-    # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-    # to actually do that.
-    # This value being lower than the current NixOS release does NOT mean your system is
-    # out of date, out of support, or vulnerable.
-    # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-    # and migrated your data accordingly.
-    # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-    system.stateVersion = "25.05"; # Did you read the comment?
+    home-manager.users.craft.home.packages = with pkgs; [
+        qutebrowser
+    ];
+
+    boot.loader.raspberryPi.bootloader = "kernel";
+    boot.consoleLogLevel = 7;
+
+    console = {
+        earlySetup = true;
+        font = "ter-v32n";
+        packages = with pkgs; [ terminus_font ];
+    };
+
+    disabledModules = [ (modulesPath + "/rename.nix") ];
+
+    boot.loader.systemd-boot.enable = false;
+
+    system.stateVersion = "25.05";
+    home-manager.users.craft.home.stateVersion = "25.05";
 }
