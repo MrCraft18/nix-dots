@@ -47,6 +47,8 @@
         mongodb-compass
         anki
         prismlauncher
+        obs-studio
+        obs-studio-plugins.wlrobs
     ];
 
     system.stateVersion = "24.05";
