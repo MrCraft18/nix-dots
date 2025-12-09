@@ -26,7 +26,7 @@ in {
                 else inputs.${hyprland}.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.mesa;
 
             enable32Bit = lib.mkIf (pkgs.stdenv.hostPlatform.system != "aarch64-linux") true;
-            package32 = inputs.uconsole-hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.pkgsi686Linux.mesa;
+            package32 = inputs.${hyprland}.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.pkgsi686Linux.mesa;
         };
 
         programs.hyprland = {
