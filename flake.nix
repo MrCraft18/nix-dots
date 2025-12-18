@@ -69,6 +69,7 @@
                 ];
 
                 home-manager.users.craft.imports = [
+                    inputs.ags.homeManagerModules.default
                     inputs.nvf.homeManagerModules.nvf
                     inputs.sops-nix.homeManagerModules.sops
                     inputs.zen-browser.homeModules.beta
@@ -130,6 +131,10 @@
             url = "github:horriblename/hyprgrass";
             inputs.hyprland.follows = "hyprland";
         };
+
+        astal.url = "github:aylur/astal";
+
+        ags.url = "github:aylur/ags"; 
 
         nvf.url = "github:NotAShelf/nvf";
 
