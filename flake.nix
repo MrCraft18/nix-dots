@@ -131,7 +131,7 @@
             inputs.hyprland.follows = "hyprland";
         };
 
-        nvf.url = "github:NotAShelf/nvf/v0.8";
+        nvf.url = "github:NotAShelf/nvf";
 
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
