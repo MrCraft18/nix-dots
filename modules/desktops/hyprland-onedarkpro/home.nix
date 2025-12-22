@@ -4,9 +4,9 @@ let
     cfg = config.moduleLoadout.desktop;
     hyprland = if configurationName == "uconsole" then "uconsole-hyprland" else "hyprland";
 in {
-    imports = [
-        ./waybar.nix
-    ];
+    # imports = [
+    #     ./waybar.nix
+    # ];
 
     config = lib.mkIf (cfg == "hyprland-onedarkpro") {
         stylix = lib.mkMerge [
