@@ -60,6 +60,7 @@ in {
                         css.enable = true;
                         html.enable = true;
                         python.enable = true;
+                        json.enable = true;
                     };
 
                     treesitter = {
