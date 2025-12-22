@@ -25,6 +25,9 @@ in {
                         backup = false;
                         writebackup = false;
                         undofile = true;
+                        foldmethod = "indent";
+                        foldlevel = 99;
+                        foldlevelstart = 99;
                     };
 
                     lsp = {
