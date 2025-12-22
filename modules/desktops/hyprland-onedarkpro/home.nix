@@ -42,6 +42,19 @@ in {
             rm -f ~/.config/hypr/hyprland.conf.hmBackup
         '';
 
+        programs.quickshell = {
+            enable = true;
+
+            configs."default" = ./quickshell;
+
+            activeConfig = "default";
+
+            systemd = {
+                enable = false;
+                target = "hyprland-session.target";
+            };
+        };
+
         wayland.windowManager.hyprland = {
             enable = true;
             systemd.enable = true;
