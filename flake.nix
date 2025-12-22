@@ -143,5 +143,7 @@
         };
 
         lan-mouse.url = "github:feschber/lan-mouse";
+
+        codex.url = "github:openai/codex";
     };
 }
