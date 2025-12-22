@@ -1,0 +1,78 @@
+@use "../stylix.scss" as stylix;
+
+window#Bar {
+  background: transparent;
+
+  .bar-module {
+    border-radius: 0px;
+    padding: 2px 8px;
+    font-weight: 600;
+    border-width: 2px;
+    border-style: solid;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+  
+Time {
+  color: stylix.$base07; 
+  border-color: stylix.$base07;
+  background: stylix.$base00;
+
+  > button {
+    background: inherit;
+    font-weight: inherit;
+    padding: 0px;
+    transition: none;
+  }
+
+  > popover {
+    margin-top: 10px;
+
+    > contents {
+      color: stylix.$base07;
+
+      calendar image,label:not(.other-month) {
+        color: stylix.$base07;
+      }
+
+      border: 2px solid currentColor; 
+      border-radius: 0px;
+      background: stylix.$base00;
+
+      .day-number:selected {
+        border-radius: 0px;
+        background: stylix.$base0D;
+        background-image: none;
+        box-shadow: none;
+        outline: black;
+        transition: none;
+      }
+
+      .today {
+        box-shadow: inset 0 -2px stylix.$base0D;
+      }
+    }
+  }
+}
+
+Time:hover {
+  color: stylix.$base00; 
+  background: stylix.$base07; 
+}
+
+/* kill the theme rule for labels inside this calendar */
+calendar > grid > label {
+  outline: none;
+  outline-offset: 0;
+  transition: none;
+}
+
+/* and explicitly kill it in focus states too */
+calendar > grid > label:focus,
+calendar > grid > label:focus-visible,
+calendar > grid > label:active {
+  outline: none;
+  outline-offset: 0;
+}
