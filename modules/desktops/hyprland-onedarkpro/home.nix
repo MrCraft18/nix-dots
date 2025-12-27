@@ -61,10 +61,11 @@ in {
                 ] else if configurationName == "uconsole" then [
                     "DSI-1, preferred, auto, 1.6, transform, 3"
                 ] else if configurationName == "desktop" then [
-                    "DP-3, preferred, 0x0, 1"
-                    "DP-1, preferred, 1920x0, 1"
-                    "HDMI-A-1, preferred, 4480x0, 1"
-                    "DP-2, preferred, 7040x0, 1"
+                    "HDMI-A-1, preferred, 0x0, 1"
+                    # "DP-3, preferred, 0x0, 1"
+                    # "DP-1, preferred, 1920x0, 1"
+                    # "HDMI-A-1, preferred, 4480x0, 1"
+                    # "DP-2, preferred, 7040x0, 1"
                 ] else if configurationName == "panasonic" then [
                     "LVDS-1, preferred, auto, 1"
                 ] else if configurationName == "thinkpad" then [
