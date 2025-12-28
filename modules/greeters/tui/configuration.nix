@@ -8,7 +8,7 @@ in {
             enable = true;
             settings = {
                 initial_session = {
-                    command = "Hyprland";
+                    command = "start-hyprland";
                     user = "craft";
                 };
                 default_session = {
@@ -18,7 +18,7 @@ in {
                         --remember \
                         --remember-user-session \
                         --time \
-                        --cmd Hyprland";
+                        --cmd start-hyprland";
                     user = "greeter";
                 };
             };
