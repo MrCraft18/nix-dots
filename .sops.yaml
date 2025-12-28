@@ -7,6 +7,7 @@ keys:
     - &panasonic age1qyyx2vchvdn2kcn2mm300a7ll3nelrgn9l9lgqwyxjxzmdjtff6qugmg5t
     - &usb age1f2v7vkggr29jvpyadj4nnjpyjmn0sewec7k02nstw35yvaeqwy5s74sm2s
     - &thinkpad age1aaq43a2406tjyl7nrq9tscgx0sajx03755y94605jpwe35yqmvyq293hrd
+    - &server age1kwrsxvem0rcpepucw2tvgfjmz6rjrnar2tjefz0wuzkl3v7age6qs4qws6
 creation_rules:
   # Shared Secrets
   - path_regex: ^secrets.yaml$
@@ -38,3 +39,7 @@ creation_rules:
     key_groups:
       - pgp: [*gpg_key]
         age: [*thinkpad]
+  - path_regex: ^configurations/nixos/server/secrets.yaml$
+    key_groups:
+      - pgp: [*gpg_key]
+        age: [*server]
