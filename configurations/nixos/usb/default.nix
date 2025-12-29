@@ -44,6 +44,15 @@
         efi.canTouchEfiVariables = false;
     };
 
+    networking.hostId = "a0235cef";
+
+    boot.supportedFilesystems = [ "zfs" ];
+
+    services.zfs = {
+        autoScrub.enable = true;
+        trim.enable = true;
+    };
+
     system.stateVersion = "25.05";
     home-manager.users.craft.home.stateVersion = "25.05";
 }
