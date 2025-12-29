@@ -39,24 +39,28 @@
         trim.enable = true;
     };
 
-    boot.loader.grub.mirroredBoots = [
-        {
-            path = "/boot-efi/disk1";
-            devices = [ "/dev/disk/by-id/ata-ST8000AS0002-1NA17Z_Z840RBP6" ];
-        }
-        {
-            path = "/boot-efi/disk2";
-            devices = [ "/dev/disk/by-id/ata-ST8000DM004-2CX188_ZCT00FBS" ];
-        }
-        {
-            path = "/boot-efi/disk3";
-            devices = [ "/dev/disk/by-id/ata-ST8000DM004-2CX188_ZCT00FJA" ];
-        }
-        {
-            path = "/boot-efi/disk4";
-            devices = [ "/dev/disk/by-id/ata-ST8000AS0002-1NA17Z_Z840WFB1" ];
-        }
-    ];
+      boot.loader.efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot-efi/disk1";
+    };
+
+    boot.loader.grub = {
+        enable = true;
+        zfsSupport = true;
+        efiSupport = true;
+
+        # no BIOS MBR install, only EFI
+        devices = [ "nodev" ];
+        copyKernels = true;
+
+        # mirror EFI contents to all four ESPs
+        mirroredBoots = [
+            { path = "/boot-efi/disk1"; devices = [ "nodev" ]; }
+            { path = "/boot-efi/disk2"; devices = [ "nodev" ]; }
+            { path = "/boot-efi/disk3"; devices = [ "nodev" ]; }
+            { path = "/boot-efi/disk4"; devices = [ "nodev" ]; }
+        ];
+    };
 
     system.stateVersion = "25.05";
     home-manager.users.craft.home.stateVersion = "25.05";

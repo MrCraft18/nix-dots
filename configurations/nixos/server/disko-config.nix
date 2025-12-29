@@ -56,10 +56,13 @@ in {
             bpool = {
                 type = "zpool";
                 mode = "mirror";
-                # mountpoint = "/boot";
+
                 options = {
                     ashift = "12";
+                    autotrim = "on";
+                    compatibility = "grub2";
                 };
+
                 rootFsOptions = {
                     devices = "off";
                     acltype = "posixacl";
@@ -71,6 +74,7 @@ in {
 
                     "com.sun:auto-snapshot" = "false";
                 };
+
                 datasets = {
                     "boot" = {
                         type = "zfs_fs";
@@ -82,16 +86,21 @@ in {
             rpool = {
                 type = "zpool";
                 mode = "raidz2";
-                # mountpoint = "/";
 
                 options = {
                     ashift = "12";
+                    autotrim = "on";
                 };
 
                 rootFsOptions = {
-                    compression = "zstd";
+                    acltype = "posixacl";
                     xattr = "sa";
-                    atime = "off";
+                    dnodesize = "auto";
+                    compression = "zstd";
+                    normalization = "formD";
+                    relatime = "on";
+                    canmount = "off";
+
                     "com.sun:auto-snapshot" = "false";
                 };
 
