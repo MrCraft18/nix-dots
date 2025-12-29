@@ -5,6 +5,7 @@
         ./hardware-configuration.nix
         ./disko-config.nix
         ../../../modules
+        ./copyparty.nix
     ];
 
     moduleLoadout = {
@@ -27,7 +28,7 @@
     };
 
     home-manager.users.craft.home.packages = with pkgs; [
-
+        copyparty
     ];
 
     networking.hostId = "a0235cef";
