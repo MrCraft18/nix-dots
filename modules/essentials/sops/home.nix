@@ -9,5 +9,6 @@
             keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
             sshKeyPaths = lib.mkForce [];
         };
+        gnupg.sshKeyPaths = lib.mkForce [];
     };
 }

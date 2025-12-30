@@ -7,5 +7,6 @@
             keyFile = "/home/craft/.config/sops/age/keys.txt";
             sshKeyPaths = lib.mkForce [];
         };
+        gnupg.sshKeyPaths = lib.mkForce [];
     };
 }
