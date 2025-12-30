@@ -35,6 +35,8 @@
             # using 'false' will do nothing and omit the value when generating a config
             ignored-flag = false;
 
+            unlist = "^homework/$";
+
             # stuff to make tailscale funnel work
             "xff-src" = "127.0.0.1/32";
             "xff-hdr" = "x-forwarded-for";
