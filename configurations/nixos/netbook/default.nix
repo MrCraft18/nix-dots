@@ -21,6 +21,7 @@
 
         applications = {
             zen-browser.enable = true;
+            vesktop.enable = true;
             steam.enable = true;
         };
 
@@ -43,7 +44,6 @@
         winetricks
         wineWowPackages.unstableFull
         umu-launcher
-        vesktop
         mongodb-compass
         anki
         prismlauncher

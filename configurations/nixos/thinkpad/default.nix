@@ -22,6 +22,7 @@
 
         applications = {
             zen-browser.enable = true;
+            vesktop.enable = true;
         };
 
         programs = {
@@ -41,7 +42,6 @@
         firefox
         umu-launcher
         mongodb-compass
-        vesktop
         prismlauncher
     ];
 

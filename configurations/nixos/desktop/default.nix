@@ -20,6 +20,7 @@
 
         applications = {
             zen-browser.enable = true;
+            vesktop.enable = true;
             retroarch.enable = true;
             steam.enable = true;
         };
@@ -47,7 +48,6 @@
         firefox
         vdhcoapp
         winetricks
-        vesktop
         obs-studio
         obs-studio-plugins.wlrobs
         gimp
