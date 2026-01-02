@@ -28,6 +28,7 @@ in {
             yaru-theme
             wl-clipboard
             rofi
+            brightnessctl
         ] ++ (if configurationName == "netbook" then [
             inputs.iio-hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default
             wvkbd
