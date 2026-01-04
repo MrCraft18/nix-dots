@@ -19,10 +19,10 @@
     services.copyparty = {
         enable = true;
         # the user to run the service as
-        user = "copyparty"; 
+        user = "craft"; 
 
         # the group to run the service as
-        group = "copyparty"; 
+        group = "users"; 
 
         # directly maps to values in the [global] section of the copyparty config.
         # see `copyparty --help` for available options
@@ -30,6 +30,9 @@
             i = "0.0.0.0";
             # use lists to set multiple values
             p = [ 3210 ];
+
+            j = 0;
+             
             # use booleans to set binary flags
             no-reload = true;
             # using 'false' will do nothing and omit the value when generating a config
