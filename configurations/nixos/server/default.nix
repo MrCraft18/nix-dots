@@ -31,6 +31,9 @@
         copyparty
     ];
 
+    services.openssh.settings.X11Forwarding = true;
+    environment.systemPackages = [ pkgs.xorg.xauth ];
+
     networking.hostId = "a0235cef";
 
     boot.supportedFilesystems = [ "zfs" ];
