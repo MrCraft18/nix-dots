@@ -10,6 +10,7 @@
     users.users.craft.extraGroups = [ "copyparty" ];
 
     sops.secrets."copyparty_craft_password" = {
+        sopsFile = "${inputs.self}/secrets.yaml";
         owner = config.services.copyparty.user;
     };
 
