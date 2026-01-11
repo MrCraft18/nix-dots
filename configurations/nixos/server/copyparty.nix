@@ -35,8 +35,8 @@
              
             # use booleans to set binary flags
             no-reload = true;
-            # using 'false' will do nothing and omit the value when generating a config
-            ignored-flag = false;
+
+            ed = true;
 
             unlist = "^homework/$";
 
@@ -68,7 +68,7 @@
 
                 # see `copyparty --help-accounts` for available options
                 access = {
-                    rwmda = [ "craft" ];
+                    "rwmda." = [ "craft" ];
                 };
 
                 # see `copyparty --help-flags` for available options
