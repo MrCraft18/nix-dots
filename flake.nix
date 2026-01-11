@@ -146,6 +146,8 @@
 
         codex.url = "github:openai/codex";
 
+        opencode.url = "github:anomalyco/opencode";
+
         copyparty.url = "github:9001/copyparty";
     };
 }

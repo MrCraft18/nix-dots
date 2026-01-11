@@ -30,6 +30,7 @@
             git.enable = true;
             password-store.enable = true;
             codex.enable = true;
+            opencode.enable = true;
         };
 
         services = {
