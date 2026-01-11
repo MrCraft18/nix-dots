@@ -19,4 +19,6 @@
     services.geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
 
     i18n.defaultLocale = "en_US.UTF-8";
+
+    boot.tmp.cleanOnBoot = true;
 }
