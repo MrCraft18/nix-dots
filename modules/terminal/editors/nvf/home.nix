@@ -61,6 +61,8 @@ in {
                         html.enable = true;
                         python.enable = true;
                         json.enable = true;
+                        svelte.enable = true;
+                        tailwind.enable = true;
                     };
 
                     treesitter = {
