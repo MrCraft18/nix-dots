@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
     imports = [
@@ -52,6 +52,8 @@
         obs-studio
         obs-studio-plugins.wlrobs
         gimp
+    ] ++ [
+        inputs.hytale-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     # Support emulated building for aarch64

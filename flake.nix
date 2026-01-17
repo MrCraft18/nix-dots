@@ -149,5 +149,7 @@
         opencode.url = "github:anomalyco/opencode";
 
         copyparty.url = "github:9001/copyparty";
+
+        hytale-launcher.url = "github:TNAZEP/HytaleLauncherFlake";
     };
 }
