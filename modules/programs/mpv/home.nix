@@ -13,6 +13,7 @@ in {
 
             config = {
                 volume-max = 300;
+                image-display-duration = "inf";
             };
         };
     };
