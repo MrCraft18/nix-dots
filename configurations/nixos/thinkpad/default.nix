@@ -29,6 +29,7 @@
             git.enable = true;
             password-store.enable = true;
             mpv.enable = true;
+            opencode.enable = true;
         };
 
         services = {
