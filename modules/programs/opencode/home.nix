@@ -12,6 +12,19 @@ in {
             enable = true;
             package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
+            settings = {
+                mcp = {
+                    playwright = {
+                        type = "local";
+                        command = [
+                            "nix"
+                            "run"
+                            "nixpkgs#playwright-mcp"
+                        ];
+                    };
+                };
+            };
+
             rules = ''
                   # External File Loading
 
