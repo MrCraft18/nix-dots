@@ -195,6 +195,10 @@ in {
                     sensitivity = if configurationName == "netbook" then -0.25 else 0;
                 };
 
+                cursor = lib.mkIf (configurationName == "netbook") {
+                    no_hardware_cursors = 1;
+                };
+
                 "$mainMod" = "SUPER";
 
                 bind = [
