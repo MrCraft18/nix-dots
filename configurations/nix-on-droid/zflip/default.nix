@@ -1,6 +1,28 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
+    imports = [
+        ../../../modules
+    ];
+
+    moduleLoadout = {
+        terminal = {
+            shell = "zsh";
+            multiplexer = "zellij";
+            editor = "nvf";
+            fileBrowser = "yazi";
+        };
+
+        programs = {
+            git.enable = true;
+            password-store.enable = true;
+        };
+
+        services = {
+            ssh.enable = true;
+        };
+    };
+
     # Simply install just the packages
     environment.packages = with pkgs; [
         # User-facing stuff that you really really want to have
@@ -31,6 +53,7 @@
         hostname
         man
         gnugrep
+        tar
         #gnupg
         #gnused
         #gnutar
@@ -39,7 +62,7 @@
         #xz
         #zip
         #unzip
-    ] ++ [ inputs.lobster.packages."aarch64-linux".lobster ];
+    ];
 
     android-integration = {
         am.enable = true;
@@ -73,10 +96,6 @@
 
     home-manager = {
         config = {
-            imports = [
-                ../common/home.nix
-            ];
-
             home.username = "nix-on-droid";
             home.homeDirectory = "/data/data/com.termux.nix/files/home";
         };
