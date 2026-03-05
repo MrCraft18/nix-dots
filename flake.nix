@@ -69,10 +69,10 @@
 
                     modules = [
                         ./configurations/nix-on-droid/zflip
+                        inputs.stylix.nixOnDroidModules.stylix
                         ({ ... }: {
                             home-manager.config.imports = [
                                 self.homeManagerModules.default
-                                inputs.stylix.nixOnDroidModules.stylix
                             ];
                         })
                     ];
