@@ -107,7 +107,6 @@
 
             home.stateVersion = "24.05";
 
-            stylix.overlays.enable = false;
         };
     };
 }
