@@ -1,4 +1,4 @@
-{ configurationName, config, lib, pkgs, ... }:
+{ configurationName, config, options, lib, pkgs, ... }:
 
 let
     cfg = config.moduleLoadout.services.desksync;
@@ -7,15 +7,17 @@ in {
         enable = lib.mkEnableOption "desksync service module";
     };
 
-    config = lib.mkIf cfg.enable {
-        programs.lan-mouse = {
-            enable = true;
-        };
+    config = lib.mkIf cfg.enable (
+        {
+            home.packages = [
+                pkgs.pulseaudioFull
 
-        home.packages = [
-            pkgs.pulseaudioFull
-
-            (pkgs.writeShellScriptBin "desksync" (builtins.readFile ./desksync.sh))
-        ];
-    };
+                (pkgs.writeShellScriptBin "desksync" (builtins.readFile ./desksync.sh))
+            ];
+        } // lib.optionalAttrs (lib.hasAttrByPath [ "programs" "lan-mouse" ] options) {
+            programs.lan-mouse = {
+                enable = true;
+            };
+        }
+    );
 }
