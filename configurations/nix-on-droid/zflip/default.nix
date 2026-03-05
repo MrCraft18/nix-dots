@@ -28,6 +28,12 @@
         homeManagerIntegration.followSystem = false;
         base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark-dark.yaml";
         overlays.enable = false;
+        fonts = {
+            monospace = {
+                package = pkgs.nerd-fonts.jetbrains-mono;
+                name = "JetBrainsMono Nerd Font";
+            };
+        };
     };
 
     # Simply install just the packages
@@ -99,7 +105,6 @@
         nameserver 100.100.100.100
     '';
 
-    terminal.font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFontMono-Regular.ttf";
 
     home-manager = {
         config = {
