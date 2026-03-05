@@ -66,7 +66,7 @@
         hostname
         man
         gnugrep
-        tar
+        gnutar
         #gnupg
         #gnused
         #gnutar
