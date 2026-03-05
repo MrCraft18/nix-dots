@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, buildScope, ... }:
 
 let
     directoryNames = builtins.attrNames (lib.filterAttrs (name: type: type == "directory") (builtins.readDir ./.));
@@ -11,4 +11,12 @@ in {
         default = "";
         description = "Desktop module selection";
     };
-}
+} // (if (buildScope == "nix-on-droid") then {
+    config.home-manager.config = { lib, ... }: {
+        options.moduleLoadout.greeter = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Desktop module selection";
+        };
+    };
+} else {})

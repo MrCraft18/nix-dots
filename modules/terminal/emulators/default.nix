@@ -19,4 +19,12 @@ in {
             description = "Terminal emulator module selection";
         };
     };
+} else if (buildScope == "nix-on-droid") then {
+    config.home-manager.config = { lib, ... }: {
+        options.moduleLoadout.terminal.emulator = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Terminal emulator module selection";
+        };
+    };
 } else {})
