@@ -108,6 +108,11 @@
 
     home-manager = {
         useGlobalPkgs = true;
+        extraSpecialArgs = {
+            inherit inputs;
+            configurationName = "zflip";
+            buildScope = "nix-on-droid";
+        };
         config = {
             home.username = "nix-on-droid";
             home.homeDirectory = "/data/data/com.termux.nix/files/home";
