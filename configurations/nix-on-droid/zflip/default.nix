@@ -26,6 +26,7 @@
     stylix = {
         enable = true;
         homeManagerIntegration.followSystem = false;
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark-dark.yaml";
     };
 
     # Simply install just the packages
