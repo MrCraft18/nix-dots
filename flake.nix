@@ -8,6 +8,15 @@
             nixosConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nixos));
             manualConfigurations = [ "uconsole" ];
         in {
+            homeManagerModules.default = { inputs, ... }: {
+                imports = [
+                    inputs.nvf.homeManagerModules.nvf
+                    inputs.sops-nix.homeManagerModules.sops
+                    inputs.zen-browser.homeModules.beta
+                    inputs.lan-mouse.homeManagerModules.default
+                ];
+            };
+
             nixosConfigurations = nixpkgs.lib.genAttrs (nixpkgs.lib.subtractLists manualConfigurations nixosConfigurationNames) (name: nixpkgs.lib.nixosSystem {
                 specialArgs = {
                     inherit inputs;
@@ -58,7 +67,12 @@
                         buildScope = "nix-on-droid";
                     };
 
-                    modules = [ ./configurations/nix-on-droid/zflip ];
+                    modules = [
+                        ./configurations/nix-on-droid/zflip
+                        ({ self, ... }: {
+                            home-manager.config.imports = [ self.homeManagerModules.default ];
+                        })
+                    ];
 
                     home-manager-path = home-manager.outPath;
                 }; 
@@ -74,10 +88,7 @@
                 ];
 
                 home-manager.users.craft.imports = [
-                    inputs.nvf.homeManagerModules.nvf
-                    inputs.sops-nix.homeManagerModules.sops
-                    inputs.zen-browser.homeModules.beta
-                    inputs.lan-mouse.homeManagerModules.default
+                    self.homeManagerModules.default
                 ];
             };
         };
