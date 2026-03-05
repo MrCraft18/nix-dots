@@ -27,6 +27,7 @@
         enable = true;
         homeManagerIntegration.followSystem = false;
         base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark-dark.yaml";
+        overlays.enable = false;
     };
 
     # Simply install just the packages
