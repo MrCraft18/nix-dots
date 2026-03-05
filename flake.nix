@@ -8,7 +8,7 @@
             nixosConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nixos));
             manualConfigurations = [ "uconsole" ];
         in {
-            homeManagerModules.default = { inputs, ... }: {
+            homeManagerModules.default = { ... }: {
                 imports = [
                     inputs.nvf.homeManagerModules.nvf
                     inputs.sops-nix.homeManagerModules.sops
@@ -69,8 +69,8 @@
 
                     modules = [
                         ./configurations/nix-on-droid/zflip
-                        ({ inputs, ... }: {
-                            home-manager.config.imports = [ inputs.self.homeManagerModules.default ];
+                        ({ ... }: {
+                            home-manager.config.imports = [ self.homeManagerModules.default ];
                         })
                     ];
 
