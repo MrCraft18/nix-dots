@@ -69,8 +69,8 @@
 
                     modules = [
                         ./configurations/nix-on-droid/zflip
-                        ({ self, ... }: {
-                            home-manager.config.imports = [ self.homeManagerModules.default ];
+                        ({ inputs, ... }: {
+                            home-manager.config.imports = [ inputs.self.homeManagerModules.default ];
                         })
                     ];
 
