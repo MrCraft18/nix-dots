@@ -23,7 +23,10 @@
         };
     };
 
-    stylix.enable = true;
+    stylix = {
+        enable = true;
+        homeManagerIntegration.followSystem = false;
+    };
 
     # Simply install just the packages
     environment.packages = with pkgs; [
