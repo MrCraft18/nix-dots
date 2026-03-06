@@ -57,7 +57,7 @@
 
             nixOnDroidConfigurations = {
                 default = nix-on-droid.lib.nixOnDroidConfiguration {
-                    pkgs = import nixpkgs {
+                    pkgs = import inputs.nix-on-droid-nixpkgs {
                         system = "aarch64-linux";
                         config = { allowUnfree = true; };
                     };
@@ -97,7 +97,7 @@
         };
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixpkgs.url = "github:nixos/nixpkgs/88d3861acdd3d2f0e361767018218e51810df8a1";
 
         nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -106,9 +106,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        nix-on-droid-nixpkgs.url = "github:nixos/nixpkgs/88d3861acdd3d2f0e361767018218e51810df8a1";
+
         disko = {
             url = "github:nix-community/disko/latest";
-                inputs.nixpkgs.follows = "nixpkgs";
+            inputs.nixpkgs.follows = "nixpkgs";
         };
 
         nix-on-droid = {
