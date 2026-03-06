@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
     imports = [
@@ -7,8 +7,8 @@
 
     programs.home-manager.enable = true;
 
-    home.username = "craft";
-    home.homeDirectory = "/home/craft";
+    home.username = lib.mkDefault "craft";
+    home.homeDirectory = lib.mkDefault "/home/craft";
 
     home.packages = with pkgs; [
         btop

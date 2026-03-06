@@ -8,6 +8,15 @@
             nixosConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nixos));
             manualConfigurations = [ "uconsole" ];
         in {
+            homeManagerModules.default = { ... }: {
+                imports = [
+                    inputs.nvf.homeManagerModules.nvf
+                    inputs.sops-nix.homeManagerModules.sops
+                    inputs.zen-browser.homeModules.beta
+                    inputs.lan-mouse.homeManagerModules.default
+                ];
+            };
+
             nixosConfigurations = nixpkgs.lib.genAttrs (nixpkgs.lib.subtractLists manualConfigurations nixosConfigurationNames) (name: nixpkgs.lib.nixosSystem {
                 specialArgs = {
                     inherit inputs;
@@ -48,12 +57,25 @@
 
             nixOnDroidConfigurations = {
                 default = nix-on-droid.lib.nixOnDroidConfiguration {
+                    pkgs = import inputs.nix-on-droid-nixpkgs {
+                        system = "aarch64-linux";
+                        config = { allowUnfree = true; };
+                    };
+
                     extraSpecialArgs = {
                         inherit inputs;
                         buildScope = "nix-on-droid";
                     };
 
-                    modules = [ ./configurations/nix-on-droid/zflip ];
+                    modules = [
+                        ./configurations/nix-on-droid/zflip
+                        inputs.stylix.nixOnDroidModules.stylix
+                        ({ ... }: {
+                            home-manager.config.imports = [
+                                self.homeManagerModules.default
+                            ];
+                        })
+                    ];
 
                     home-manager-path = home-manager.outPath;
                 }; 
@@ -69,16 +91,13 @@
                 ];
 
                 home-manager.users.craft.imports = [
-                    inputs.nvf.homeManagerModules.nvf
-                    inputs.sops-nix.homeManagerModules.sops
-                    inputs.zen-browser.homeModules.beta
-                    inputs.lan-mouse.homeManagerModules.default
+                    self.homeManagerModules.default
                 ];
             };
         };
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixpkgs.url = "github:nixos/nixpkgs/88d3861acdd3d2f0e361767018218e51810df8a1";
 
         nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -87,9 +106,11 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        nix-on-droid-nixpkgs.url = "github:nixos/nixpkgs/88d3861acdd3d2f0e361767018218e51810df8a1";
+
         disko = {
             url = "github:nix-community/disko/latest";
-                inputs.nixpkgs.follows = "nixpkgs";
+            inputs.nixpkgs.follows = "nixpkgs";
         };
 
         nix-on-droid = {
