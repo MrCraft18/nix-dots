@@ -5,7 +5,7 @@ let
     hyprland = if configurationName == "uconsole" then "uconsole-hyprland" else "hyprland";
 in {
     config = lib.mkIf (cfg == "hyprland-onedarkpro") {
-        home-manager.users.craft.imports = [ ./home.nix ];
+        home-manager.users.craft.imports = lib.optional (builtins.pathExists ./home.nix) ./home.nix;
 
         stylix = {
             enable = true;

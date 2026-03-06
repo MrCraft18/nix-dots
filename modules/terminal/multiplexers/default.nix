@@ -19,4 +19,12 @@ in {
             description = "Terminal multiplexer module selection";
         };
     };
+} else if (buildScope == "nix-on-droid") then {
+    config.home-manager.config = { lib, ... }: {
+        options.moduleLoadout.terminal.multiplexer = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Terminal multiplexer module selection";
+        };
+    };
 } else {})

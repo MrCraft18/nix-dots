@@ -19,4 +19,12 @@ in {
             description = "Terminal shells module selection";
         };
     };
+} else if (buildScope == "nix-on-droid") then {
+    config.home-manager.config = { lib, ... }: {
+        options.moduleLoadout.terminal.shell = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Terminal shells module selection";
+        };
+    };
 } else {})

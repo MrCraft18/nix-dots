@@ -19,4 +19,12 @@ in {
             description = "Desktop module selection";
         };
     };
+} else if (buildScope == "nix-on-droid") then {
+    config.home-manager.config = { lib, ... }: {
+        options.moduleLoadout.desktop = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Desktop module selection";
+        };
+    };
 } else {})

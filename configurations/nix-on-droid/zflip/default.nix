@@ -1,6 +1,41 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
+    imports = [
+        ../../../modules
+    ];
+
+    moduleLoadout = {
+        terminal = {
+            shell = "zsh";
+            multiplexer = "zellij";
+            editor = "nvf";
+            fileBrowser = "yazi";
+        };
+
+        programs = {
+            git.enable = true;
+            password-store.enable = true;
+        };
+
+        services = {
+            ssh.enable = true;
+        };
+    };
+
+    stylix = {
+        enable = true;
+        homeManagerIntegration.followSystem = false;
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark-dark.yaml";
+        overlays.enable = false;
+        fonts = {
+            monospace = {
+                package = pkgs.nerd-fonts.jetbrains-mono;
+                name = "JetBrainsMono Nerd Font";
+            };
+        };
+    };
+
     # Simply install just the packages
     environment.packages = with pkgs; [
         # User-facing stuff that you really really want to have
@@ -31,6 +66,7 @@
         hostname
         man
         gnugrep
+        gnutar
         #gnupg
         #gnused
         #gnutar
@@ -39,7 +75,7 @@
         #xz
         #zip
         #unzip
-    ] ++ [ inputs.lobster.packages."aarch64-linux".lobster ];
+    ];
 
     android-integration = {
         am.enable = true;
@@ -69,16 +105,20 @@
         nameserver 100.100.100.100
     '';
 
-    terminal.font = "${pkgs.nerd-fonts.jetbrains-mono}/share/fonts/truetype/NerdFonts/JetBrainsMono/JetBrainsMonoNerdFontMono-Regular.ttf";
 
     home-manager = {
+        useGlobalPkgs = true;
+        extraSpecialArgs = {
+            inherit inputs;
+            configurationName = "zflip";
+            buildScope = "nix-on-droid";
+        };
         config = {
-            imports = [
-                ../common/home.nix
-            ];
-
             home.username = "nix-on-droid";
             home.homeDirectory = "/data/data/com.termux.nix/files/home";
+
+            home.stateVersion = "24.05";
+
         };
     };
 }

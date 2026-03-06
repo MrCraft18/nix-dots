@@ -1,4 +1,4 @@
-{ inputs, configurationName, buildScope, ... }:
+{ inputs, configurationName, buildScope, lib, ... }:
 
 {
     home-manager = {
@@ -8,6 +8,6 @@
         useGlobalPkgs = true;
         useUserPackages = true;
 
-        users.craft.imports = [ ./home.nix ];
+        users.craft.imports = lib.optional (builtins.pathExists ./home.nix) ./home.nix;
     };
 }

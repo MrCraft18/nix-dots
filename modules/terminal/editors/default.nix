@@ -17,4 +17,11 @@ in {
             description = "Terminal editor module selection";
         };
     };
+} else if (buildScope == "nix-on-droid") then {
+    config.home-manager.config = { lib, ... }: {
+        options.moduleLoadout.terminal.editor = lib.mkOption {
+            type = lib.types.str;
+            description = "Terminal editor module selection";
+        };
+    };
 } else {})

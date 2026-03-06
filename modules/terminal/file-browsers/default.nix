@@ -17,4 +17,11 @@ in {
             description = "Terminal file browser module selection";
         };
     };
+} else if (buildScope == "nix-on-droid") then {
+    config.home-manager.config = { lib, ... }: {
+        options.moduleLoadout.terminal.fileBrowser = lib.mkOption {
+            type = lib.types.str;
+            description = "Terminal file browser module selection";
+        };
+    };
 } else {})
