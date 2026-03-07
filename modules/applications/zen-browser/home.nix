@@ -93,7 +93,7 @@ in {
                             # Work Space Pins
                             "REventures" = {
                                 url = "https://reventures.app";
-                                id = "";
+                                id = "304a2603-dd24-4c85-a251-1de612bd3615";
                                 workspace = spaces."Work".id;
                             };
 
