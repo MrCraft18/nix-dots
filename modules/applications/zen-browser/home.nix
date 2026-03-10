@@ -168,6 +168,7 @@ in {
                         id = 0;
                         isDefault = true;
                         pinsForce = true;
+                        spacesForce = true;
                         inherit spaces pins;
                     };
 
