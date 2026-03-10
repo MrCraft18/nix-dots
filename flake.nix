@@ -156,8 +156,6 @@
 
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
-        playwright-server.url = "github:MrCraft18/playwright-server";
-
         lobster = {
             url = "github:justchokingaround/lobster";
             inputs.nixpkgs.follows = "nixpkgs";
