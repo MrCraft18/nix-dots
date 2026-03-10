@@ -60,6 +60,12 @@ in {
                                 isEssential = true;
                             };
 
+                            "Copyparty" = {
+                                url = "https://server:3210";
+                                id = "bf7c6474-ba04-4d04-bd8c-cdf315fde7c3";
+                                isEssential = true;
+                            };
+
                             # Default Space Pins
                             "Credit Cards" = {
                                 id = "d85a9026-1458-4db6-b115-346746bcc692";
