@@ -75,6 +75,18 @@ in {
                       - Provide a conditional recommendation and/or list assumptions
                       - Ask for the exact version or a docs link only as a last resort
                   - Do NOT rely on memory for details likely to change over time.
+
+                  # Nix Fallback For Missing Programs
+
+                  If a command-line program you want to run is not available in the current environment, prefer using `nix run` or `nix shell` to execute it instead of giving up or asking the user to install it first.
+
+                  Instructions:
+
+                  - First try to use the program normally when that is reasonable
+                  - If it is missing, use `nix run` for one-off commands when possible
+                  - Use `nix shell` when you need a temporary environment with one or more tools available
+                  - Prefer explicit package references such as `nixpkgs#jq`
+                  - Keep the fallback scoped to the task; do not suggest permanent installation unless it is clearly useful
             '';
         };
     };
