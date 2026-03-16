@@ -30,6 +30,10 @@ in {
                         foldlevelstart = 99;
                     };
 
+                    clipboard = {
+                        enable = true;
+                    };
+
                     lsp = {
                         enable = true;
 
@@ -225,6 +229,10 @@ in {
                     keymaps = [
                         { mode = [ "n" ]; key = "<Leader>n"; action = ":Navbuddy<CR>"; noremap = true; silent = true; desc = "Open NavBuddy"; }
                     ];
+
+                    luaConfigRC.osc52-clipboard = ''
+                        vim.g.clipboard = "osc52"
+                    '';
                 };
             };
         };
