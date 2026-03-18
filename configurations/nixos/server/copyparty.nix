@@ -39,6 +39,8 @@
 
             ed = true;
 
+            nsort = true;
+
             unlist = "^homework/$";
 
             # stuff to make tailscale funnel work
