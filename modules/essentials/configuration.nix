@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
     imports = [
@@ -15,8 +15,8 @@
 
     services.tailscale.enable = true;
 
-    services.automatic-timezoned.enable = true;
-    services.geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
+    services.automatic-timezoned.enable = lib.mkDefault true;
+    services.geoclue2.geoProviderUrl = lib.mkDefault "https://api.beacondb.net/v1/geolocate";
 
     i18n.defaultLocale = "en_US.UTF-8";
 
