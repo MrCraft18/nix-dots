@@ -7,16 +7,25 @@
 
             nixosConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nixos));
             manualConfigurations = [ "uconsole" ];
-        in {
-            homeManagerModules.default = { ... }: {
-                imports = [
-                    inputs.nvf.homeManagerModules.nvf
-                    inputs.sops-nix.homeManagerModules.sops
-                    inputs.zen-browser.homeModules.beta
-                    inputs.lan-mouse.homeManagerModules.default
+
+            uconsoleSystemConfig = {
+                variant = "cm4";
+
+                specialArgs = {
+                    inherit inputs;
+                    configurationName = "uconsole";
+                    buildScope = "nixos";
+                };
+
+                modules = [
+                    ({ ... }: {
+                        disabledModules = [ "${inputs.nixos-uconsole}/modules/base.nix" ];
+                    })
+                    self.nixosModules.default
+                    ./configurations/nixos/uconsole
                 ];
             };
-
+        in {
             nixosConfigurations = nixpkgs.lib.genAttrs (nixpkgs.lib.subtractLists manualConfigurations nixosConfigurationNames) (name: nixpkgs.lib.nixosSystem {
                 specialArgs = {
                     inherit inputs;
@@ -29,20 +38,7 @@
                     (./configurations/nixos + "/${name}")
                 ];
             }) // {
-                "uconsole" = inputs.nixos-raspberrypi.lib.nixosSystem {
-                    trustCaches = false;
-
-                    specialArgs = {
-                        inherit inputs;
-                        configurationName = "uconsole";
-                        buildScope = "nixos";
-                    };
-
-                    modules = [
-                        self.nixosModules.default
-                        (./configurations/nixos + "/uconsole")
-                    ];
-                };
+                "uconsole" = inputs.nixos-uconsole.lib.mkUConsoleSystem uconsoleSystemConfig;
             };  
 
             # homeConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir ./configurations/home)) (name: home-manager.lib.homeManagerConfiguration {
@@ -94,6 +90,21 @@
                     self.homeManagerModules.default
                 ];
             };
+
+            homeManagerModules.default = { ... }: {
+                imports = [
+                    inputs.nvf.homeManagerModules.nvf
+                    inputs.sops-nix.homeManagerModules.sops
+                    inputs.zen-browser.homeModules.beta
+                    inputs.lan-mouse.homeManagerModules.default
+                ];
+            };
+
+            packages = {
+                "x86_64-linux" = {
+                    build-uconsole-img = (inputs.nixos-uconsole.lib.mkUConsoleImage uconsoleSystemConfig).config.system.build.sdImage;
+                };
+            };
         };
 
     inputs = {
@@ -106,8 +117,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        nix-on-droid-nixpkgs.url = "github:nixos/nixpkgs/88d3861acdd3d2f0e361767018218e51810df8a1";
-
         disko = {
             url = "github:nix-community/disko/latest";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -119,22 +128,14 @@
             inputs.home-manager.follows = "home-manager";
         };
 
+        nix-on-droid-nixpkgs.url = "github:nixos/nixpkgs/88d3861acdd3d2f0e361767018218e51810df8a1";
+
         sops-nix = {
             url = "github:mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # For uconsole
-        nixos-raspberrypi = {
-            url = "github:robertjakub/nixos-raspberrypi/develop";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        oom-hardware = {
-            url = "github:robertjakub/oom-hardware/devel";
-            inputs.nixpkgs.follows = "nixpkgs";
-            inputs.nixos-raspberrypi.follows = "nixos-raspberrypi";
-        }; 
+        nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole";
 
         stylix.url = "github:danth/stylix";
 

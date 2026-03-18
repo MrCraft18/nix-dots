@@ -1,15 +1,8 @@
-{ inputs, lib, pkgs, modulesPath, ... }:
+{ inputs, lib, pkgs, ... }:
 
 {
     imports = [
-        (lib.mkAliasOptionModule [ "environment" "checkConfigurationOptions" ] [ "_module" "check" ])
-        inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.base
-        inputs.nixos-raspberrypi.nixosModules.raspberry-pi-4.bluetooth
-        inputs.oom-hardware.nixosModules.uconsole
-        inputs.oom-hardware.nixosModules.uc.kernel
-        inputs.oom-hardware.nixosModules.uc.configtxt
-        inputs.oom-hardware.nixosModules.uc.base-cm4
-        ./hardware-configuration.nix
+        # ./hardware-configuration.nix
         ../common/configuration.nix
         ../common/tuigreet.nix
     ];
@@ -47,18 +40,21 @@
         qutebrowser
     ];
 
-    boot.loader.raspberryPi.bootloader = "kernel";
-    boot.consoleLogLevel = 7;
+    services.automatic-timezoned.enable = false;
+    services.timesyncd.enable = true;
 
     console = {
         earlySetup = true;
-        font = "ter-v32n";
+        font = "ter-v24n";
         packages = with pkgs; [ terminus_font ];
     };
 
-    disabledModules = [ (modulesPath + "/rename.nix") ];
-
-    boot.loader.systemd-boot.enable = false;
+    nix.settings = {
+        substituters = [ "https://nixos-clockworkpi-uconsole.cachix.org" ];
+        trusted-public-keys = [
+            "nixos-clockworkpi-uconsole.cachix.org-1:6NRN3n9/r3w5ZS8/gZudW6PkPDoC3liCt/dBseICua0="
+        ];
+    };
 
     system.stateVersion = "25.05";
     home-manager.users.craft.home.stateVersion = "25.05";
