@@ -103,14 +103,14 @@
                     build-uconsole-img = (inputs.nixos-uconsole.lib.mkUConsoleImage {
                         variant = "cm4";
 
-                        _module.args = {
-                            configurationName = "uconsole";
-                            buildScope = "nixos";
-                        };
-
                         modules = [
                             ({ ... }: {
                                 disabledModules = [ "${inputs.nixos-uconsole}/modules/base.nix" ];
+
+                                _module.args = {
+                                    configurationName = "uconsole";
+                                    buildScope = "nixos";
+                                };
                             })
                             self.nixosModules.default
                             ./configurations/nixos/uconsole
