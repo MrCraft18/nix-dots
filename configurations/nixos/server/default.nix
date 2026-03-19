@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
     imports = [
@@ -30,6 +30,10 @@
     home-manager.users.craft.home.packages = with pkgs; [
         copyparty
     ];
+
+    # Support emulated building for aarch64
+    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+    nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
 
     services.openssh.settings.X11Forwarding = true;
     environment.systemPackages = [ pkgs.xorg.xauth ];

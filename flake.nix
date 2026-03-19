@@ -7,6 +7,21 @@
 
             nixosConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nixos));
             manualConfigurations = [ "uconsole" ];
+
+            uconsoleSystemConfig = {
+                variant = "cm4";
+
+                specialArgs = {
+                    inherit inputs;
+                    configurationName = "uconsole";
+                    buildScope = "nixos";
+                };
+
+                modules = [
+                    self.nixosModules.default
+                    ./configurations/nixos/uconsole
+                ];
+            };
         in {
             nixosConfigurations = nixpkgs.lib.genAttrs (nixpkgs.lib.subtractLists manualConfigurations nixosConfigurationNames) (name: nixpkgs.lib.nixosSystem {
                 specialArgs = {
@@ -20,23 +35,7 @@
                     (./configurations/nixos + "/${name}")
                 ];
             }) // {
-                "uconsole" = inputs.nixos-uconsole.lib.mkUConsoleSystem {
-                    variant = "cm4";
-
-                    specialArgs = {
-                        inherit inputs;
-                        configurationName = "uconsole";
-                        buildScope = "nixos";
-                    };
-
-                    modules = [
-                        ({ ... }: {
-                            disabledModules = [ "${inputs.nixos-uconsole}/modules/base.nix" ];
-                        })
-                        self.nixosModules.default
-                        ./configurations/nixos/uconsole
-                    ];
-                };
+                "uconsole" = inputs.nixos-uconsole.lib.mkUConsoleSystem uconsoleSystemConfig;
             };  
 
             # homeConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir ./configurations/home)) (name: home-manager.lib.homeManagerConfiguration {
@@ -100,22 +99,7 @@
 
             packages = {
                 "x86_64-linux" = {
-                    build-uconsole-img = (inputs.nixos-uconsole.lib.mkUConsoleImage {
-                        variant = "cm4";
-
-                        modules = [
-                            ({ ... }: {
-                                disabledModules = [ "${inputs.nixos-uconsole}/modules/base.nix" ];
-
-                                _module.args = {
-                                    configurationName = "uconsole";
-                                    buildScope = "nixos";
-                                };
-                            })
-                            self.nixosModules.default
-                            ./configurations/nixos/uconsole
-                        ];
-                    }).config.system.build.sdImage;
+                    build-uconsole-img = (inputs.nixos-uconsole.lib.mkUConsoleImage uconsoleSystemConfig).config.system.build.sdImage;
                 };
             };
         };
@@ -148,7 +132,10 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        nixos-uconsole.url = "github:nixos-uconsole/nixos-uconsole";
+        nixos-uconsole = {
+            url = "github:MrCraft18/nixos-uconsole";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
         stylix.url = "github:danth/stylix";
 
