@@ -3,8 +3,7 @@
 {
     imports = [
         # ./hardware-configuration.nix
-        ../common/configuration.nix
-        ../common/tuigreet.nix
+        ../../../modules
     ];
 
     moduleLoadout = {
@@ -56,6 +55,5 @@
         ];
     };
 
-    system.stateVersion = "25.05";
-    home-manager.users.craft.home.stateVersion = "25.05";
+    home-manager.users.craft.home.stateVersion = "25.11";
 }
