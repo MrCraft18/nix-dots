@@ -51,7 +51,7 @@ in {
             package = null;
             portalPackage = null;
 
-            plugins = [
+            plugins = lib.optionals (configurationName != "uconsole") [
                 inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.default
             ];
 
@@ -300,7 +300,7 @@ in {
                     ", XF86AudioPrev, exec, playerctl previous"
                 ];
 
-                plugin = {
+                plugin = lib.mkIf (configurationName != "uconsole") {
                     touch_gestures = {
                         hyprgrass-bind = [
                             ", edge:d:u, exec, kill -34 $(ps -C wvkbd-mobintl -o pid=)"
