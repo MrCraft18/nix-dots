@@ -1,4 +1,4 @@
-{ configurationName, buildScope, inputs, config, lib, pkgs, ... }:
+{ configurationName, buildScope, inputs, config, lib, options, pkgs, ... }:
 
 let
     cfg = config.moduleLoadout.desktop;
@@ -8,21 +8,7 @@ in {
         ./waybar.nix
     ];
 
-    config = lib.mkIf (cfg == "hyprland-onedarkpro") {
-        stylix = lib.mkMerge [
-            (lib.mkIf (buildScope == "home") {
-                enable = true;
-                base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark-dark.yaml";
-                image = config.lib.stylix.pixel "base00";
-            })
-
-            {
-                targets.waybar.addCss = false;
-
-                enableReleaseChecks = false;
-            }
-        ];
-
+    config = lib.mkIf (cfg == "hyprland-onedarkpro") ({
         home.packages = with pkgs; [
             hyprpaper
             yaru-theme
@@ -316,6 +302,20 @@ in {
                     "match:class ^steam_app_.*, fullscreen_state 2 1, suppress_event fullscreen"
                 ];
             };
-       }; 
-    };
+        }; 
+    } // lib.optionalAttrs (lib.hasAttrByPath [ "stylix" ] options) {
+        stylix = lib.mkMerge [
+            (lib.mkIf (buildScope == "home") {
+                enable = true;
+                base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark-dark.yaml";
+                image = config.lib.stylix.pixel "base00";
+            })
+
+            {
+                targets.waybar.addCss = false;
+
+                enableReleaseChecks = false;
+            }
+        ];
+    });
 }

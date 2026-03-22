@@ -1,4 +1,4 @@
-{ configurationName, config, lib, pkgs, ... }:
+{ configurationName, config, lib, options, pkgs, ... }:
 
 let
     cfg = config.moduleLoadout.applications.vesktop;
@@ -7,9 +7,7 @@ in {
         enable = lib.mkEnableOption "vesktop module";
     };
 
-    config = lib.mkIf cfg.enable {
-        stylix.targets.vesktop.enable = false;
-
+    config = lib.mkIf cfg.enable ({
         programs.vesktop = {
             enable = true;
 
@@ -23,5 +21,7 @@ in {
                 };
             };
         };
-    };
+    } // lib.optionalAttrs (lib.hasAttrByPath [ "stylix" ] options) {
+        stylix.targets.vesktop.enable = false;
+    });
 }
