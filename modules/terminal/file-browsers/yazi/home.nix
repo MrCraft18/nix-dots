@@ -8,6 +8,8 @@ in {
             enable = true;
             enableZshIntegration = true;
 
+            shellWrapperName = "yy";
+
             keymap = {
                 mgr.prepend_keymap = [
                     { on = [ "g" "s" ]; run = "cd /mnt/SSD"; desc = "Goto SSD"; }
