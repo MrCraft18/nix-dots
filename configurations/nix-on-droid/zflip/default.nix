@@ -8,7 +8,7 @@
     moduleLoadout = {
         terminal = {
             shell = "zsh";
-            multiplexer = "zellij";
+            multiplexer = "tmux";
             editor = "nvf";
             fileBrowser = "yazi";
         };

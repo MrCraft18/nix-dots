@@ -21,7 +21,7 @@
         terminal = {
             emulator = "kitty";
             shell = "zsh";
-            multiplexer = "zellij";
+            multiplexer = "tmux";
             editor = "nvf";
             fileBrowser = "yazi";
         };
