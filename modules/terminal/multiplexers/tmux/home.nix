@@ -2,6 +2,17 @@
 
 let
     cfg = config.moduleLoadout.terminal.multiplexer;
+    tmuxRemote = pkgs.tmuxPlugins.mkTmuxPlugin {
+        pluginName = "tmux-remote";
+        version = "unstable";
+        rtpFilePath = "remote.tmux";
+        src = pkgs.fetchFromGitHub {
+            owner = "danyim";
+            repo = "tmux-remote";
+            rev = "8579e5a490822a833f2d8901a9c654827ecf1d53";
+            hash = "sha256-xmVJfa5VyYyA9CBBYTfutBWJjDd31mZgHoqnQwpipWU=";
+        };
+    };
 in {
     config = lib.mkIf (cfg == "tmux") {
         programs.tmux = {
@@ -12,6 +23,12 @@ in {
             keyMode = "vi";
             clock24 = true;
             historyLimit = 10000;
+
+            plugins = [
+                {
+                    plugin = tmuxRemote;
+                }
+            ];
 
             extraConfig = ''
                 bind-key r source-file ~/.config/tmux/tmux.conf \; display-message "tmux config reloaded"
