@@ -97,6 +97,17 @@
         })
     ];
 
+    services.keyd = {
+        enable = true;
+        keyboards.default = {
+            ids = [ "*" ];
+            settings.main = {
+                capslock = "esc";
+                sysrq = "rightmeta";
+            };
+        };
+    };
+
     system.stateVersion = "25.05";
     home-manager.users.craft.home.stateVersion = "25.05";
 }
