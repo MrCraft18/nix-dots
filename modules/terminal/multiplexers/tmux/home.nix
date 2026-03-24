@@ -24,10 +24,12 @@ in {
             clock24 = true;
             escapeTime = 10;
             historyLimit = 10000;
+            terminal = "tmux-256color";
 
             extraConfig = ''
+                set -s extended-keys on
                 set -s set-clipboard on
-                set -as terminal-features ',xterm-kitty:clipboard'
+                set -as terminal-features ',xterm-kitty:clipboard,extkeys'
 
                 bind-key r source-file ~/.config/tmux/tmux.conf \; display-message "tmux config reloaded"
                 bind-key -n M-h if-shell -F '#{pane_at_left}'  'previous-window' 'select-pane -L'
