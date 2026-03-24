@@ -28,6 +28,15 @@ in {
                 {
                     plugin = tmuxRemote;
                 }
+                {
+                    plugin = pkgs.tmuxPlugins.resurrect;
+                }
+                {
+                    plugin = pkgs.tmuxPlugins.continuum;
+                    extraConfig = ''
+                        set -g @continuum-restore 'on'
+                    '';
+                }
             ];
 
             extraConfig = ''
