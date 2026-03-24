@@ -24,6 +24,15 @@ in {
             clock24 = true;
             historyLimit = 10000;
 
+            extraConfig = ''
+                set -s set-clipboard on
+                set -as terminal-features ',xterm-kitty:clipboard'
+
+                bind-key r source-file ~/.config/tmux/tmux.conf \; display-message "tmux config reloaded"
+                bind-key -n M-h if-shell -F '#{pane_at_left}'  'previous-window' 'select-pane -L'
+                bind-key -n M-l if-shell -F '#{pane_at_right}' 'next-window'     'select-pane -R'
+            '';
+
             plugins = [
                 {
                     plugin = tmuxRemote;
@@ -38,12 +47,6 @@ in {
                     '';
                 }
             ];
-
-            extraConfig = ''
-                bind-key r source-file ~/.config/tmux/tmux.conf \; display-message "tmux config reloaded"
-                bind-key -n M-h if-shell -F '#{pane_at_left}'  'previous-window' 'select-pane -L'
-                bind-key -n M-l if-shell -F '#{pane_at_right}' 'next-window'     'select-pane -R'
-            '';
         };
 
         programs.zsh.initContent = lib.mkAfter ''
