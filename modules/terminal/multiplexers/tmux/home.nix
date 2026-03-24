@@ -54,11 +54,7 @@ in {
 
         programs.zsh.initContent = lib.mkAfter ''
             if [[ -o interactive ]] && [[ -z "$TMUX" ]] && command -v tmux >/dev/null 2>&1; then
-                if tmux has-session -t default 2>/dev/null; then
-                    tmux attach-session -t default
-                else
-                    tmux new-session -s default
-                fi
+                tmux new-session -A -s default
             fi
         '';
     };
