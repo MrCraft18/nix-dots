@@ -22,6 +22,7 @@ in {
             mouse = true;
             keyMode = "vi";
             clock24 = true;
+            escapeTime = 10;
             historyLimit = 10000;
 
             extraConfig = ''
