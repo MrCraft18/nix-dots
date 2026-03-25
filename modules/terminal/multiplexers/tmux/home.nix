@@ -51,7 +51,7 @@ in {
                     plugin = pkgs.tmuxPlugins.resurrect;
                     extraConfig = ''
                         set -g @resurrect-capture-pane-contents 'on'
-                        set -g @resurrect-processes 'ssh nvim opencode lazygit'
+                        set -g @resurrect-processes 'ssh "~nvim->nvim" opencode lazygit'
                     '';
                 }
                 {
