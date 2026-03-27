@@ -47,13 +47,18 @@ in {
                 {
                     plugin = tmuxRemote;
                 }
-                {
-                    plugin = pkgs.tmuxPlugins.resurrect;
-                    extraConfig = ''
-                        set -g @resurrect-capture-pane-contents 'on'
-                        set -g @resurrect-processes 'ssh "~nvim->nvim" opencode lazygit'
-                    '';
-                }
+                 {
+                     plugin = pkgs.tmuxPlugins.resurrect;
+                     extraConfig = ''
+                         set -g @resurrect-capture-pane-contents 'on'
+                         set -g @resurrect-processes '\
+                             "ssh->tmux clear-history -t \"$TMUX_PANE\"; clear; ssh *" \
+                             "~nvim->tmux clear-history -t \"$TMUX_PANE\"; clear; nvim *" \
+                             "opencode->tmux clear-history -t \"$TMUX_PANE\"; clear; opencode" \
+                             "lazygit->tmux clear-history -t \"$TMUX_PANE\"; clear; lazygit" \
+                         '
+                     '';
+                 }
                 {
                     plugin = pkgs.tmuxPlugins.continuum;
                     extraConfig = ''
