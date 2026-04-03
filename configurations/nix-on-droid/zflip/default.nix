@@ -106,6 +106,7 @@
 
     environment.etc."resolv.conf".text = lib.mkForce ''
         nameserver 100.100.100.100
+        search tail7438f7.ts.net
     '';
 
 
