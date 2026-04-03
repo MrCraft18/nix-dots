@@ -56,6 +56,8 @@
         tmux
         lazygit
 
+        inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
+
         # Some common stuff that people expect to have
         #procps
         killall
@@ -119,7 +121,6 @@
         };
         config = {
             home.stateVersion = "24.05";
-
         };
     };
 }

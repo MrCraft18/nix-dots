@@ -163,6 +163,8 @@
 
         lan-mouse.url = "github:feschber/lan-mouse";
 
+        llm-agents.url = "github:numtide/llm-agents.nix";
+
         opencode.url = "github:anomalyco/opencode";
 
         copyparty.url = "github:9001/copyparty";
