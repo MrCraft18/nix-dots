@@ -88,7 +88,10 @@
         xdg-open.enable = true;
     };
 
-    user.shell = "${pkgs.zsh}/bin/zsh";
+    user = {
+        userName = "craft";
+        shell = "${pkgs.zsh}/bin/zsh";
+    };
 
     # Backup etc files instead of failing to activate generation if a file already exists in /etc
     environment.etcBackupExtension = ".bak";
