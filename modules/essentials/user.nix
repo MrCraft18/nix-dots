@@ -9,7 +9,7 @@
     users.mutableUsers = false;
     users.users.craft = {
         isNormalUser = true;
-        extraGroups = [ "networkmanager" "wheel" "video" "input" ];
+        extraGroups = [ "networkmanager" "wheel" "video" "input" "minecraft" ];
         hashedPasswordFile = config.sops.secrets."craft_password".path;
 
         openssh.authorizedKeys.keyFiles =

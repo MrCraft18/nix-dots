@@ -4,6 +4,7 @@
     imports = [
         ./hardware-configuration.nix
         ../../../modules
+        # ./manhunt-server.nix
     ];
 
     moduleLoadout = {
