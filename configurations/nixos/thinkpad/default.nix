@@ -44,6 +44,7 @@
         umu-launcher
         mongodb-compass
         prismlauncher
+        blender
     ] ++ [
         (inputs.sqlit.packages.${pkgs.stdenv.hostPlatform.system}.default.overridePythonAttrs (old: {
             dependencies = (old.dependencies or []) ++ [
