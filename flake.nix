@@ -171,7 +171,7 @@
 
         hytale-launcher.url = "github:TNAZEP/HytaleLauncherFlake";
 
-        # nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+        nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
         sqlit = {
             url = "github:Maxteabag/sqlit";
