@@ -169,7 +169,7 @@
 
         copyparty.url = "github:9001/copyparty";
 
-        hytale-launcher.url = "github:TNAZEP/HytaleLauncherFlake";
+        hytale-launcher.url = "github:JPyke3/hytale-launcher-nix";
 
         nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
