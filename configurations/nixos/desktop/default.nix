@@ -52,12 +52,6 @@
         obs-studio
         obs-studio-plugins.wlrobs
         gimp
-    ] ++ [
-        (inputs.sqlit.packages.${pkgs.stdenv.hostPlatform.system}.default.overridePythonAttrs (old: {
-            dependencies = (old.dependencies or []) ++ [
-                pkgs.python3Packages."psycopg2-binary"
-            ];
-        }))
     ];
 
     home-manager.users.craft.imports = [
