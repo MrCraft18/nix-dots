@@ -48,7 +48,6 @@
         inputs.hytale-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
         blender
         firefox
-        vdhcoapp
         winetricks
         obs-studio
         obs-studio-plugins.wlrobs
