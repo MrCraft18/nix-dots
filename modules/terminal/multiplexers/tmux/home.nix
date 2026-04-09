@@ -3,6 +3,14 @@
 let
     cfg = config.moduleLoadout.terminal.multiplexer;
     tmuxPaneNav = pkgs.writeShellScriptBin "tmux-pane-nav" (builtins.readFile ./tmux-pane-nav.sh);
+    tmuxResurrectRestore = pkgs.writeShellScriptBin "tmux-resurrect-restore" ''
+        if [ -n "''${TMUX_PANE:-}" ]; then
+            tmux clear-history -t "$TMUX_PANE"
+        fi
+
+        clear
+        exec "$@"
+    '';
     tmuxRemote = pkgs.tmuxPlugins.mkTmuxPlugin {
         pluginName = "tmux-remote";
         version = "unstable";
@@ -52,10 +60,10 @@ in {
                      extraConfig = ''
                          set -g @resurrect-capture-pane-contents 'on'
                          set -g @resurrect-processes '\
-                             "ssh->tmux clear-history -t \"$TMUX_PANE\"; clear; ssh *" \
-                             "~nvim->tmux clear-history -t \"$TMUX_PANE\"; clear; nvim *" \
-                             "opencode->tmux clear-history -t \"$TMUX_PANE\"; clear; opencode" \
-                             "lazygit->tmux clear-history -t \"$TMUX_PANE\"; clear; lazygit" \
+                             "ssh->${tmuxResurrectRestore}/bin/tmux-resurrect-restore ssh *" \
+                             "~nvim->${tmuxResurrectRestore}/bin/tmux-resurrect-restore nvim *" \
+                             "opencode->${tmuxResurrectRestore}/bin/tmux-resurrect-restore opencode" \
+                             "lazygit->${tmuxResurrectRestore}/bin/tmux-resurrect-restore lazygit" \
                          '
                      '';
                  }
