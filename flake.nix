@@ -97,7 +97,7 @@
         };
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/88d3861acdd3d2f0e361767018218e51810df8a1";
+        nixpkgs.url = "github:nixos/nixpkgs";
 
         nixos-hardware.url = "github:nixos/nixos-hardware";
 
