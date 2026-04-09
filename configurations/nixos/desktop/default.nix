@@ -45,7 +45,7 @@
         mongodb-compass
         mongosh
         umu-launcher
-        inputs.hytale-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
+        # inputs.hytale-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
         blender
         firefox
         winetricks
