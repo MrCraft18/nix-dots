@@ -12,7 +12,7 @@ in {
             enable = true;
             # package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
-            settings = {
+            settings = lib.mkForce {
                 mcp = {
                     playwright = {
                         type = "local";
@@ -24,6 +24,8 @@ in {
                     };
                 };
             };
+
+            tui.theme = "stylix";
 
             rules = ''
                   # External File Loading
