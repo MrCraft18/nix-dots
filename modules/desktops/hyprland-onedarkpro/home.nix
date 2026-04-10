@@ -299,6 +299,7 @@ in {
                 windowrule = [
                     "match:class .*, suppress_event maximize"
                     "match:class ^$, match:title ^$, match:xwayland true, match:float true, match:fullscreen false, match:pin false, no_focus on"
+                    "match:class ^wlvncc$, fullscreen_state 2 2, suppress_event fullscreen"
                     "match:class ^steam_app_.*, fullscreen_state 2 1, suppress_event fullscreen"
                 ];
             };
