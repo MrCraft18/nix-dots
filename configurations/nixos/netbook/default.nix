@@ -42,8 +42,6 @@
     # Extra system relavent home-manager config
     home-manager.users.craft.home.packages = with pkgs; [
         firefox
-        winetricks
-        wineWowPackages.unstableFull
         umu-launcher
         mongodb-compass
         anki
