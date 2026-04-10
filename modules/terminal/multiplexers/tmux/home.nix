@@ -61,7 +61,7 @@ in {
                          set -g @resurrect-capture-pane-contents 'on'
                          set -g @resurrect-processes '\
                              "ssh->${tmuxResurrectRestore}/bin/tmux-resurrect-restore ssh *" \
-                             "~nvim->${tmuxResurrectRestore}/bin/tmux-resurrect-restore nvim *" \
+                             "~nvim->${tmuxResurrectRestore}/bin/tmux-resurrect-restore nvim" \
                              "opencode->${tmuxResurrectRestore}/bin/tmux-resurrect-restore opencode" \
                              "lazygit->${tmuxResurrectRestore}/bin/tmux-resurrect-restore lazygit" \
                          '
