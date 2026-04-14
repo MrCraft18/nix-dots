@@ -38,7 +38,7 @@ in {
             extraConfig = ''
                 set -s extended-keys on
                 set -s set-clipboard on
-                set -as terminal-features ',xterm-kitty:clipboard,extkeys'
+                set -as terminal-features ',xterm-256color:RGB,xterm-kitty:RGB,clipboard,extkeys'
 
                 bind-key r source-file ~/.config/tmux/tmux.conf \; display-message "tmux config reloaded"
                 bind-key -n M-Left  if-shell -F '#{pane_at_left}'   'previous-window' 'select-pane -L'
