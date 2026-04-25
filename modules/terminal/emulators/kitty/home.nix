@@ -13,6 +13,13 @@ in {
 
                 font_size = 10;
             };
+
+            mouseBindings = {
+                "middle press" = "grabbed,ungrabbed discard_event";
+                "middle release" = "grabbed,ungrabbed discard_event";
+                "shift+middle press" = "grabbed,ungrabbed discard_event";
+                "shift+middle release" = "grabbed,ungrabbed discard_event";
+            };
         };
     };
 }
