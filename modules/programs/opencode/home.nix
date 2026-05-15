@@ -21,6 +21,10 @@ in {
                             "run"
                             "nixpkgs#playwright-mcp"
                         ];
+                        environment = {
+                            PLAYWRIGHT_MCP_USER_DATA_DIR = "${config.xdg.cacheHome}/ms-playwright/opencode-mcp";
+                            PLAYWRIGHT_MCP_OUTPUT_DIR = "${config.xdg.cacheHome}/ms-playwright/opencode-mcp-output";
+                        };
                     };
                 };
             };
