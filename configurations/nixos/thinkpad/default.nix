@@ -45,6 +45,8 @@
         mongodb-compass
         prismlauncher
         blender
+        obs-studio
+        obs-studio-plugins.wlrobs
     ];
 
     home-manager.users.craft.imports = [
