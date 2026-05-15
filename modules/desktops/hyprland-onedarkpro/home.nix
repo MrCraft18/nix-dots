@@ -11,7 +11,7 @@ in {
     config = lib.mkIf (cfg == "hyprland-onedarkpro") ({
         home.packages = with pkgs; [
             hyprpaper
-            yaru-theme
+            phinger-cursors
             wl-clipboard
             rofi
             brightnessctl
@@ -19,6 +19,14 @@ in {
             inputs.iio-hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default
             wvkbd
         ] else []);
+
+        home.pointerCursor = {
+            name = "phinger-cursors-dark";
+            package = pkgs.phinger-cursors;
+            size = 24;
+            gtk.enable = true;
+            x11.enable = true;
+        };
 
         home.sessionVariables = {
             NIXOS_OZONE_WL = "1";
@@ -74,10 +82,6 @@ in {
                 env = [
                     "NIXOS_OZONE_WL,1"
                     "ELECTRON_OZONE_PLATFORM_HINT,wayland"
-
-                    # "GDK_SCALE,2"
-                    # "XCURSOR_THEME,Yaru"                
-                    # "XCURSOR_SIZE,24"
 
                     # "GDK_SCALE,2"
                     # "QT_SCALE_FACTOR,2"
