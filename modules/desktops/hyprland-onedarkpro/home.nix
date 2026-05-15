@@ -162,7 +162,6 @@ in {
                 };
 
                 dwindle = {
-                    pseudotile = true;
                     preserve_split =true;
                 };
 
@@ -202,7 +201,7 @@ in {
                     "$mainMod, V, togglefloating,"
                     "$mainMod, R, exec, NIXOS_OZONE_WL=1 ELECTRON_OZONE_PLATFORM_HINT=wayland $menu"
                     "$mainMod, P, pseudo," # dwindle
-                    "$mainMod, S, togglesplit," # dwindle
+                    "$mainMod, S, layoutmsg, togglesplit" # dwindle
                     "$mainMod, F, fullscreen,"
 
                     # Move focus with mainMod + arrow keys
