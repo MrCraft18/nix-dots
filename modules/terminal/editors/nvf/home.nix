@@ -56,7 +56,7 @@ in {
                         enableTreesitter = true;
 
                         nix.enable = true;
-                        ts = {
+                        typescript = {
                             enable = true;
                             # treesitter.jsPackage = pkgs.vimPlugins.nvim-treesitter.builtGrammars.typescript;
 
@@ -66,8 +66,9 @@ in {
                         python.enable = true;
                         json.enable = true;
                         svelte.enable = true;
-                        tailwind.enable = true;
                     };
+
+                    lsp.presets.tailwindcss-language-server.enable = true;
 
                     treesitter = {
                         context = {

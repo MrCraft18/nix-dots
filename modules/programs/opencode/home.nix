@@ -27,7 +27,7 @@ in {
 
             tui.theme = "stylix";
 
-            rules = ''
+            context = ''
                   # External File Loading
 
                   CRITICAL: When you encounter a file reference (e.g., @rules/general.md), use your Read tool to load it on a need-to-know basis. They're relevant to the SPECIFIC task at hand.
