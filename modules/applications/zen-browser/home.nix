@@ -110,13 +110,13 @@ in {
                             };
 
                             "Spreadsheet" = {
-                                url = "https://docs.google.com/spreadsheets/d/1DYM-Ptsa59jU3GXCke8ZUvc6qurO5HDar9KJ5LYsRdo";
+                                url = "https://docs.google.com/spreadsheets/d/1AWmZipQyUhIAFmLWagM9HicoE0ouZ7Q0uYoh0zCU-fU";
                                 id = "cfd2bf89-cacf-48bf-81f6-bcb552820b2f";
                                 workspace = spaces."Work".id;
                             };
 
-                            "MongoDB" = {
-                                url = "https://cloud.mongodb.com/v2";
+                            "Drizzle Studio" = {
+                                url = "https://local.drizzle.studio";
                                 id = "08457688-f99f-480d-a127-dcdfad5f15a7";
                                 workspace = spaces."Work".id;
                             };
