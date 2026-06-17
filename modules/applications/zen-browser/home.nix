@@ -171,11 +171,6 @@ in {
                         spacesForce = true;
                         inherit spaces pins;
                     };
-
-                    wanky = {
-                        id = 1;
-                        isDefault = false;
-                    };
                 };
             };
         } // lib.optionalAttrs (lib.hasAttrByPath [ "stylix" ] options) {
