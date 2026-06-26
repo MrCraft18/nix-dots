@@ -127,7 +127,7 @@ in {
                     tabline.nvimBufferline.enable = true;
 
                     dashboard = {
-                        dashboard-nvim.enable = true;
+                        # dashboard-nvim.enable = true;
                         # alpha.enable = true;
                     };
 
