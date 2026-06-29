@@ -3,6 +3,20 @@
 let
     cfg = config.moduleLoadout.desktop;
     hyprland = if configurationName == "uconsole" then "uconsole-hyprland" else "hyprland";
+    hyprgrass = inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+        postPatch = (if old ? postPatch then old.postPatch else "") + ''
+            substituteInPlace src/TouchVisualizer.cpp \
+                --replace-fail '2 * PI' '2 * 3.14159265358979323846' \
+                --replace-fail 'g_pCompositor->scheduleFrameForMonitor(mon);' 'mon->scheduleFrame();' \
+                --replace-fail 'g_pCompositor->scheduleFrameForMonitor(Desktop::focusState()->monitor());' 'Desktop::focusState()->monitor()->scheduleFrame();'
+
+            substituteInPlace src/GestureManager.cpp \
+                --replace-fail '<hyprland/src/helpers/Monitor.hpp>' '<hyprland/src/output/Monitor.hpp>' \
+                --replace-fail '<hyprland/src/managers/SeatManager.hpp>' '<hyprland/src/managers/SeatManager.hpp>
+#include <hyprland/src/state/MonitorState.hpp>' \
+                --replace-fail 'g_pCompositor->getMonitorFromName(!ev.device->m_boundOutput.empty() ? ev.device->m_boundOutput : "")' 'State::monitorState()->query().name(!ev.device->m_boundOutput.empty() ? ev.device->m_boundOutput : "").run()'
+        '';
+    });
 in {
     imports = [
         ./waybar.nix
@@ -47,7 +61,7 @@ in {
             portalPackage = null;
 
             plugins = [
-                inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.default
+                hyprgrass
             ];
 
             settings = {
