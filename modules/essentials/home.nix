@@ -10,8 +10,6 @@
     home.username = lib.mkDefault "craft";
     home.homeDirectory = lib.mkDefault "/home/craft";
 
-    gtk.gtk4.theme = config.gtk.theme;
-
     home.packages = with pkgs; [
         btop
         bat
