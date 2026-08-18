@@ -53,6 +53,113 @@
         gimp
     ];
 
+    home-manager.users.craft.systemd.user.services.hdmi-audio-mirror = {
+        Unit = {
+            Description = "Mirror default audio output to NVIDIA HDMI";
+            After = [ "pipewire-pulse.service" "wireplumber.service" ];
+            Wants = [ "pipewire-pulse.service" "wireplumber.service" ];
+        };
+
+        Service = {
+            Type = "simple";
+            ExecStart = pkgs.writeShellScript "hdmi-audio-mirror" ''
+                mirror_sink="default-with-hdmi"
+                hdmi_sink="alsa_output.pci-0000_26_00.1.hdmi-stereo"
+                primary_sink=""
+                mirrored_primary=""
+
+                sink_exists() {
+                    while read -r _ sink _; do
+                        [ "$sink" = "$1" ] && return 0
+                    done < <(${pkgs.pulseaudio}/bin/pactl list short sinks)
+
+                    return 1
+                }
+
+                unload_mirror() {
+                    while read -r module name args; do
+                        if [ "$name" = "module-combine-sink" ] && [[ "$args" == *"sink_name=$mirror_sink"* ]]; then
+                            ${pkgs.pulseaudio}/bin/pactl unload-module "$module" || true
+                        fi
+                    done < <(${pkgs.pulseaudio}/bin/pactl list short modules)
+                }
+
+                choose_primary_sink() {
+                    local default_sink
+                    default_sink="$(${pkgs.pulseaudio}/bin/pactl get-default-sink || true)"
+
+                    if [ "$default_sink" != "$mirror_sink" ] && [ "$default_sink" != "$hdmi_sink" ] && sink_exists "$default_sink"; then
+                        primary_sink="$default_sink"
+                        return
+                    fi
+
+                    if [ -n "$primary_sink" ] && sink_exists "$primary_sink"; then
+                        return
+                    fi
+
+                    while read -r _ sink _; do
+                        if [ "$sink" != "$mirror_sink" ] && [ "$sink" != "$hdmi_sink" ]; then
+                            primary_sink="$sink"
+                            return
+                        fi
+                    done < <(${pkgs.pulseaudio}/bin/pactl list short sinks)
+
+                    primary_sink=""
+                }
+
+                update_mirror() {
+                    local default_sink
+
+                    if ! ${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_26_00.1 output:hdmi-stereo; then
+                        return 1
+                    fi
+
+                    choose_primary_sink
+                    default_sink="$(${pkgs.pulseaudio}/bin/pactl get-default-sink || true)"
+
+                    if [ -z "$primary_sink" ] || ! sink_exists "$hdmi_sink"; then
+                        return 1
+                    fi
+
+                    if [ "$primary_sink" = "$mirrored_primary" ] && sink_exists "$mirror_sink"; then
+                        if [ "$default_sink" != "$mirror_sink" ]; then
+                            ${pkgs.pulseaudio}/bin/pactl set-default-sink "$mirror_sink"
+                        fi
+
+                        return 0
+                    fi
+
+                    unload_mirror
+
+                    if ${pkgs.pulseaudio}/bin/pactl load-module module-combine-sink sink_name="$mirror_sink" slaves="$primary_sink,$hdmi_sink" \
+                        && ${pkgs.pulseaudio}/bin/pactl set-default-sink "$mirror_sink"; then
+                        mirrored_primary="$primary_sink"
+                        return 0
+                    fi
+
+                    return 1
+                }
+
+                for _ in {1..20}; do
+                    if update_mirror; then
+                        break
+                    fi
+
+                    ${pkgs.coreutils}/bin/sleep 1
+                done
+
+                ${pkgs.pulseaudio}/bin/pactl subscribe | while read -r _; do
+                    update_mirror || true
+                done
+            '';
+
+            Restart = "always";
+            RestartSec = 2;
+        };
+
+        Install.WantedBy = [ "default.target" ];
+    };
+
     home-manager.users.craft.imports = [
         ({ config, ... }: {
             sops.secrets."copyparty_craft_password" = {
