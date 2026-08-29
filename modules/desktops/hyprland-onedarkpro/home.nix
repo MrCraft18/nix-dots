@@ -3,6 +3,15 @@
 let
     cfg = config.moduleLoadout.desktop;
     hyprland = if configurationName == "uconsole" then "uconsole-hyprland" else "hyprland";
+    lua = lib.generators.mkLuaInline;
+    bind = key: dispatcher: { _args = [ key (lua dispatcher) ]; };
+    bindOpt = key: dispatcher: opts: { _args = [ key (lua dispatcher) opts ]; };
+    execBind = key: command: bind key "hl.dsp.exec_cmd(${builtins.toJSON command})";
+    dispatchBind = key: dispatcher: bind key "hl.dsp.${dispatcher}";
+    windowBind = key: dispatcher: bind key "hl.dsp.window.${dispatcher}";
+    focusBind = key: direction: bind key "hl.dsp.focus({ direction = ${builtins.toJSON direction} })";
+    workspaceBind = key: workspace: bind key "hl.dsp.focus({ workspace = ${builtins.toJSON workspace} })";
+    moveWorkspaceBind = key: workspace: bind key "hl.dsp.window.move({ workspace = ${builtins.toJSON workspace} })";
     hyprgrass = inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
         postPatch = (if old ? postPatch then old.postPatch else "") + ''
             substituteInPlace src/TouchVisualizer.cpp \
@@ -53,275 +62,207 @@ in {
 
         wayland.windowManager.hyprland = {
             enable = true;
-            configType = "hyprlang";
+            configType = if configurationName == "uconsole" then "hyprlang" else "lua";
             systemd.enable = true;
             xwayland.enable = true;
 
             package = null;
             portalPackage = null;
 
-            plugins = [
+            plugins = if configurationName == "desktop" then [] else [
                 hyprgrass
             ];
 
             settings = {
+                mainMod = { _var = "SUPER"; };
+                terminal = { _var = "kitty"; };
+                menu = { _var = "rofi -show drun"; };
+
                 monitor = if configurationName == "netbook" then [
-                    "DSI-1, preferred, auto, 1.6, transform, 3"
-                    "HDMI-A-1, preferred, auto, 1.6"
+                    { output = "DSI-1"; mode = "preferred"; position = "auto"; scale = 1.6; transform = 3; }
+                    { output = "HDMI-A-1"; mode = "preferred"; position = "auto"; scale = 1.6; }
                 ] else if configurationName == "uconsole" then [
                     "DSI-1, preferred, auto, 1.6, transform, 3"
                 ] else if configurationName == "desktop" then [
-                    "HDMI-A-1, preferred, 0x0, 1"
-                    # "DP-3, preferred, 0x0, 1"
-                    # "DP-1, preferred, 1920x0, 1"
-                    # "HDMI-A-1, preferred, 4480x0, 1"
-                    # "DP-2, preferred, 7040x0, 1"
+                    { output = "DP-3"; mode = "preferred"; position = "0x-740"; scale = 1; transform = 1; }
+                    { output = "DP-2"; mode = "preferred"; position = "1080x0"; scale = 1; }
+                    { output = "DP-1"; mode = "preferred"; position = "3640x0"; scale = 1; }
                 ] else if configurationName == "panasonic" then [
-                    "LVDS-1, preferred, auto, 1"
+                    { output = "LVDS-1"; mode = "preferred"; position = "auto"; scale = 1; }
                 ] else if configurationName == "thinkpad" then [
-                    "eDP-1, preferred, auto, 1.2"
-                    "DP-1, preferred, auto, 1"
+                    { output = "eDP-1"; mode = "preferred"; position = "auto"; scale = 1.2; }
+                    { output = "DP-1"; mode = "preferred"; position = "auto"; scale = 1; }
                 ] else [
-                    ", preferred, auto, auto"
-                ]; 
-
-                exec-once = [
-                    "hyprpaper"
-                ] ++ (if configurationName == "netbook" then [
-                    "iio-hyprland DSI-1"
-                    "wvkbd-mobintl -L 230 -H 350 --hidden"
-                ] else []);
-
-                "$terminal" = "kitty";
-                "$menu" = "rofi -show drun";            
+                    { output = ""; mode = "preferred"; position = "auto"; scale = "auto"; }
+                ];
 
                 env = [
-                    "NIXOS_OZONE_WL,1"
-                    "ELECTRON_OZONE_PLATFORM_HINT,wayland"
-
-                    # "GDK_SCALE,2"
-                    # "QT_SCALE_FACTOR,2"
-                    # "XCURSOR_SIZE,32"
-                    # "ELECTRON_ENABLE_HIGH_DPI_SCALING,1"
-                    # "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+                    { _args = [ "NIXOS_OZONE_WL" "1" ]; }
+                    { _args = [ "ELECTRON_OZONE_PLATFORM_HINT" "wayland" ]; }
                 ];
 
-                general = {
-                    "gaps_in" = if configurationName == "uconsole" then 0 else 2;
-
-                    "gaps_out" = if configurationName == "uconsole" then 0 else 8;
-
-                    "border_size" = if configurationName == "uconsole" then 0 else 2;
-
-                    # "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-                    # "col.inactive_border" = "rgba(595959aa)";
-
-                    "resize_on_border" = true;
-
-                    "allow_tearing" = false;
-
-                    "layout" = "dwindle";
-                };
-
-                decoration = {
-                    rounding = 0;
-
-                    active_opacity = 1.0;
-                    inactive_opacity = 1.0;
-
-                    shadow = {
-                        enabled = true;
-                        range = 4;
-                        render_power = 3;
-                        # color = "rgba(1a1a1aee)";
+                config = {
+                    general = {
+                        gaps_in = if configurationName == "uconsole" then 0 else 2;
+                        gaps_out = if configurationName == "uconsole" then 0 else 8;
+                        border_size = if configurationName == "uconsole" then 0 else 2;
+                        resize_on_border = true;
+                        allow_tearing = false;
+                        layout = "dwindle";
                     };
 
-                    blur = {
-                        enabled = true;
-                        size = 3;
-                        passes = 1;
-
-                        vibrancy = 0.1696;
+                    decoration = {
+                        rounding = 0;
+                        active_opacity = 1.0;
+                        inactive_opacity = 1.0;
+                        shadow = {
+                            enabled = true;
+                            range = 4;
+                            render_power = 3;
+                        };
+                        blur = {
+                            enabled = true;
+                            size = 3;
+                            passes = 1;
+                            vibrancy = 0.1696;
+                        };
                     };
-                };
 
-                animations =  {
-                    enabled = true;
+                    animations.enabled = true;
 
-                    bezier = [
-                        "easeOutQuint,0.23,1,0.32,1"
-                        "easeInOutCubic,0.65,0.05,0.36,1"
-                        "linear,0,0,1,1"
-                        "almostLinear,0.5,0.5,0.75,1.0"
-                        "quick,0.15,0,0.1,1"
-                    ];
+                    dwindle.preserve_split = true;
 
-                    animation = [
-                        "global, 1, 10, default"
-                        "border, 1, 5.39, easeOutQuint"
-                        "windows, 1, 4.79, easeOutQuint"
-                        "windowsIn, 1, 4.1, easeOutQuint, popin 87%"
-                        "windowsOut, 1, 1.49, linear, popin 87%"
-                        "fadeIn, 1, 1.73, almostLinear"
-                        "fadeOut, 1, 1.46, almostLinear"
-                        "fade, 1, 3.03, quick"
-                        "layers, 1, 3.81, easeOutQuint"
-                        "layersIn, 1, 4, easeOutQuint, fade"
-                        "layersOut, 1, 1.5, linear, fade"
-                        "fadeLayersIn, 1, 1.79, almostLinear"
-                        "fadeLayersOut, 1, 1.39, almostLinear"
-                        "workspaces, 1, 1.94, almostLinear, fade"
-                        "workspacesIn, 1, 1.21, almostLinear, fade"
-                        "workspacesOut, 1, 1.94, almostLinear, fade"
+                    master.new_status = "master";
+
+                    misc = {
+                        enable_swallow = true;
+                        swallow_regex = "^(kitty)$";
+                        force_default_wallpaper = -1;
+                    };
+
+                    input = {
+                        kb_layout = if configurationName == "panasonic" then "jp" else "us";
+                        kb_model = lib.mkIf (configurationName == "panasonic") "jp106";
+                        follow_mouse = 1;
+                        sensitivity = if configurationName == "netbook" then -0.25 else 0;
+                    };
+
+                    cursor = lib.mkIf (configurationName == "netbook") {
+                        no_hardware_cursors = true;
+                    };
+                } // lib.optionalAttrs (configurationName != "desktop") {
+                    plugin.touch_gestures.hyprgrass-bind = [
+                        ", edge:d:u, exec, kill -34 $(ps -C wvkbd-mobintl -o pid=)"
                     ];
                 };
-
-                dwindle = {
-                    preserve_split =true;
-                };
-
-                master = {
-                    new_status = "master";
-                };
-
-                misc = {
-                    enable_swallow = true;
-                    swallow_regex = "^(kitty)$";
-                    force_default_wallpaper = -1;
-                    # disable_hyprland_logo = false;
-                };
-
-                input = {
-                    kb_layout = if configurationName == "panasonic" then "jp" else "us";
-                    kb_model = lib.mkIf (configurationName == "panasonic") "jp106";
-
-                    follow_mouse = 1;
-
-                    sensitivity = if configurationName == "netbook" then -0.25 else 0;
-                };
-
-                cursor = lib.mkIf (configurationName == "netbook") {
-                    no_hardware_cursors = 1;
-                };
-
-                "$mainMod" = "SUPER";
 
                 bind = [
-                    "$mainMod, RETURN, exec, $terminal"
-                    "$mainMod, Q, killactive,"
-                    "$mainMod, M, exit,"
-                    "$mainMod, B, exec, zen-beta"
-                    "$mainMod, W, exec, zen-beta -P wanky"
-                    "$mainMod, E, exec, $fileManager"
-                    "$mainMod, V, togglefloating,"
-                    "$mainMod, R, exec, NIXOS_OZONE_WL=1 ELECTRON_OZONE_PLATFORM_HINT=wayland $menu"
-                    "$mainMod, P, pseudo," # dwindle
-                    "$mainMod, S, layoutmsg, togglesplit" # dwindle
-                    "$mainMod, F, fullscreen,"
+                    (bind (lua "mainMod .. ' + RETURN'") "hl.dsp.exec_cmd(terminal)")
+                    (windowBind (lua "mainMod .. ' + Q'") "close()")
+                    (dispatchBind (lua "mainMod .. ' + M'") "exit()")
+                    (execBind (lua "mainMod .. ' + B'") "zen-beta")
+                    (execBind (lua "mainMod .. ' + W'") "zen-beta -P wanky")
+                    (execBind (lua "mainMod .. ' + E'") "$fileManager")
+                    (windowBind (lua "mainMod .. ' + V'") "float()")
+                    (bind (lua "mainMod .. ' + R'") "hl.dsp.exec_cmd('NIXOS_OZONE_WL=1 ELECTRON_OZONE_PLATFORM_HINT=wayland ' .. menu)")
+                    (windowBind (lua "mainMod .. ' + P'") "pseudo()")
+                    (dispatchBind (lua "mainMod .. ' + S'") "layout('togglesplit')")
+                    (windowBind (lua "mainMod .. ' + F'") "fullscreen()")
 
-                    # Move focus with mainMod + arrow keys
-                    "$mainMod, left, movefocus, l"
-                    "$mainMod, right, movefocus, r"
-                    "$mainMod, up, movefocus, u"
-                    "$mainMod, down, movefocus, d"
-                    "$mainMod, h, movefocus, l"
-                    "$mainMod, l, movefocus, r"
-                    "$mainMod, k, movefocus, u"
-                    "$mainMod, j, movefocus, d"
+                    (focusBind (lua "mainMod .. ' + left'") "left")
+                    (focusBind (lua "mainMod .. ' + right'") "right")
+                    (focusBind (lua "mainMod .. ' + up'") "up")
+                    (focusBind (lua "mainMod .. ' + down'") "down")
+                    (focusBind (lua "mainMod .. ' + h'") "left")
+                    (focusBind (lua "mainMod .. ' + l'") "right")
+                    (focusBind (lua "mainMod .. ' + k'") "up")
+                    (focusBind (lua "mainMod .. ' + j'") "down")
 
-                    # Move window with mainMod + SHIFT + arrow keys
-                    "$mainMod SHIFT, left, movewindow, l"
-                    "$mainMod SHIFT, right, movewindow, r"
-                    "$mainMod SHIFT, up, movewindow, u"
-                    "$mainMod SHIFT, down, movewindow, d"
-                    "$mainMod SHIFT, h, movewindow, l"
-                    "$mainMod SHIFT, l, movewindow, r"
-                    "$mainMod SHIFT, k, movewindow, u"
-                    "$mainMod SHIFT, j, movewindow, d"
+                    (windowBind (lua "mainMod .. ' + SHIFT + left'") "move({ direction = 'left' })")
+                    (windowBind (lua "mainMod .. ' + SHIFT + right'") "move({ direction = 'right' })")
+                    (windowBind (lua "mainMod .. ' + SHIFT + up'") "move({ direction = 'up' })")
+                    (windowBind (lua "mainMod .. ' + SHIFT + down'") "move({ direction = 'down' })")
+                    (windowBind (lua "mainMod .. ' + SHIFT + h'") "move({ direction = 'left' })")
+                    (windowBind (lua "mainMod .. ' + SHIFT + l'") "move({ direction = 'right' })")
+                    (windowBind (lua "mainMod .. ' + SHIFT + k'") "move({ direction = 'up' })")
+                    (windowBind (lua "mainMod .. ' + SHIFT + j'") "move({ direction = 'down' })")
 
-                    # Resize window
-                    "bind = $mainMod ALT, right, resizeactive, 10 0"
-                    "bind = $mainMod ALT, left, resizeactive, -10 0"
-                    "bind = $mainMod ALT, up, resizeactive, 0 -10"
-                    "bind = $mainMod ALT, down, resizeactive, 0 10"
-                    "bind = $mainMod ALT, l, resizeactive, 10 0"
-                    "bind = $mainMod ALT, h, resizeactive, -10 0"
-                    "bind = $mainMod ALT, k, resizeactive, 0 -10"
-                    "bind = $mainMod ALT, j, resizeactive, 0 10"
+                    (windowBind (lua "mainMod .. ' + ALT + right'") "resize({ x = 10, y = 0, relative = true })")
+                    (windowBind (lua "mainMod .. ' + ALT + left'") "resize({ x = -10, y = 0, relative = true })")
+                    (windowBind (lua "mainMod .. ' + ALT + up'") "resize({ x = 0, y = -10, relative = true })")
+                    (windowBind (lua "mainMod .. ' + ALT + down'") "resize({ x = 0, y = 10, relative = true })")
+                    (windowBind (lua "mainMod .. ' + ALT + l'") "resize({ x = 10, y = 0, relative = true })")
+                    (windowBind (lua "mainMod .. ' + ALT + h'") "resize({ x = -10, y = 0, relative = true })")
+                    (windowBind (lua "mainMod .. ' + ALT + k'") "resize({ x = 0, y = -10, relative = true })")
+                    (windowBind (lua "mainMod .. ' + ALT + j'") "resize({ x = 0, y = 10, relative = true })")
 
-                    # Pin floating window
-                    "bind = ALT, P, exec, hyprctl dispatch pin active"
+                    (windowBind "ALT + P" "pin()")
 
-                    # Switch workspaces with mainMod + [0-9]
-                    "$mainMod, 1, workspace, 1"
-                    "$mainMod, 2, workspace, 2"
-                    "$mainMod, 3, workspace, 3"
-                    "$mainMod, 4, workspace, 4"
-                    "$mainMod, 5, workspace, 5"
-                    "$mainMod, 6, workspace, 6"
-                    "$mainMod, 7, workspace, 7"
-                    "$mainMod, 8, workspace, 8"
-                    "$mainMod, 9, workspace, 9"
-                    "$mainMod, 0, workspace, 10"
+                    (workspaceBind (lua "mainMod .. ' + 1'") "1")
+                    (workspaceBind (lua "mainMod .. ' + 2'") "2")
+                    (workspaceBind (lua "mainMod .. ' + 3'") "3")
+                    (workspaceBind (lua "mainMod .. ' + 4'") "4")
+                    (workspaceBind (lua "mainMod .. ' + 5'") "5")
+                    (workspaceBind (lua "mainMod .. ' + 6'") "6")
+                    (workspaceBind (lua "mainMod .. ' + 7'") "7")
+                    (workspaceBind (lua "mainMod .. ' + 8'") "8")
+                    (workspaceBind (lua "mainMod .. ' + 9'") "9")
+                    (workspaceBind (lua "mainMod .. ' + 0'") "10")
 
-                    # Move active window to a workspace with mainMod + SHIFT + [0-9]
-                    "$mainMod SHIFT, 1, movetoworkspace, 1"
-                    "$mainMod SHIFT, 2, movetoworkspace, 2"
-                    "$mainMod SHIFT, 3, movetoworkspace, 3"
-                    "$mainMod SHIFT, 4, movetoworkspace, 4"
-                    "$mainMod SHIFT, 5, movetoworkspace, 5"
-                    "$mainMod SHIFT, 6, movetoworkspace, 6"
-                    "$mainMod SHIFT, 7, movetoworkspace, 7"
-                    "$mainMod SHIFT, 8, movetoworkspace, 8"
-                    "$mainMod SHIFT, 9, movetoworkspace, 9"
-                    "$mainMod SHIFT, 0, movetoworkspace, 10"
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 1'") "1")
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 2'") "2")
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 3'") "3")
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 4'") "4")
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 5'") "5")
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 6'") "6")
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 7'") "7")
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 8'") "8")
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 9'") "9")
+                    (moveWorkspaceBind (lua "mainMod .. ' + SHIFT + 0'") "10")
 
-                    # Scroll through existing workspaces with mainMod + scroll
-                    "$mainMod, mouse_down, workspace, e+1"
-                    "$mainMod, mouse_up, workspace, e-1"
+                    (workspaceBind (lua "mainMod .. ' + mouse_down'") "e+1")
+                    (workspaceBind (lua "mainMod .. ' + mouse_up'") "e-1")
+
+                    (windowBind (lua "mainMod .. ' + mouse:272'") "drag('move')")
+                    (windowBind (lua "mainMod .. ' + mouse:273'") "drag('resize')")
+
+                    (bindOpt "XF86AudioRaiseVolume" ("hl.dsp.exec_cmd(" + builtins.toJSON "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+" + ")") { locked = true; repeating = true; })
+                    (bindOpt "XF86AudioLowerVolume" ("hl.dsp.exec_cmd(" + builtins.toJSON "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-" + ")") { locked = true; repeating = true; })
+                    (bindOpt "XF86AudioMute" ("hl.dsp.exec_cmd(" + builtins.toJSON "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" + ")") { locked = true; })
+                    (bindOpt "XF86AudioMicMute" ("hl.dsp.exec_cmd(" + builtins.toJSON "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" + ")") { locked = true; })
+                    (bindOpt "XF86MonBrightnessUp" ("hl.dsp.exec_cmd(" + builtins.toJSON "brightnessctl s 5%+" + ")") { locked = true; repeating = true; })
+                    (bindOpt "XF86MonBrightnessDown" ("hl.dsp.exec_cmd(" + builtins.toJSON "brightnessctl s 5%-" + ")") { locked = true; repeating = true; })
+                    (bindOpt "XF86AudioNext" ("hl.dsp.exec_cmd(" + builtins.toJSON "playerctl next" + ")") { locked = true; })
+                    (bindOpt "XF86AudioPause" ("hl.dsp.exec_cmd(" + builtins.toJSON "playerctl play-pause" + ")") { locked = true; })
+                    (bindOpt "XF86AudioPlay" ("hl.dsp.exec_cmd(" + builtins.toJSON "playerctl play-pause" + ")") { locked = true; })
+                    (bindOpt "XF86AudioPrev" ("hl.dsp.exec_cmd(" + builtins.toJSON "playerctl previous" + ")") { locked = true; })
                 ];
 
-                bindm = [
-                    # Move/resize windows with mainMod + LMB/RMB and dragging
-                    "$mainMod, mouse:272, movewindow"
-                    "$mainMod, mouse:273, resizewindow"
-                ]; 
-
-                bindel = [
-                    # Laptop multimedia keys for volume and LCD brightness
-                    ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+"
-                    ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
-                    ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-                    ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-                    ",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
-                    ",XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+                window_rule = [
+                    { match.class = ".*"; suppress_event = "maximize"; }
+                    { match = { class = "^$"; title = "^$"; xwayland = true; float = true; fullscreen = false; pin = false; }; no_focus = true; }
+                    { match.class = "^wlvncc$"; fullscreen_state = "2 2"; suppress_event = "fullscreen"; }
+                    { match.class = "^steam_app_.*"; fullscreen_state = "2 1"; suppress_event = "fullscreen"; }
                 ];
 
-                bindl = [
-                    # Requires playerctl
-                    ", XF86AudioNext, exec, playerctl next"
-                    ", XF86AudioPause, exec, playerctl play-pause"
-                    ", XF86AudioPlay, exec, playerctl play-pause"
-                    ", XF86AudioPrev, exec, playerctl previous"
-                ];
-
-                plugin = {
-                    touch_gestures = {
-                        hyprgrass-bind = [
-                            ", edge:d:u, exec, kill -34 $(ps -C wvkbd-mobintl -o pid=)"
-                        ];
-                    };
-                };
-
-                # xwayland.force_zero_scaling = true;
-
-                windowrule = [
-                    "match:class .*, suppress_event maximize"
-                    "match:class ^$, match:title ^$, match:xwayland true, match:float true, match:fullscreen false, match:pin false, no_focus on"
-                    "match:class ^wlvncc$, fullscreen_state 2 2, suppress_event fullscreen"
-                    "match:class ^steam_app_.*, fullscreen_state 2 1, suppress_event fullscreen"
+                workspace_rule = lib.optionals (configurationName == "desktop") [
+                    { workspace = "1"; monitor = "DP-2"; }
+                    { workspace = "2"; monitor = "DP-2"; }
+                    { workspace = "3"; monitor = "DP-2"; }
+                    { workspace = "4"; monitor = "DP-2"; }
+                    { workspace = "5"; monitor = "DP-2"; }
                 ];
             };
+
+            extraConfig = ''
+                hl.on("hyprland.start", function()
+                  hl.exec_cmd("hyprpaper")
+            '' + (if configurationName == "netbook" then ''
+                  hl.exec_cmd("iio-hyprland DSI-1")
+                  hl.exec_cmd("wvkbd-mobintl -L 230 -H 350 --hidden")
+            '' else "") + ''
+                end)
+            '';
         }; 
     } // lib.optionalAttrs (lib.hasAttrByPath [ "stylix" ] options) {
         stylix = lib.mkMerge [
