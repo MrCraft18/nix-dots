@@ -167,6 +167,10 @@ in {
                     in {
                         id = 0;
                         isDefault = true;
+                        settings = {
+                            "zen.view.window.scheme" = lib.mkForce 0;
+                            "layout.css.prefers-color-scheme.content-override" = lib.mkForce 0;
+                        };
                         pinsForce = true;
                         spacesForce = true;
                         inherit spaces pins;
