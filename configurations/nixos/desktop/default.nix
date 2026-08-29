@@ -46,7 +46,7 @@
         umu-launcher
         # inputs.hytale-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
         blender
-        firefox
+        firefox-bin
         winetricks
         obs-studio
         obs-studio-plugins.wlrobs
