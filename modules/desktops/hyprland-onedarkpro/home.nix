@@ -69,9 +69,9 @@ in {
             package = null;
             portalPackage = null;
 
-            plugins = if configurationName == "desktop" then [] else [
+            plugins = if configurationName == "netbook" then [
                 hyprgrass
-            ];
+            ] else [];
 
             settings = {
                 mainMod = { _var = "SUPER"; };
