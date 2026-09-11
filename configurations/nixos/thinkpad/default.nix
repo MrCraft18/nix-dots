@@ -33,7 +33,7 @@
         };
 
         services = {
-            desksync.enable = true;
+            # desksync.enable = true;
             ssh.enable = true;
             udiskie.enable = true;
         };
