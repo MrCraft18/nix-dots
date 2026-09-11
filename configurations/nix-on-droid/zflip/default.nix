@@ -56,7 +56,8 @@
         tmux
         lazygit
 
-        inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
+        # inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
+        opencode
 
         # Some common stuff that people expect to have
         #procps
