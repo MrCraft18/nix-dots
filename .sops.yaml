@@ -9,6 +9,7 @@ keys:
     - &thinkpad age1aaq43a2406tjyl7nrq9tscgx0sajx03755y94605jpwe35yqmvyq293hrd
     - &server age1kwrsxvem0rcpepucw2tvgfjmz6rjrnar2tjefz0wuzkl3v7age6qs4qws6
     - &zflip age13rgyjljkytwjrg5xsl7krm2lwwrztwp0g3grqep50adjfyxqjgcqu7aw0k
+    - &zfold age14m8wze2xv3fh4npkt84kqk8le0hcalg9zrz2kcfg3q7nwqf5ldlsn7dhyr
 creation_rules:
   # Shared Secrets
   - path_regex: ^secrets.yaml$
@@ -48,3 +49,7 @@ creation_rules:
     key_groups:
       - pgp: [*gpg_key]
         age: [*zflip]
+  - path_regex: ^configurations/nix-on-droid/zfold/secrets.yaml$
+    key_groups:
+      - pgp: [*gpg_key]
+        age: [*zfold]

@@ -56,8 +56,7 @@
         tmux
         lazygit
 
-        # inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
-        opencode
+        inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
 
         # Some common stuff that people expect to have
         #procps
@@ -100,7 +99,7 @@
     environment.etcBackupExtension = ".bak";
 
     # Read the changelog before changing this value
-    system.stateVersion = "24.05";
+    system.stateVersion = "26.05";
 
     # Set up nix for flakes
     nix.extraOptions = ''
@@ -109,14 +108,13 @@
 
     environment.etc."resolv.conf".text = lib.mkForce ''
         nameserver 100.100.100.100
-        search tail7438f7.ts.net
     '';
 
 
     home-manager = {
         useGlobalPkgs = true;
         config = {
-            home.stateVersion = "24.05";
+            home.stateVersion = "26.05";
         };
     };
 }

@@ -6,6 +6,7 @@
             # lib = nixpkgs.lib.extend (final: prev: (import ./lib final) // home-manager.lib);
 
             nixosConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nixos));
+            nixOnDroidConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nix-on-droid));
             manualConfigurations = [ "uconsole" ];
         in {
             homeManagerModules.default = { ... }: {
@@ -55,31 +56,36 @@
             #     modules = [ (./configurations/home + "/${name}") ];
             # });  
 
-            nixOnDroidConfigurations = {
-                default = nix-on-droid.lib.nixOnDroidConfiguration {
-                    pkgs = import nixpkgs {
-                        system = "aarch64-linux";
-                        config = { allowUnfree = true; };
-                    };
+            nixOnDroidConfigurations = nixpkgs.lib.genAttrs nixOnDroidConfigurationNames (name: nix-on-droid.lib.nixOnDroidConfiguration {
+                pkgs = import inputs.nix-on-droid-nixpkgs {
+                    system = "aarch64-linux";
+                    config = { allowUnfree = true; };
+                };
 
-                    extraSpecialArgs = {
-                        inherit inputs;
-                        buildScope = "nix-on-droid";
-                    };
+                extraSpecialArgs = {
+                    inherit inputs;
+                    configurationName = name;
+                    buildScope = "nix-on-droid";
+                };
 
-                    modules = [
-                        ./configurations/nix-on-droid/zflip
-                        inputs.stylix.nixOnDroidModules.stylix
-                        ({ ... }: {
-                            home-manager.config.imports = [
-                                self.homeManagerModules.default
-                            ];
-                        })
-                    ];
+                modules = [
+                    (./configurations/nix-on-droid + "/${name}")
+                    inputs.stylix.nixOnDroidModules.stylix
+                    ({ ... }: {
+                        home-manager.extraSpecialArgs = {
+                            inherit inputs;
+                            configurationName = name;
+                            buildScope = "nix-on-droid";
+                        };
 
-                    home-manager-path = home-manager.outPath;
-                }; 
-            };
+                        home-manager.config.imports = [
+                            self.homeManagerModules.default
+                        ];
+                    })
+                ];
+
+                home-manager-path = home-manager.outPath;
+            });
 
             nixosModules.default = { ... }: {
                 imports = [
