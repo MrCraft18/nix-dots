@@ -1,4 +1,4 @@
-{ configurationName, inputs, config, lib, pkgs, ... }:
+{ configurationName, buildScope ? null, androidProot ? null, inputs, config, lib, pkgs, ... }:
 
 let
     cfg = config.moduleLoadout.terminal.editor;
@@ -12,6 +12,18 @@ in {
             enable = true;
             settings = {
                 vim = {
+                                        pluginOverrides = lib.optionalAttrs (buildScope == "nix-on-droid") {
+                                                                blink-cmp = inputs.nvf.packages.${pkgs.stdenv.hostPlatform.system}.blink-cmp.overrideAttrs (_: {
+                                                                                            unpackPhase = androidProot.androidUnpackPhase;
+                                                                                                                        postUnpack = ''
+                                                                                                                                                        mkdir -p vendor
+                                                                                                                                                                                        cp -r --no-preserve=mode,ownership "$cargoDeps"/. vendor/
+                                                                                                                                                                                                                        chmod -R u+w vendor
+                                                                                                                                                                                                                                                        cargoVendorDir=vendor
+                                                                                                                                                                                                                                                                                    '';
+                                                                                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                                                                                                                };
+
                     options = {
                         smartindent = true;
                         autoindent = true;

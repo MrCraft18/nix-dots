@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, buildScope ? null, ... }:
 
 {
     imports = [
@@ -14,8 +14,7 @@
         btop
         bat
         p7zip
-        unrar
         fastfetch
         fzf
-    ];
+    ] ++ lib.optional (buildScope != "nix-on-droid") unrar;
 }

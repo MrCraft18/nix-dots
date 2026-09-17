@@ -1,4 +1,4 @@
-{ configurationName, config, lib, pkgs, ... }:
+{ configurationName, buildScope ? null, androidProot ? null, config, lib, pkgs, ... }:
 
 let
     cfg = config.moduleLoadout.terminal.multiplexer;
@@ -11,7 +11,7 @@ let
         clear
         exec "$@"
     '';
-    tmuxRemote = pkgs.tmuxPlugins.mkTmuxPlugin {
+    tmuxRemote = pkgs.tmuxPlugins.mkTmuxPlugin ({
         pluginName = "tmux-remote";
         version = "unstable";
         rtpFilePath = "remote.tmux";
@@ -21,7 +21,9 @@ let
             rev = "8579e5a490822a833f2d8901a9c654827ecf1d53";
             hash = "sha256-xmVJfa5VyYyA9CBBYTfutBWJjDd31mZgHoqnQwpipWU=";
         };
-    };
+    } // lib.optionalAttrs (buildScope == "nix-on-droid") {
+        unpackPhase = androidProot.androidUnpackPhase;
+    });
 in {
     config = lib.mkIf (cfg == "tmux") {
         programs.tmux = {
@@ -55,18 +57,18 @@ in {
                 {
                     plugin = tmuxRemote;
                 }
-                 {
-                     plugin = pkgs.tmuxPlugins.resurrect;
-                     extraConfig = ''
-                         set -g @resurrect-capture-pane-contents 'on'
-                         set -g @resurrect-processes '\
-                             "ssh->${tmuxResurrectRestore}/bin/tmux-resurrect-restore ssh *" \
-                             "~nvim->${tmuxResurrectRestore}/bin/tmux-resurrect-restore nvim" \
-                             "opencode->${tmuxResurrectRestore}/bin/tmux-resurrect-restore opencode" \
-                             "lazygit->${tmuxResurrectRestore}/bin/tmux-resurrect-restore lazygit" \
-                         '
-                     '';
-                 }
+                {
+                    plugin = pkgs.tmuxPlugins.resurrect;
+                    extraConfig = ''
+                        set -g @resurrect-capture-pane-contents 'on'
+                        set -g @resurrect-processes '\
+                            "ssh->${tmuxResurrectRestore}/bin/tmux-resurrect-restore ssh *" \
+                            "~nvim->${tmuxResurrectRestore}/bin/tmux-resurrect-restore nvim" \
+                            "opencode->${tmuxResurrectRestore}/bin/tmux-resurrect-restore opencode" \
+                            "lazygit->${tmuxResurrectRestore}/bin/tmux-resurrect-restore lazygit" \
+                        '
+                    '';
+                }
                 {
                     plugin = pkgs.tmuxPlugins.continuum;
                     extraConfig = ''

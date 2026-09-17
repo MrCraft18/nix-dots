@@ -5,6 +5,7 @@
         let
             # lib = nixpkgs.lib.extend (final: prev: (import ./lib final) // home-manager.lib);
 
+            androidProot = import ./lib/android-proot.nix;
             nixosConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nixos));
             nixOnDroidConfigurationNames = (builtins.attrNames (builtins.readDir ./configurations/nix-on-droid));
             manualConfigurations = [ "uconsole" ];
@@ -20,7 +21,7 @@
 
             nixosConfigurations = nixpkgs.lib.genAttrs (nixpkgs.lib.subtractLists manualConfigurations nixosConfigurationNames) (name: nixpkgs.lib.nixosSystem {
                 specialArgs = {
-                    inherit inputs;
+                    inherit inputs androidProot;
                     configurationName = name;
                     buildScope = "nixos";
                 };
@@ -34,7 +35,7 @@
                     trustCaches = false;
 
                     specialArgs = {
-                        inherit inputs;
+                        inherit inputs androidProot;
                         configurationName = "uconsole";
                         buildScope = "nixos";
                     };
@@ -44,26 +45,27 @@
                         (./configurations/nixos + "/uconsole")
                     ];
                 };
-            };  
+            };
 
             # homeConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir ./configurations/home)) (name: home-manager.lib.homeManagerConfiguration {
             #     extraSpecialArgs = {
-            #         inherit inputs lib;
+            #         inherit inputs lib androidProot;
             #         configurationName = name;
             #         buildScope = "home";
             #     };
             #
             #     modules = [ (./configurations/home + "/${name}") ];
-            # });  
+            # });
 
             nixOnDroidConfigurations = nixpkgs.lib.genAttrs nixOnDroidConfigurationNames (name: nix-on-droid.lib.nixOnDroidConfiguration {
-                pkgs = import inputs.nix-on-droid-nixpkgs {
+                pkgs = import inputs.nixpkgs {
                     system = "aarch64-linux";
                     config = { allowUnfree = true; };
+                    overlays = [ androidProot.androidIntegrationFetchFromGitHubOverlay ];
                 };
 
                 extraSpecialArgs = {
-                    inherit inputs;
+                    inherit inputs androidProot;
                     configurationName = name;
                     buildScope = "nix-on-droid";
                 };
@@ -73,7 +75,7 @@
                     inputs.stylix.nixOnDroidModules.stylix
                     ({ ... }: {
                         home-manager.extraSpecialArgs = {
-                            inherit inputs;
+                            inherit inputs androidProot;
                             configurationName = name;
                             buildScope = "nix-on-droid";
                         };
@@ -112,8 +114,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        nix-on-droid-nixpkgs.url = "github:nixos/nixpkgs/88d3861acdd3d2f0e361767018218e51810df8a1";
-
         disko = {
             url = "github:nix-community/disko/latest";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -140,7 +140,7 @@
             url = "github:robertjakub/oom-hardware/devel";
             inputs.nixpkgs.follows = "nixpkgs";
             inputs.nixos-raspberrypi.follows = "nixos-raspberrypi";
-        }; 
+        };
 
         stylix.url = "github:danth/stylix";
 
@@ -158,7 +158,10 @@
             inputs.hyprland.follows = "hyprland";
         };
 
-        nvf.url = "github:NotAShelf/nvf";
+        nvf = {
+            url = "github:NotAShelf/nvf";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
 

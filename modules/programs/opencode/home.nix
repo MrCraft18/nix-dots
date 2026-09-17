@@ -1,16 +1,60 @@
-{ configurationName, inputs, config, lib, pkgs, ... }:
+{ configurationName, inputs, config, lib, pkgs, buildScope ? null, androidProot ? null, ... }:
 
 let
     cfg = config.moduleLoadout.programs.opencode;
+    opencodePrebuilt = pkgs.stdenvNoCC.mkDerivation {
+        pname = "opencode";
+        version = "1.18.31";
+
+        src = pkgs.fetchurl {
+            url = "https://registry.npmjs.org/opencode-linux-arm64-musl/-/opencode-linux-arm64-musl-1.18.31.tgz";
+            hash = "sha256-YbZRF7SXb5c/6iFahh8SDWIt4sC+WlssORyAzkUUXBA=";
+        };
+
+        nativeBuildInputs = [
+            pkgs.gnutar
+            pkgs.gzip
+            pkgs.patchelf
+        ];
+
+        unpackPhase = ''
+            runHook preUnpack
+            mkdir source
+            tar -xzf "$src" -C source --strip-components=1
+            cd source
+            runHook postUnpack
+        '';
+
+        installPhase = ''
+            runHook preInstall
+            install -Dm755 bin/opencode "$out/bin/opencode"
+            patchelf \
+                --set-interpreter "${pkgs.musl}/lib/ld-musl-aarch64.so.1" \
+                --set-rpath "${pkgs.musl}/lib:${pkgs.pkgsMusl.stdenv.cc.cc.lib}/lib" \
+                "$out/bin/opencode"
+            runHook postInstall
+        '';
+
+        meta = {
+            description = "The open source coding agent";
+            homepage = "https://opencode.ai";
+            mainProgram = "opencode";
+        };
+    };
+    opencodePackage =
+        if buildScope == "nix-on-droid" then
+            opencodePrebuilt
+        else
+            inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
 in {
-    options.moduleLoadout.programs.opencode = {
+            options.moduleLoadout.programs.opencode = {
         enable = lib.mkEnableOption "opencode program module";
     };
 
     config = lib.mkIf cfg.enable {
         programs.opencode = {
             enable = true;
-            # package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
+                        package = opencodePackage;
 
             settings = lib.mkForce {
                 mcp = {
