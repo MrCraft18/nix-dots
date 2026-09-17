@@ -90,8 +90,8 @@
     '';
 
     environment.etc."resolv.conf".text = lib.mkForce ''
-                nameserver 1.1.1.1
-                        nameserver 8.8.8.8
+        nameserver 100.100.100.100
+        search tail7438f7.ts.net
     '';
 
     home-manager = {
