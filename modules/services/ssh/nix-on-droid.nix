@@ -11,6 +11,8 @@ in {
         home-manager.config = {
             moduleLoadout.services.ssh.enable = true;
 
+            programs.zsh.shellAliases.start-sshd = "${pkgs.openssh}/bin/sshd -f ~/.sshd/sshd_config";
+
             programs.zsh.initContent = lib.mkAfter ''
                 if ! ${pkgs.psmisc}/bin/killall -0 sshd >/dev/null 2>&1; then
                     ${pkgs.openssh}/bin/sshd -f "$HOME/.sshd/sshd_config" >/dev/null 2>&1 || true
