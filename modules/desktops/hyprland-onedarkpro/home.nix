@@ -36,6 +36,7 @@ in {
             hyprpaper
             phinger-cursors
             wl-clipboard
+            grimblast
             rofi
             lxqt.lxqt-policykit
             brightnessctl
@@ -164,6 +165,7 @@ in {
                     (execBind (lua "mainMod .. ' + B'") "zen-beta")
                     (execBind (lua "mainMod .. ' + W'") "zen-beta -P wanky")
                     (execBind (lua "mainMod .. ' + E'") "$fileManager")
+                    (execBind (lua "mainMod .. ' + S'") "grimblast copy area")
                     (windowBind (lua "mainMod .. ' + V'") "float()")
                     (bind (lua "mainMod .. ' + R'") "hl.dsp.exec_cmd('NIXOS_OZONE_WL=1 ELECTRON_OZONE_PLATFORM_HINT=wayland ' .. menu)")
                     (windowBind (lua "mainMod .. ' + P'") "pseudo()")
