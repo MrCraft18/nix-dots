@@ -47,6 +47,34 @@
         blender
         obs-studio
         obs-studio-plugins.wlrobs
+        (let
+            pname = "tinywiibackupmanager";
+            version = "6.1.7";
+            src = fetchurl {
+                url = "https://github.com/mq1/TinyWiiBackupManager/releases/download/v${version}/TinyWiiBackupManager-v${version}-linux-x86_64.AppImage";
+                hash = "sha256-ib5vq6SMTdjXjfgCyJ++7TtY+aCH1h3TK/hYq+k8iZQ=";
+            };
+            appimageContents = appimageTools.extract {
+                inherit pname version src;
+            };
+        in appimageTools.wrapType2 {
+            inherit pname version src;
+            extraInstallCommands = ''
+                install -Dm444 ${appimageContents}/it.mq1.TinyWiiBackupManager.desktop \
+                    $out/share/applications/it.mq1.TinyWiiBackupManager.desktop
+                substituteInPlace $out/share/applications/it.mq1.TinyWiiBackupManager.desktop \
+                    --replace-fail 'Exec=TinyWiiBackupManager' 'Exec=tinywiibackupmanager'
+                install -Dm444 ${appimageContents}/it.mq1.TinyWiiBackupManager.png \
+                    $out/share/icons/hicolor/256x256/apps/it.mq1.TinyWiiBackupManager.png
+            '';
+            meta = {
+                description = "A tiny game backup and homebrew app manager for the Wii";
+                homepage = "https://github.com/mq1/TinyWiiBackupManager";
+                license = lib.licenses.gpl3Only;
+                platforms = [ "x86_64-linux" ];
+                mainProgram = "tinywiibackupmanager";
+            };
+        })
     ];
 
     home-manager.users.craft.imports = [
