@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
     imports = [
@@ -15,8 +15,18 @@
 
     services.tailscale.enable = true;
 
+    security.polkit.enablePkexecWrapper = true;
+
+    environment.systemPackages = [ pkgs.gparted ];
+
     services.automatic-timezoned.enable = true;
     services.geoclue2.geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
+
+    systemd.services.automatic-timezoned.serviceConfig = {
+        Restart = "always";
+        RestartSec = "30s";
+        RuntimeMaxSec = "15min";
+    };
 
     i18n.defaultLocale = "en_US.UTF-8";
 

@@ -37,6 +37,7 @@ in {
             phinger-cursors
             wl-clipboard
             rofi
+            lxqt.lxqt-policykit
             brightnessctl
         ] ++ (if configurationName == "netbook" then [
             inputs.iio-hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -256,6 +257,7 @@ in {
 
             extraConfig = ''
                 hl.on("hyprland.start", function()
+                  hl.exec_cmd("${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent")
                   hl.exec_cmd("hyprpaper")
             '' + (if configurationName == "netbook" then ''
                   hl.exec_cmd("iio-hyprland DSI-1")
