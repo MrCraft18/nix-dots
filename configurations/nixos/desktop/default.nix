@@ -51,6 +51,34 @@
         obs-studio
         obs-studio-plugins.wlrobs
         gimp
+        (let
+            pname = "freecad";
+            version = "26.3rc2";
+            src = fetchurl {
+                url = "https://github.com/FreeCAD/FreeCAD/releases/download/${version}/FreeCAD_${version}-Linux-x86_64.AppImage";
+                sha256 = "2cf4212d5a348574e786da7d5a8faeeb3e83dd4245c23898dede92ce82ce4908";
+            };
+            appimageContents = appimageTools.extract {
+                inherit pname version src;
+            };
+        in appimageTools.wrapType2 {
+            inherit pname version src;
+            extraInstallCommands = ''
+                install -Dm444 ${appimageContents}/org.freecad.FreeCAD.desktop \
+                    $out/share/applications/org.freecad.FreeCAD.desktop
+                substituteInPlace $out/share/applications/org.freecad.FreeCAD.desktop \
+                    --replace-fail 'Exec=AppRun' 'Exec=freecad'
+                install -Dm444 ${appimageContents}/org.freecad.FreeCAD.svg \
+                    $out/share/icons/hicolor/scalable/apps/org.freecad.FreeCAD.svg
+            '';
+            meta = {
+                description = "Parametric 3D CAD modeler (26.3 release candidate)";
+                homepage = "https://www.freecad.org/";
+                license = lib.licenses.lgpl2Plus;
+                platforms = [ "x86_64-linux" ];
+                mainProgram = "freecad";
+            };
+        })
     ];
 
     home-manager.users.craft.systemd.user.services.hdmi-audio-mirror = {
