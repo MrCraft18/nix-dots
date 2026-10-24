@@ -64,14 +64,49 @@
             Type = "simple";
             ExecStart = pkgs.writeShellScript "hdmi-audio-mirror" ''
                 mirror_sink="default-with-hdmi"
-                hdmi_sink="alsa_output.pci-0000_26_00.1.hdmi-stereo"
+                hdmi_sink=""
                 primary_sink=""
                 mirrored_primary=""
+                sony_profile=""
 
                 sink_exists() {
                     while read -r _ sink _; do
                         [ "$sink" = "$1" ] && return 0
                     done < <(${pkgs.pulseaudio}/bin/pactl list short sinks)
+
+                    return 1
+                }
+
+                profile_is_sony() {
+                    local profile="$1"
+
+                    ${pkgs.pulseaudio}/bin/pactl list cards \
+                        | ${pkgs.gnugrep}/bin/grep -A6 'device.product.name = "SONY AVAMP"' \
+                        | ${pkgs.gnugrep}/bin/grep -q "Part of profile(s): .*$profile"
+                }
+
+                select_sony_hdmi() {
+                    local profile sink
+
+                    if [ -n "$sony_profile" ]; then
+                        ${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_26_00.1 "$sony_profile" || true
+
+                        if [ -n "$hdmi_sink" ] && sink_exists "$hdmi_sink" && profile_is_sony "$sony_profile"; then
+                            return 0
+                        fi
+                    fi
+
+                    for profile in output:hdmi-stereo output:hdmi-stereo-extra1 output:hdmi-stereo-extra2 output:hdmi-stereo-extra3; do
+                        sink="alsa_output.pci-0000_26_00.1.''${profile#output:}"
+
+                        if profile_is_sony "$profile" \
+                            && ${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_26_00.1 "$profile" \
+                            && sink_exists "$sink"; then
+                            sony_profile="$profile"
+                            hdmi_sink="$sink"
+                            return 0
+                        fi
+                    done
 
                     return 1
                 }
@@ -110,7 +145,7 @@
                 update_mirror() {
                     local default_sink
 
-                    if ! ${pkgs.pulseaudio}/bin/pactl set-card-profile alsa_card.pci-0000_26_00.1 output:hdmi-stereo; then
+                    if ! select_sony_hdmi; then
                         return 1
                     fi
 
