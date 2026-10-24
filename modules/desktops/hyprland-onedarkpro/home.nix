@@ -85,9 +85,9 @@ in {
                 ] else if configurationName == "uconsole" then [
                     "DSI-1, preferred, auto, 1.6, transform, 3"
                 ] else if configurationName == "desktop" then [
-                    { output = "DP-3"; mode = "preferred"; position = "0x-740"; scale = 1; transform = 1; }
-                    { output = "DP-2"; mode = "preferred"; position = "1080x0"; scale = 1; }
-                    { output = "DP-1"; mode = "preferred"; position = "3640x0"; scale = 1; }
+                    { output = "DP-3"; mode = "preferred"; position = "0x0"; scale = 1; }
+                    { output = "DP-2"; mode = "preferred"; position = "2560x0"; scale = 1; }
+                    { output = "DP-1"; mode = "preferred"; position = "5120x0"; scale = 1; }
                 ] else if configurationName == "panasonic" then [
                     { output = "LVDS-1"; mode = "preferred"; position = "auto"; scale = 1; }
                 ] else if configurationName == "thinkpad" then [
